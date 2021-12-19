@@ -14,7 +14,7 @@
 	for (let i = 0; i < 100; i++) {
 		players.push({
 			name: `${i}`,
-			excluding: ["1", "2", "3"],
+			excluding: ["1", "2", "3", "1"],
 			email: "",
 			address: "",
 		});
@@ -25,7 +25,6 @@
 </script>
 
 <div class="actions">
-	<!-- <Button on:click={() => clicked++} variant="unelevated"> -->
 	<Button variant="unelevated" color="secondary" disabled={!canCalculate}>
 		<Label>Calculate</Label>
 	</Button>
@@ -37,11 +36,11 @@
 	<div class="exclude-container">
 		<FormField>
 			<Radio bind:group={excludeOneWay} value={false} touch />
-			<span slot="label">Exclude one-way</span>
+			<span slot="label">Exclude is one-way</span>
 		</FormField>
 		<FormField>
 			<Radio bind:group={excludeOneWay} value={true} touch />
-			<span slot="label">Exclude both ways</span>
+			<span slot="label">Exclude goes both ways</span>
 		</FormField>
 	</div>
 </div>
@@ -61,6 +60,11 @@
 	.actions {
 		display: flex;
 		flex-direction: row;
+		flex-wrap: wrap;
+		background-color: rgb(63, 63, 63);
+		> :global(*) {
+			margin-right: 5px;
+		}
 	}
 
 	.exclude-container {

@@ -34,7 +34,11 @@
 			label="Mailing address (optional)"
 		/>
 
-		<Button variant="unelevated" color="secondary">
+		<Button
+			variant="unelevated"
+			color="secondary"
+			title="Select players that this player should not be paired with"
+		>
 			<Label>Add exclusions</Label>
 		</Button>
 	</div>
@@ -44,13 +48,13 @@
 			<div>
 				<div class="exclusion">
 					<IconButton
-						class="material-icons"
+						size="button"
+						class="material-icons remove-button"
 						title="Remove this exclusion"
 						on:click={() => remove_exclusion(exclusion)}
 						>close</IconButton
 					>
 					<Label>{exclusion}</Label>
-					{exclusion}
 				</div>
 			</div>
 		{/each}
@@ -81,7 +85,15 @@
 		display: flex;
 		align-items: center;
 		margin: 10px;
-		padding-right: 10px;
-		background-color: blue;
+		background-color: black;
+
+		> :global(span) {
+			padding-right: 10px;
+			padding-left: 10px;
+		}
+
+		> :global(.remove-button) {
+			background-color: red;
+		}
 	}
 </style>
