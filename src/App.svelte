@@ -9,7 +9,6 @@
 		AutoAdjust,
 		TopAppBarComponentDev,
 	} from "@smui/top-app-bar";
-	import Card, { Content } from "@smui/card";
 	let topAppBar: TopAppBarComponentDev;
 </script>
 

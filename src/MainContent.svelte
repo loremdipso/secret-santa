@@ -1,20 +1,17 @@
 <script lang="ts">
 	import Button, { Label } from "@smui/button";
-	import IconButton from "@smui/icon-button";
-	import Card, { Content } from "@smui/card";
-	import Switch from "@smui/switch";
 	import PlayerRow from "./PlayerRow.svelte";
-	import { IPlayer } from "./players";
+	import { IPlayer } from "./interfaces";
 	import Radio from "@smui/radio";
 	import FormField from "@smui/form-field";
+	import { getPlayerId } from "./helpers";
 
-	let name: string = "world";
 	let players: IPlayer[] = [];
-
 	for (let i = 0; i < 100; i++) {
 		players.push({
-			name: `${i}`,
-			excluding: ["1", "2", "3", "1"],
+			name: `Player ${i}`,
+			id: getPlayerId(),
+			exclusions: [i + 1],
 			email: "",
 			address: "",
 		});
@@ -47,7 +44,7 @@
 
 <div class="player-cards">
 	{#each players as player}
-		<PlayerRow bind:player />
+		<PlayerRow {players} bind:player />
 	{/each}
 </div>
 

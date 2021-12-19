@@ -3,12 +3,14 @@
 	import Textfield from "@smui/textfield";
 	import IconButton from "@smui/icon-button";
 	import { Icon } from "@smui/common";
-	import { IPlayer } from "./players";
+	import { IPlayer } from "./interfaces";
+	import { findPlayerById } from "./helpers";
 
 	export let player: IPlayer;
+	export let players: IPlayer[];
 
-	let remove_exclusion = (exclusionToRemove: string) => {
-		player.excluding = player.excluding.filter(
+	let remove_exclusion = (exclusionToRemove: number) => {
+		player.exclusions = player.exclusions.filter(
 			(exclusion) => exclusion !== exclusionToRemove
 		);
 	};
@@ -44,7 +46,7 @@
 	</div>
 
 	<div class="exclusions-container">
-		{#each player.excluding as exclusion}
+		{#each player.exclusions as exclusion}
 			<div>
 				<div class="exclusion">
 					<IconButton
@@ -54,7 +56,10 @@
 						on:click={() => remove_exclusion(exclusion)}
 						>close</IconButton
 					>
-					<Label>{exclusion}</Label>
+					<Label
+						>{findPlayerById(players, exclusion)?.name ||
+							"BAD EXCLUSION"}</Label
+					>
 				</div>
 			</div>
 		{/each}
