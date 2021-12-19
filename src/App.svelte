@@ -48,10 +48,6 @@
 			<MainContent />
 		</Card>
 	</AutoAdjust>
-
-	<!-- <Button on:click={() => clicked++} variant="unelevated">
-		<Label>Default</Label>
-	</Button> -->
 </main>
 
 <style lang="scss">
