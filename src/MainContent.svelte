@@ -7,7 +7,7 @@
 	import { getPlayerId } from "./helpers";
 
 	let players: IPlayer[] = [];
-	for (let i = 0; i < 100; i++) {
+	for (let i = 0; i < 5; i++) {
 		players.push({
 			name: `Player ${i}`,
 			id: getPlayerId(),
@@ -17,8 +17,35 @@
 		});
 	}
 
+	function removeUnusedExclusions() {
+		for (let player of players) {
+			player.exclusions = player.exclusions.filter((exclusion) =>
+				players.some((player) => player.id === exclusion)
+			);
+		}
+		players = players;
+	}
+	removeUnusedExclusions();
+
+	function removePlayer(playerId: number) {
+		players = players.filter((player) => player.id !== playerId);
+		removeUnusedExclusions();
+	}
+
 	let excludeOneWay = false;
 	$: canCalculate = !players.some((player) => player.name.length === 0);
+
+	$: {
+		if (players[players.length - 1].name.length !== 0) {
+			players.push({
+				name: "",
+				id: getPlayerId(),
+				exclusions: [],
+				email: "",
+				address: "",
+			});
+		}
+	}
 </script>
 
 <div class="actions">
@@ -44,7 +71,11 @@
 
 <div class="player-cards">
 	{#each players as player}
-		<PlayerRow {players} bind:player />
+		<PlayerRow
+			{players}
+			bind:player
+			on:removePlayer={(event) => removePlayer(event.detail)}
+		/>
 	{/each}
 </div>
 

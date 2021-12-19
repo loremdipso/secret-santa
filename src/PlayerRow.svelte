@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { createEventDispatcher } from "svelte";
 	import Button, { Label } from "@smui/button";
 	import Textfield from "@smui/textfield";
 	import IconButton from "@smui/icon-button";
@@ -9,6 +10,8 @@
 	export let player: IPlayer;
 	export let players: IPlayer[];
 
+	let dispatch = createEventDispatcher();
+
 	let remove_exclusion = (exclusionToRemove: number) => {
 		player.exclusions = player.exclusions.filter(
 			(exclusion) => exclusion !== exclusionToRemove
@@ -17,6 +20,13 @@
 </script>
 
 <div class="container">
+	<IconButton
+		size="button"
+		class="material-icons remove-button remove-player-button"
+		title="Remove this player from the game"
+		on:click={() => dispatch("removePlayer", player.id)}>close</IconButton
+	>
+
 	<div class="text-container">
 		<Textfield bind:value={player.name} label="Name" />
 
@@ -71,6 +81,7 @@
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
+		position: relative;
 	}
 
 	.text-container {
@@ -96,9 +107,16 @@
 			padding-right: 10px;
 			padding-left: 10px;
 		}
+	}
 
-		> :global(.remove-button) {
-			background-color: red;
-		}
+	// TODO: is this valid?
+	:global(.remove-button) {
+		background-color: red;
+	}
+
+	:global(.remove-player-button) {
+		position: absolute;
+		right: 0;
+		top: 0;
 	}
 </style>
