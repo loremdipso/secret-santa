@@ -44,9 +44,7 @@
 		</Row>
 	</TopAppBar>
 	<AutoAdjust {topAppBar}>
-		<Card padded>
-			<MainContent />
-		</Card>
+		<MainContent />
 	</AutoAdjust>
 </main>
 

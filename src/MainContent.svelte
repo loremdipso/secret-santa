@@ -12,11 +12,16 @@
 	let players: IPlayer[] = [];
 
 	for (let i = 0; i < 100; i++) {
-		players.push({ name: `${i}`, excluding: ["1", "2", "3"] });
+		players.push({
+			name: `${i}`,
+			excluding: ["1", "2", "3"],
+			email: "",
+			address: "",
+		});
 	}
 
 	let excludeOneWay = false;
-	let canCalculate = false;
+	$: canCalculate = !players.some((player) => player.name.length === 0);
 </script>
 
 <div class="actions">
@@ -25,7 +30,7 @@
 		<Label>Calculate</Label>
 	</Button>
 
-	<Button variant="unelevated" color="secondary" disabled={!canCalculate}>
+	<Button variant="unelevated" color="secondary">
 		<Label>Import</Label>
 	</Button>
 
@@ -41,13 +46,18 @@
 	</div>
 </div>
 
-{#each players as player}
-	<PlayerRow bind:player />
-	{player.name}
-	{player.excluding.length}
-{/each}
+<div class="player-cards">
+	{#each players as player}
+		<PlayerRow bind:player />
+	{/each}
+</div>
 
 <style lang="scss">
+	.player-cards > :global(*) {
+		margin: 10px;
+		background-color: rgb(63, 63, 63);
+	}
+
 	.actions {
 		display: flex;
 		flex-direction: row;

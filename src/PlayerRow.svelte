@@ -1,6 +1,8 @@
 <script lang="ts">
 	import Button, { Label } from "@smui/button";
 	import Textfield from "@smui/textfield";
+	import IconButton from "@smui/icon-button";
+	import { Icon } from "@smui/common";
 	import { IPlayer } from "./players";
 
 	export let player: IPlayer;
@@ -13,28 +15,73 @@
 </script>
 
 <div class="container">
-	<Textfield bind:value={player.name} label="Name">
-		<!-- <HelperText slot="helper">Helper Text</HelperText> -->
-	</Textfield>
+	<div class="text-container">
+		<Textfield bind:value={player.name} label="Name" />
 
-	<Button variant="unelevated" color="secondary">
-		<Label>Exclude</Label>
-	</Button>
+		<Textfield bind:value={player.email} type="email">
+			<svelte:fragment slot="label">
+				<Icon
+					class="material-icons"
+					style="font-size: 1em; line-height: normal; vertical-align: top;"
+					>email</Icon
+				>
+				Email (optional)
+			</svelte:fragment>
+		</Textfield>
 
-	{#each player.excluding as exclusion}
-		<Button
-			variant="unelevated"
-			color="secondary"
-			on:click={() => remove_exclusion(exclusion)}
-		>
-			<Label>{exclusion}</Label>
+		<Textfield
+			bind:value={player.address}
+			label="Mailing address (optional)"
+		/>
+
+		<Button variant="unelevated" color="secondary">
+			<Label>Add exclusions</Label>
 		</Button>
-	{/each}
+	</div>
+
+	<div class="exclusions-container">
+		{#each player.excluding as exclusion}
+			<div>
+				<div class="exclusion">
+					<IconButton
+						class="material-icons"
+						title="Remove this exclusion"
+						on:click={() => remove_exclusion(exclusion)}
+						>close</IconButton
+					>
+					<Label>{exclusion}</Label>
+					{exclusion}
+				</div>
+			</div>
+		{/each}
+	</div>
 </div>
 
 <style lang="scss">
 	.container {
-		background-color: black;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+
+	.text-container {
 		padding: 10px;
+		display: flex;
+		flex-direction: column;
+		width: 400px;
+	}
+
+	.exclusions-container {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+
+	.exclusion {
+		display: flex;
+		align-items: center;
+		margin: 10px;
+		padding-right: 10px;
+		background-color: blue;
 	}
 </style>
