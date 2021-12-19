@@ -12,7 +12,7 @@
 			fill: #ff2768;
 			z-index: 1000;
 			color: #fff;
-			position: absolute;
+			position: fixed;
 			top: 0;
 			border: 0;
 			right: 0;

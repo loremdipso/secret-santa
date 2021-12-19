@@ -32,10 +32,28 @@
 		removeUnusedExclusions();
 	}
 
-	let excludeOneWay = false;
-	$: canCalculate = !players.some((player) => player.name.length === 0);
+	function isValid(): boolean {
+		// can't have a game with fewer than 3 entries (one is null)
+		if (players.length < 3) {
+			return false;
+		}
 
+		for (let i = 0; i < players.length - 1; i++) {
+			let player = players[i];
+			if (player.name.length === 0) {
+				return false;
+			}
+			// TODO: validate email if it's provided
+		}
+
+		return true;
+	}
+
+	let excludeOneWay = false;
+
+	let canCalculate = false;
 	$: {
+		canCalculate = isValid();
 		if (players[players.length - 1].name.length !== 0) {
 			players.push({
 				name: "",
