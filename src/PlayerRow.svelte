@@ -20,12 +20,15 @@
 </script>
 
 <div class="container">
-	<IconButton
-		size="button"
-		class="material-icons remove-button remove-player-button"
-		title="Remove this player from the game"
-		on:click={() => dispatch("removePlayer", player.id)}>close</IconButton
-	>
+	{#if player.id !== players[players.length - 1].id}
+		<IconButton
+			size="button"
+			class="material-icons remove-button remove-player-button"
+			title="Remove this player from the game"
+			on:click={() => dispatch("removePlayer", player.id)}
+			>close</IconButton
+		>
+	{/if}
 
 	<div class="text-container">
 		<Textfield bind:value={player.name} label="Name" />

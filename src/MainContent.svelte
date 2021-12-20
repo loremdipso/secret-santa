@@ -3,7 +3,7 @@
 	import { IPlayer } from "./interfaces";
 	import Radio from "@smui/radio";
 	import FormField from "@smui/form-field";
-	import { getPlayerId } from "./helpers";
+	import { findPlayerById, getPlayerId } from "./helpers";
 	import Button, { Label } from "@smui/button";
 	import ExclusionDialog from "./ExclusionDialog.svelte";
 
@@ -27,6 +27,12 @@
 		players = players;
 	}
 	removeUnusedExclusions();
+
+	function updateExclusions(playerId: number, exclusions: number[]) {
+		console.log(exclusions);
+		findPlayerById(players, playerId).exclusions = exclusions;
+		players = players;
+	}
 
 	function removePlayer(playerId: number) {
 		players = players.filter((player) => player.id !== playerId);
@@ -108,6 +114,8 @@
 
 <ExclusionDialog
 	bind:open={showExclusionDialog}
+	on:updateExclusions={(event) =>
+		updateExclusions(currentPlayerId, event.detail)}
 	{players}
 	playerId={currentPlayerId}
 />

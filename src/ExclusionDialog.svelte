@@ -1,21 +1,30 @@
 <script lang="ts">
+	import { createEventDispatcher } from "svelte";
 	import Dialog, { Title, Content, Actions } from "@smui/dialog";
 	import Checkbox from "@smui/checkbox";
 	import FormField from "@smui/form-field";
 	import Button, { Label } from "@smui/button";
 	import { IPlayer } from "./interfaces";
-	import { findExclusionsForPlayer, findPlayerById } from "./helpers";
+	import { findPlayerById } from "./helpers";
 
 	export let players: IPlayer[];
 	export let playerId: number;
 	export let open = true;
 
+	let dispatch = createEventDispatcher();
+
 	function updatePlayerExclusions() {
-		// TODO
+		dispatch("updateExclusions", exclusions);
 	}
 
 	function toggleChecked(event, playerId: number) {
-		//
+		console.log({ event, playerId });
+		let index = exclusions.indexOf(playerId);
+		if (index === -1) {
+			exclusions.push(playerId);
+		} else {
+			exclusions.splice(index, 1);
+		}
 	}
 
 	$: exclusions = [...(findPlayerById(players, playerId)?.exclusions || [])];
@@ -33,12 +42,11 @@
 			{#each players as player}
 				{#if player.name.length && player.id !== playerId}
 					<FormField>
-						<!-- <Checkbox bind:checked /> -->
 						<Checkbox
 							checked={exclusions.some(
 								(exclusion) => exclusion === player.id
 							)}
-							on:checked={(event) =>
+							on:click={(event) =>
 								toggleChecked(event, player.id)}
 						/>
 						<span slot="label">{player.name}</span>
