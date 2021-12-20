@@ -5,18 +5,18 @@ Based off: https://github.com/baileyherbert/svelte-webpack-starter
 A starter template for [Svelte](https://svelte.dev) that comes preconfigured with Webpack, TypeScript, SCSS, Babel,
 Autoprefixer, and HMR.
 
-- [Getting started](#getting-started)
-	- [Installation](#installation)
-	- [Starting the development server](#starting-the-development-server)
-	- [Building for production](#building-for-production)
-	- [Running in production](#running-in-production)
-- [Usage](#usage)
-	- [Global stylesheets](#global-stylesheets)
-	- [Single page applications](#single-page-applications)
-	- [Browsers list](#browsers-list)
-	- [Babel customization](#babel-customization)
-	- [Source maps in production](#source-maps-in-production)
-	- [Import path aliases](#import-path-aliases)
+-   [Getting started](#getting-started)
+    -   [Installation](#installation)
+    -   [Starting the development server](#starting-the-development-server)
+    -   [Building for production](#building-for-production)
+    -   [Running in production](#running-in-production)
+-   [Usage](#usage)
+    -   [Global stylesheets](#global-stylesheets)
+    -   [Single page applications](#single-page-applications)
+    -   [Browsers list](#browsers-list)
+    -   [Babel customization](#babel-customization)
+    -   [Source maps in production](#source-maps-in-production)
+    -   [Import path aliases](#import-path-aliases)
 
 ---
 
@@ -33,13 +33,6 @@ npx degit loremdipso/simple-svelte-starter
 npm install
 ```
 
-**🚀 Webpack 4**
-
-```bash
-npx degit baileyherbert/svelte-webpack-starter#4
-npm install
-```
-
 ### Starting the development server
 
 Run the `dev` script to start a live development server with hot module replacement. Then check the output for a link
@@ -51,7 +44,7 @@ npm run dev
 
 ### Building for production
 
-Run the `build` script to bundle the app for production. The bundle will be created at `/public/build/` and the `public`
+Run the `build` script to bundle the app for production. The bundle will be created at `/docs/build/` and the `docs`
 directory will contain all files you need to host the app:
 
 ```bash
@@ -64,9 +57,9 @@ npm run build
 
 First upload the following files and folders to your target server:
 
-- `package.json`
-- `package-lock.json`
-- `public`
+-   `package.json`
+-   `package-lock.json`
+-   `docs`
 
 Then install dependencies:
 
@@ -90,9 +83,7 @@ Add one or more global stylesheets to the bundle by editing the `stylesheets` va
 `webpack.config.ts`:
 
 ```ts
-const stylesheets = [
-    './src/styles/index.scss'
-];
+const stylesheets = ["./src/styles/index.scss"];
 ```
 
 You can specify `css`, `scss`, and `sass` files here, and they will be compiled and minified as necessary. These styles
@@ -103,13 +94,13 @@ will be added to the beginning of the bundle in the order specified. Svelte's st
 For single page applications that use history routing instead of hash routing, edit the `package.json` file to serve
 the `index.html` file when a requested file is not found:
 
-- Add the `--history-api-fallback` flag to the `"dev"` command
-- Add the `--single` flag to the `"start"` command.
+-   Add the `--history-api-fallback` flag to the `"dev"` command
+-   Add the `--single` flag to the `"start"` command.
 
 ```json
 "scripts": {
     "dev": "webpack serve --history-api-fallback",
-    "start": "serve public --listen 8080 --single",
+    "start": "serve docs --listen 8080 --single",
 }
 ```
 
@@ -166,12 +157,12 @@ You can then import files under these aliases and Webpack will resolve them. You
 for automatic imports:
 
 ```ts
-import { users } from '@stores/users'; // src/stores/users.ts
+import { users } from "@stores/users"; // src/stores/users.ts
 ```
 
 The root directory is configured as a base path for imports. This means you can also import modules with an absolute
 path from anywhere in the project instead of using a large number of `..` to traverse directories.
 
 ```ts
-import { users } from 'src/stores/users';
+import { users } from "src/stores/users";
 ```

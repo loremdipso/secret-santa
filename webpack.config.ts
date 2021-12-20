@@ -65,7 +65,7 @@ const config: Configuration = {
 		mainFields: ['svelte', 'browser', 'module', 'main']
 	},
 	output: {
-		path: path.resolve(__dirname, 'public/build'),
+		path: path.resolve(__dirname, 'docs/build'),
 		publicPath: '/build/',
 		filename: '[name].js',
 		chunkFilename: '[name].[id].js'

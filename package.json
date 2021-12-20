@@ -3,8 +3,8 @@
 	"scripts": {
 		"build": "cross-env NODE_ENV=production webpack",
 		"dev": "webpack serve",
-		"start": "serve public --listen 8080",
-		"prepare": "smui-theme compile public/build/smui.css -i src/theme",
+		"start": "serve docs --listen 8080",
+		"prepare": "smui-theme compile docs/build/smui.css -i src/theme",
 		"validate": "svelte-check"
 	},
 	"devDependencies": {

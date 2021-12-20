@@ -41,7 +41,7 @@
 		});
 	}
 
-	function toggleChecked(event, otherPlayerId: number) {
+	function toggleChecked(otherPlayerId: number) {
 		let index = exclusions.indexOf(otherPlayerId);
 		let reverseIndex = reverseExclusions.indexOf(otherPlayerId);
 
@@ -111,8 +111,7 @@
 						<Checkbox
 							checked={isChecked(player.id)}
 							indeterminate={isIndeterminate(player.id)}
-							on:click={(event) =>
-								toggleChecked(event, player.id)}
+							on:click={() => toggleChecked(player.id)}
 						/>
 						<span slot="label">{player.name}</span>
 					</FormField>
