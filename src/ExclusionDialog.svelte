@@ -9,25 +9,91 @@
 
 	export let players: IPlayer[];
 	export let playerId: number;
+	export let isOneWay = true;
 	export let open = true;
+
+	let exclusions = [];
+	let reverseExclusions = [];
+	$: {
+		exclusions = [...(findPlayerById(players, playerId)?.exclusions || [])];
+
+		if (isOneWay) {
+			reverseExclusions = [];
+		} else {
+			let temp = [];
+			for (let exclusion of exclusions) {
+				let player = findPlayerById(players, exclusion);
+				if (player.exclusions.indexOf(playerId) > -1) {
+					temp.push(exclusion);
+				}
+			}
+			reverseExclusions = temp;
+		}
+	}
 
 	let dispatch = createEventDispatcher();
 
 	function updatePlayerExclusions() {
-		dispatch("updateExclusions", exclusions);
+		dispatch("updateExclusions", {
+			playerId,
+			exclusions,
+			reverseExclusions,
+		});
 	}
 
-	function toggleChecked(event, playerId: number) {
-		console.log({ event, playerId });
-		let index = exclusions.indexOf(playerId);
-		if (index === -1) {
-			exclusions.push(playerId);
+	function toggleChecked(event, otherPlayerId: number) {
+		let index = exclusions.indexOf(otherPlayerId);
+		let reverseIndex = reverseExclusions.indexOf(otherPlayerId);
+
+		if (isOneWay) {
+			if (index === -1) {
+				exclusions.push(otherPlayerId);
+			} else {
+				exclusions.splice(index, 1);
+			}
 		} else {
-			exclusions.splice(index, 1);
+			if (index > -1 && reverseIndex > -1) {
+				// both has it, so remove from both
+				if (index > -1) {
+					exclusions.splice(index, 1);
+				}
+				if (reverseIndex > -1) {
+					reverseExclusions.splice(reverseIndex, 1);
+				}
+			} else {
+				// at least one doesn't have it, so add to both
+				if (index === -1) {
+					exclusions.push(otherPlayerId);
+				}
+				if (reverseIndex === -1) {
+					reverseExclusions.push(otherPlayerId);
+				}
+			}
+		}
+		console.log({ exclusions, reverseExclusions });
+	}
+
+	function isChecked(playerId: number): boolean {
+		if (isOneWay) {
+			return exclusions.some((exclusion) => exclusion === playerId);
+		} else {
+			return (
+				exclusions.some((exclusion) => exclusion === playerId) &&
+				reverseExclusions.some((exclusion) => exclusion === playerId)
+			);
 		}
 	}
-
-	$: exclusions = [...(findPlayerById(players, playerId)?.exclusions || [])];
+	function isIndeterminate(playerId: number): boolean {
+		if (isOneWay) {
+			return false;
+		} else {
+			let a = exclusions.some((exclusion) => exclusion === playerId);
+			let b = reverseExclusions.some(
+				(exclusion) => exclusion === playerId
+			);
+			return (a && !b) || (!a && b);
+		}
+	}
 </script>
 
 <Dialog
@@ -43,9 +109,8 @@
 				{#if player.name.length && player.id !== playerId}
 					<FormField>
 						<Checkbox
-							checked={exclusions.some(
-								(exclusion) => exclusion === player.id
-							)}
+							checked={isChecked(player.id)}
+							indeterminate={isIndeterminate(player.id)}
 							on:click={(event) =>
 								toggleChecked(event, player.id)}
 						/>

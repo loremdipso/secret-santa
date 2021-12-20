@@ -28,9 +28,46 @@
 	}
 	removeUnusedExclusions();
 
-	function updateExclusions(playerId: number, exclusions: number[]) {
-		console.log(exclusions);
+	function updateExclusions(
+		playerId: number,
+		exclusions: number[],
+		reverseExclusions: number[]
+	) {
+		console.log({ exclusions, reverseExclusions });
 		findPlayerById(players, playerId).exclusions = exclusions;
+		if (!isOneWay) {
+			// strategy: run through reverse exclusions, update changes
+			for (let player of players) {
+				if (player.id !== playerId) {
+					if (
+						// exclusions exists in state
+						player.exclusions.indexOf(playerId) > -1 &&
+						// ...but shouldn't
+						reverseExclusions.indexOf(player.id) === -1
+					) {
+						// remove it
+						player.exclusions.splice(
+							player.exclusions.indexOf(playerId),
+							1
+						);
+						console.log(
+							`removing ${playerId} from ${player.id}'s exclusions`
+						);
+					} else if (
+						// exclusions doesn't exist in state
+						player.exclusions.indexOf(playerId) === -1 &&
+						// ...but should
+						reverseExclusions.indexOf(player.id) > -1
+					) {
+						// add it
+						player.exclusions.push(playerId);
+						console.log(
+							`adding ${playerId} from ${player.id}'s exclusions`
+						);
+					}
+				}
+			}
+		}
 		players = players;
 	}
 
@@ -60,7 +97,7 @@
 	let showExclusionDialog = false;
 	let currentPlayerId = -1;
 
-	let excludeOneWay = false;
+	let isOneWay = false;
 
 	let canCalculate = false;
 	$: {
@@ -85,17 +122,6 @@
 	<Button variant="unelevated" color="secondary">
 		<Label>Import</Label>
 	</Button>
-
-	<div class="exclude-container">
-		<FormField>
-			<Radio bind:group={excludeOneWay} value={false} touch />
-			<span slot="label">Exclude is one-way</span>
-		</FormField>
-		<FormField>
-			<Radio bind:group={excludeOneWay} value={true} touch />
-			<span slot="label">Exclude goes both ways</span>
-		</FormField>
-	</div>
 </div>
 
 <div class="player-cards">
@@ -104,7 +130,13 @@
 			{players}
 			bind:player
 			on:removePlayer={(event) => removePlayer(event.detail)}
-			on:updateExclusions={(event) => {
+			on:updateExclusionsOneWay={(event) => {
+				isOneWay = true;
+				currentPlayerId = event.detail;
+				showExclusionDialog = true;
+			}}
+			on:updateExclusionsTwoWay={(event) => {
+				isOneWay = false;
 				currentPlayerId = event.detail;
 				showExclusionDialog = true;
 			}}
@@ -112,13 +144,20 @@
 	{/each}
 </div>
 
-<ExclusionDialog
-	bind:open={showExclusionDialog}
-	on:updateExclusions={(event) =>
-		updateExclusions(currentPlayerId, event.detail)}
-	{players}
-	playerId={currentPlayerId}
-/>
+{#if showExclusionDialog}
+	<ExclusionDialog
+		bind:open={showExclusionDialog}
+		on:updateExclusions={(event) =>
+			updateExclusions(
+				event.detail.playerId,
+				event.detail.exclusions,
+				event.detail.reverseExclusions
+			)}
+		{isOneWay}
+		{players}
+		playerId={currentPlayerId}
+	/>
+{/if}
 
 <style lang="scss">
 	.player-cards > :global(*) {
@@ -134,10 +173,5 @@
 		> :global(*) {
 			margin-right: 5px;
 		}
-	}
-
-	.exclude-container {
-		display: flex;
-		flex-direction: column;
 	}
 </style>

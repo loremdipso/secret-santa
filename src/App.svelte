@@ -13,8 +13,6 @@
 </script>
 
 <svelte:head>
-	<link rel="stylesheet" href="node_modules/svelte-material-ui/bare.css" />
-
 	<!-- Material Icons -->
 	<link
 		rel="stylesheet"

@@ -52,10 +52,19 @@
 		<Button
 			variant="unelevated"
 			color="secondary"
-			title="Select players that this player should not be paired with"
-			on:click={() => dispatch("updateExclusions", player.id)}
+			title="Select players that this player should not give gifts to"
+			on:click={() => dispatch("updateExclusionsOneWay", player.id)}
 		>
-			<Label>Add exclusions</Label>
+			<Label>Add exclusions (one-way)</Label>
+		</Button>
+
+		<Button
+			variant="unelevated"
+			color="secondary"
+			title="Select players that this player should not give gifts to that also should not give gifts to this player"
+			on:click={() => dispatch("updateExclusionsTwoWay", player.id)}
+		>
+			<Label>Add exclusions (two-way)</Label>
 		</Button>
 	</div>
 
@@ -93,6 +102,10 @@
 		display: flex;
 		flex-direction: column;
 		width: 400px;
+
+		> :global(button) {
+			margin-top: 5px;
+		}
 	}
 
 	.exclusions-container {
