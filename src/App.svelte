@@ -1,6 +1,7 @@
 <script lang="ts">
 	import GithubCorner from "./GithubCorner.svelte";
-	import MainContent from "./MainContent.svelte";
+	import PlayerEntry from "./PlayerEntry.svelte";
+	import Results from "./Results.svelte";
 
 	import TopAppBar, {
 		Row,
@@ -9,7 +10,22 @@
 		AutoAdjust,
 		TopAppBarComponentDev,
 	} from "@smui/top-app-bar";
+	import { IPlayer } from "./interfaces";
+	import { getPlayerId } from "./helpers";
 	let topAppBar: TopAppBarComponentDev;
+
+	let showPlayerEntry = true;
+
+	export let players: IPlayer[] = [];
+	for (let i = 0; i < 5; i++) {
+		players.push({
+			name: `Player ${i}`,
+			id: getPlayerId(),
+			exclusions: [i + 1],
+			email: "",
+			address: "",
+		});
+	}
 </script>
 
 <svelte:head>
@@ -41,29 +57,13 @@
 		</Row>
 	</TopAppBar>
 	<AutoAdjust {topAppBar}>
-		<MainContent />
+		{#if showPlayerEntry}
+			<PlayerEntry bind:showPlayerEntry bind:players />
+		{:else}
+			<Results bind:showPlayerEntry bind:players />
+		{/if}
 	</AutoAdjust>
 </main>
 
 <style lang="scss">
-	// 	max-width: 850px;
-	// }
-
-	// main {
-	// text-align: center;
-	// padding: 1em;
-	// max-width: 240px;
-	// margin: 0 auto;
-
-	// h1 {
-	// 	// color: #ff3e00;
-	// 	text-transform: uppercase;
-	// 	font-size: 4em;
-	// 	font-weight: 100;
-	// }
-
-	// @media (min-width: 640px) {
-	// 	max-width: none;
-	// }
-	// }
 </style>

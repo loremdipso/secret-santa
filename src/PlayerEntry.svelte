@@ -1,22 +1,12 @@
 <script lang="ts">
 	import PlayerRow from "./PlayerRow.svelte";
 	import { IPlayer } from "./interfaces";
-	import Radio from "@smui/radio";
-	import FormField from "@smui/form-field";
 	import { findPlayerById, getPlayerId } from "./helpers";
 	import Button, { Label } from "@smui/button";
 	import ExclusionDialog from "./ExclusionDialog.svelte";
 
-	let players: IPlayer[] = [];
-	for (let i = 0; i < 5; i++) {
-		players.push({
-			name: `Player ${i}`,
-			id: getPlayerId(),
-			exclusions: [i + 1],
-			email: "",
-			address: "",
-		});
-	}
+	export let players: IPlayer[];
+	export let showPlayerEntry: boolean;
 
 	function removeUnusedExclusions() {
 		for (let player of players) {
@@ -93,6 +83,10 @@
 		return true;
 	}
 
+	function doCalculate() {
+		showPlayerEntry = false;
+	}
+
 	// exclusion dialog state
 	let showExclusionDialog = false;
 	let currentPlayerId = -1;
@@ -114,8 +108,13 @@
 	}
 </script>
 
-<div class="actions">
-	<Button variant="unelevated" color="secondary" disabled={!canCalculate}>
+<div class="actions-bar">
+	<Button
+		variant="unelevated"
+		color="secondary"
+		disabled={!canCalculate}
+		on:click={() => doCalculate()}
+	>
 		<Label>Calculate</Label>
 	</Button>
 
@@ -165,11 +164,10 @@
 		background-color: rgb(63, 63, 63);
 	}
 
-	.actions {
+	.actions-bar {
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
-		background-color: rgb(63, 63, 63);
 		> :global(*) {
 			margin-right: 5px;
 		}
