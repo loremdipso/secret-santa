@@ -50,6 +50,7 @@
 			variant="unelevated"
 			color="secondary"
 			title="Select players that this player should not be paired with"
+			on:click={() => dispatch("updateExclusions", player.id)}
 		>
 			<Label>Add exclusions</Label>
 		</Button>

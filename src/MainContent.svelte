@@ -1,10 +1,11 @@
 <script lang="ts">
-	import Button, { Label } from "@smui/button";
 	import PlayerRow from "./PlayerRow.svelte";
 	import { IPlayer } from "./interfaces";
 	import Radio from "@smui/radio";
 	import FormField from "@smui/form-field";
 	import { getPlayerId } from "./helpers";
+	import Button, { Label } from "@smui/button";
+	import ExclusionDialog from "./ExclusionDialog.svelte";
 
 	let players: IPlayer[] = [];
 	for (let i = 0; i < 5; i++) {
@@ -48,6 +49,10 @@
 
 		return true;
 	}
+
+	// exclusion dialog state
+	let showExclusionDialog = false;
+	let currentPlayerId = -1;
 
 	let excludeOneWay = false;
 
@@ -93,9 +98,19 @@
 			{players}
 			bind:player
 			on:removePlayer={(event) => removePlayer(event.detail)}
+			on:updateExclusions={(event) => {
+				currentPlayerId = event.detail;
+				showExclusionDialog = true;
+			}}
 		/>
 	{/each}
 </div>
+
+<ExclusionDialog
+	bind:open={showExclusionDialog}
+	{players}
+	playerId={currentPlayerId}
+/>
 
 <style lang="scss">
 	.player-cards > :global(*) {
