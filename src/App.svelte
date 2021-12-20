@@ -47,7 +47,7 @@
 </svelte:head>
 
 <main>
-	<GithubCorner href="https://github.com/loremdipso/secret_santa" />
+	<GithubCorner href="https://github.com/loremdipso/secret_santa_svelte" />
 	<TopAppBar bind:this={topAppBar} variant="fixed">
 		<Row>
 			<Section>
