@@ -1,7 +1,7 @@
 <script lang="ts">
 	import PlayerRow from "./PlayerRow.svelte";
-	import type { IPlayer } from "./interfaces";
-	import { findPlayerById, getPlayerId } from "./helpers";
+	import type { IPlayer } from "../interfaces";
+	import { findPlayerById, getPlayerId } from "../helpers";
 	import Button from "smelte/src/components/Button";
 
 	export let players: IPlayer[];

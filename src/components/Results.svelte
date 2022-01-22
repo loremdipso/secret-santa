@@ -2,8 +2,8 @@
 	import Button from "smelte/src/components/Button";
 	import TextField from "smelte/src/components/TextField";
 	import Tabs from "smelte/src/components/Tabs";
-	import type { IPlayer, IEntry } from "./interfaces";
-	import { calculateLinkUrl, playerIsEmpty } from "./helpers";
+	import type { IPlayer, IEntry } from "../interfaces";
+	import { calculateLinkUrl, playerIsEmpty } from "../helpers";
 
 	export let players: IPlayer[];
 	export let showPlayerEntry: boolean;

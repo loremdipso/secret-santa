@@ -3,8 +3,8 @@
 	import Button from "smelte/src/components/Button";
 	import Dialog from "smelte/src/components/Dialog";
 	import Checkbox from "smelte/src/components/Checkbox";
-	import type { IPlayer } from "./interfaces";
-	import { findPlayerById } from "./helpers";
+	import type { IPlayer } from "../interfaces";
+	import { findPlayerById } from "../helpers";
 
 	export let players: IPlayer[];
 	export let playerId: number;

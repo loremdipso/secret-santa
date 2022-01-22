@@ -1,11 +1,11 @@
 <script lang="ts">
+	import Button from "smelte/src/components/Button";
+	import TextField from "smelte/src/components/TextField";
+
 	import ExclusionDialog from "./ExclusionDialog.svelte";
 	import { createEventDispatcher } from "svelte";
-	import Button from "smelte/src/components/Button";
-	import Icon from "smelte/src/components/Icon";
-	import TextField from "smelte/src/components/TextField";
-	import type { IPlayer } from "./interfaces";
-	import { findPlayerById } from "./helpers";
+	import type { IPlayer } from "../interfaces";
+	import { findPlayerById } from "../helpers";
 
 	export let player: IPlayer;
 	export let players: IPlayer[];

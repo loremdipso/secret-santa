@@ -1,9 +1,10 @@
 <script lang="ts">
-	import GithubCorner from "./GithubCorner.svelte";
-	import PlayerEntry from "./PlayerEntry.svelte";
-	import dark from "smelte/src/dark";
 	import Button from "smelte/src/components/Button";
-	import Results from "./Results.svelte";
+	import dark from "smelte/src/dark";
+
+	import GithubCorner from "./components/GithubCorner.svelte";
+	import PlayerEntry from "./components/PlayerEntry.svelte";
+	import Results from "./components/Results.svelte";
 	import type { IPlayer } from "./interfaces";
 	import { getPlayerId } from "./helpers";
 
