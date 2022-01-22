@@ -34,30 +34,27 @@
 	};
 </script>
 
-<div class="container">
+<div class="player-row-container">
 	{#if player.id !== players[players.length - 1].id}
-		<Button
-			size="button"
-			class="material-icons remove-button remove-player-button"
-			title="Remove this player from the game"
-			icon="close"
-			on:click={() => dispatch("removePlayer", player.id)}
-		/>
+		<div class="remove-player-button">
+			<Button
+				small
+				title="Remove this player from the game"
+				icon="close"
+				on:click={() => dispatch("removePlayer", player.id)}
+			/>
+		</div>
 	{/if}
 
 	<div class="text-container">
 		<TextField bind:value={player.name} label="Name" />
 
-		<TextField bind:value={player.email} type="email">
-			<svelte:fragment slot="label">
-				<Icon
-					class="material-icons"
-					style="font-size: 1em; line-height: normal; vertical-align: top;"
-					>email</Icon
-				>
-				Email (optional)
-			</svelte:fragment>
-		</TextField>
+		<TextField
+			bind:value={player.email}
+			type="email"
+			label="Email (optional)"
+			prepend="email"
+		/>
 
 		<TextField
 			bind:value={player.address}
@@ -77,21 +74,23 @@
 		</Button>
 	</div>
 
-	<div class="exclusions-container">
-		{#each player.exclusions as exclusion}
-			<div>
-				<Button
-					size="button"
-					class="remove-button"
-					title="Remove this exclusion"
-					on:click={() => remove_exclusion(exclusion)}
-					icon="close"
-				>
-					{findPlayerById(players, exclusion)?.name ||
-						"BAD EXCLUSION"}
-				</Button>
-			</div>
-		{/each}
+	<div class="exclusions-container flex flex-col bg-black grow p-5">
+		<h5>Exclusions</h5>
+		<div class="flex flex-row">
+			{#each player.exclusions as exclusion}
+				<div>
+					<Button
+						size="button"
+						title="Remove this exclusion"
+						on:click={() => remove_exclusion(exclusion)}
+						icon="close"
+					>
+						{findPlayerById(players, exclusion)?.name ||
+							"BAD EXCLUSION"}
+					</Button>
+				</div>
+			{/each}
+		</div>
 	</div>
 </div>
 
@@ -110,12 +109,12 @@
 {/if}
 
 <style>
-	.container {
+	.player-row-container {
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
 		position: relative;
-		margin: 10px;
+		margin: 30px 20px 30px 20px;
 		background-color: rgb(63, 63, 63);
 	}
 
@@ -126,23 +125,16 @@
 		width: 400px;
 	}
 
-	.text-container > :global(button) {
-		margin-top: 5px;
-	}
-
 	.exclusions-container {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
+		/* TODO: why doesn't flex-1 this work? */
+		flex-grow: 1;
 	}
 
-	:global(.remove-button) {
-		background-color: red;
-	}
-
-	:global(.remove-player-button) {
+	.remove-player-button {
 		position: absolute;
 		right: 0;
 		top: 0;
+		z-index: 1;
+		transform: translateY(-25%) translateX(25%);
 	}
 </style>

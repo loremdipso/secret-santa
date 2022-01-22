@@ -84,15 +84,13 @@
 	</Button>
 </div>
 
-<div class="player-cards">
-	{#each players as player (player.id)}
-		<PlayerRow
-			{players}
-			bind:player
-			on:removePlayer={(event) => removePlayer(event.detail)}
-		/>
-	{/each}
-</div>
+{#each players as player (player.id)}
+	<PlayerRow
+		{players}
+		bind:player
+		on:removePlayer={(event) => removePlayer(event.detail)}
+	/>
+{/each}
 
 {#if showImport}
 	<form on:submit={submitForm}>
