@@ -1,4 +1,4 @@
-import { IPair, IPlayer, IResultPair } from "./interfaces";
+import type { IPair, IPlayer, IResultPair } from "./interfaces";
 import SimpleCrypto from "simple-crypto-js";
 import shuffle from "shuffle-array";
 
@@ -65,6 +65,10 @@ export const getPlayerId = (() => {
 
 export function findPlayerById(players: IPlayer[], id: number): IPlayer {
 	return players.find((player) => player.id === id);
+}
+
+export function findPlayerByName(players: IPlayer[], name: string): IPlayer {
+	return players.find((player) => player.name === name);
 }
 
 export function getMatchups(

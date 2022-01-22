@@ -1,12 +1,18 @@
 <script lang="ts">
 	import PlayerRow from "./PlayerRow.svelte";
-	import { IPlayer } from "./interfaces";
+	import type { IPlayer } from "./interfaces";
 	import { findPlayerById, getPlayerId } from "./helpers";
-	import Button, { Label } from "@smui/button";
-	import ExclusionDialog from "./ExclusionDialog.svelte";
+	import Button from "smelte/src/components/Button";
 
 	export let players: IPlayer[];
 	export let showPlayerEntry: boolean;
+
+	let showImport = false;
+	let fileVar;
+	function submitForm() {
+		event.preventDefault();
+		showImport = false;
+	}
 
 	function removeUnusedExclusions() {
 		for (let player of players) {
@@ -17,49 +23,6 @@
 		players = players;
 	}
 	removeUnusedExclusions();
-
-	function updateExclusions(
-		playerId: number,
-		exclusions: number[],
-		reverseExclusions: number[]
-	) {
-		console.log({ exclusions, reverseExclusions });
-		findPlayerById(players, playerId).exclusions = exclusions;
-		if (!isOneWay) {
-			// strategy: run through reverse exclusions, update changes
-			for (let player of players) {
-				if (player.id !== playerId) {
-					if (
-						// exclusions exists in state
-						player.exclusions.indexOf(playerId) > -1 &&
-						// ...but shouldn't
-						reverseExclusions.indexOf(player.id) === -1
-					) {
-						// remove it
-						player.exclusions.splice(
-							player.exclusions.indexOf(playerId),
-							1
-						);
-						console.log(
-							`removing ${playerId} from ${player.id}'s exclusions`
-						);
-					} else if (
-						// exclusions doesn't exist in state
-						player.exclusions.indexOf(playerId) === -1 &&
-						// ...but should
-						reverseExclusions.indexOf(player.id) > -1
-					) {
-						// add it
-						player.exclusions.push(playerId);
-						console.log(
-							`adding ${playerId} from ${player.id}'s exclusions`
-						);
-					}
-				}
-			}
-		}
-		players = players;
-	}
 
 	function removePlayer(playerId: number) {
 		players = players.filter((player) => player.id !== playerId);
@@ -87,12 +50,6 @@
 		showPlayerEntry = false;
 	}
 
-	// exclusion dialog state
-	let showExclusionDialog = false;
-	let currentPlayerId = -1;
-
-	let isOneWay = false;
-
 	let canCalculate = false;
 	$: {
 		canCalculate = isValid();
@@ -115,61 +72,43 @@
 		disabled={!canCalculate}
 		on:click={() => doCalculate()}
 	>
-		<Label>Calculate</Label>
+		Calculate
 	</Button>
 
-	<Button variant="unelevated" color="secondary">
-		<Label>Import</Label>
+	<Button
+		variant="unelevated"
+		color="secondary"
+		on:click={() => (showImport = true)}
+	>
+		<span>Import</span>
 	</Button>
 </div>
 
 <div class="player-cards">
-	{#each players as player}
+	{#each players as player (player.id)}
 		<PlayerRow
 			{players}
 			bind:player
 			on:removePlayer={(event) => removePlayer(event.detail)}
-			on:updateExclusionsOneWay={(event) => {
-				isOneWay = true;
-				currentPlayerId = event.detail;
-				showExclusionDialog = true;
-			}}
-			on:updateExclusionsTwoWay={(event) => {
-				isOneWay = false;
-				currentPlayerId = event.detail;
-				showExclusionDialog = true;
-			}}
 		/>
 	{/each}
 </div>
 
-{#if showExclusionDialog}
-	<ExclusionDialog
-		bind:open={showExclusionDialog}
-		on:updateExclusions={(event) =>
-			updateExclusions(
-				event.detail.playerId,
-				event.detail.exclusions,
-				event.detail.reverseExclusions
-			)}
-		{isOneWay}
-		{players}
-		playerId={currentPlayerId}
-	/>
+{#if showImport}
+	<form on:submit={submitForm}>
+		<input type="file" bind:files={fileVar} />
+		<input type="submit" />
+	</form>
 {/if}
 
-<style lang="scss">
-	.player-cards > :global(*) {
-		margin: 10px;
-		background-color: rgb(63, 63, 63);
-	}
-
+<style>
 	.actions-bar {
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
-		> :global(*) {
-			margin-right: 5px;
-		}
+	}
+
+	.actions-bar > :global(*) {
+		margin-right: 5px;
 	}
 </style>

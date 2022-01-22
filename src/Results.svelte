@@ -1,9 +1,8 @@
 <script lang="ts">
-	import Button, { Label } from "@smui/button";
-	import Textfield from "@smui/textfield";
-	import Tab from "@smui/tab";
-	import TabBar from "@smui/tab-bar";
-	import { IPlayer, IEntry } from "./interfaces";
+	import Button from "smelte/src/components/Button";
+	import TextField from "smelte/src/components/TextField";
+	import Tabs from "smelte/src/components/Tabs";
+	import type { IPlayer, IEntry } from "./interfaces";
 	import { calculateLinkUrl, playerIsEmpty } from "./helpers";
 
 	export let players: IPlayer[];
@@ -64,7 +63,7 @@
 
 <div class="actions-bar">
 	<div>
-		<Textfield
+		<TextField
 			style="width: 100%"
 			bind:value={subjectLine}
 			label="Subject line for emails"
@@ -77,7 +76,7 @@
 			color="secondary"
 			on:click={() => (showPlayerEntry = true)}
 		>
-			<Label>Back to Edit</Label>
+			Back to Edit
 		</Button>
 
 		<Button
@@ -85,7 +84,7 @@
 			color="secondary"
 			on:click={() => doRecalculate()}
 		>
-			<Label>Recalculate</Label>
+			Recalculate
 		</Button>
 
 		<Button
@@ -93,16 +92,23 @@
 			color="secondary"
 			on:click={() => doExport()}
 		>
-			<Label>Export</Label>
+			Export
 		</Button>
 	</div>
 </div>
 
-<TabBar let:tab bind:active tabs={[EMAIL_VIEW, LINKS_VIEW, RAW_LINKS_VIEW]}>
-	<Tab {tab}>
-		<Label>{tab}</Label>
-	</Tab>
-</TabBar>
+<!-- <Tabs
+	selected="1"
+	let:selected={selected}
+	bind:active
+	items={[EMAIL_VIEW, LINKS_VIEW, RAW_LINKS_VIEW]}
+>
+	items={[
+		{ id: "1", text: "Cats", icon: "alarm_on" },
+		{ id: "2", text: "Kittens", icon: "bug_report" },
+		{ id: "3", text: "Kitties", icon: "eject" },
+	]}>
+</Tabs>
 
 {#if active === LINKS_VIEW}
 	<table>
@@ -146,9 +152,9 @@
 			</tr>
 		{/each}
 	</table>
-{/if}
+{/if} -->
 
-<style lang="scss">
+<!-- <style lang="scss">
 	.actions-bar {
 		display: flex;
 		flex-direction: column;
@@ -156,4 +162,4 @@
 			flex-grow: 1;
 		}
 	}
-</style>
+</style> -->

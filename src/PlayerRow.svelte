@@ -1,16 +1,31 @@
 <script lang="ts">
+	import ExclusionDialog from "./ExclusionDialog.svelte";
 	import { createEventDispatcher } from "svelte";
-	import Button, { Label } from "@smui/button";
-	import Textfield from "@smui/textfield";
-	import IconButton from "@smui/icon-button";
-	import { Icon } from "@smui/common";
-	import { IPlayer } from "./interfaces";
+	import Button from "smelte/src/components/Button";
+	import Icon from "smelte/src/components/Icon";
+	import TextField from "smelte/src/components/TextField";
+	import type { IPlayer } from "./interfaces";
 	import { findPlayerById } from "./helpers";
 
 	export let player: IPlayer;
 	export let players: IPlayer[];
 
+	function updateExclusions(
+		playerId: number,
+		exclusions: number[],
+		reverseExclusions: number[]
+	) {
+		console.log({ exclusions, reverseExclusions });
+		findPlayerById(players, playerId).exclusions = exclusions;
+		players = players;
+	}
+
+	// exclusion dialog state
+	let currentPlayerId = -1;
+
 	let dispatch = createEventDispatcher();
+
+	let showExclusionDialog = false;
 
 	let remove_exclusion = (exclusionToRemove: number) => {
 		player.exclusions = player.exclusions.filter(
@@ -21,19 +36,19 @@
 
 <div class="container">
 	{#if player.id !== players[players.length - 1].id}
-		<IconButton
+		<Button
 			size="button"
 			class="material-icons remove-button remove-player-button"
 			title="Remove this player from the game"
+			icon="close"
 			on:click={() => dispatch("removePlayer", player.id)}
-			>close</IconButton
-		>
+		/>
 	{/if}
 
 	<div class="text-container">
-		<Textfield bind:value={player.name} label="Name" />
+		<TextField bind:value={player.name} label="Name" />
 
-		<Textfield bind:value={player.email} type="email">
+		<TextField bind:value={player.email} type="email">
 			<svelte:fragment slot="label">
 				<Icon
 					class="material-icons"
@@ -42,9 +57,9 @@
 				>
 				Email (optional)
 			</svelte:fragment>
-		</Textfield>
+		</TextField>
 
-		<Textfield
+		<TextField
 			bind:value={player.address}
 			label="Mailing address (optional)"
 		/>
@@ -53,48 +68,55 @@
 			variant="unelevated"
 			color="secondary"
 			title="Select players that this player should not give gifts to"
-			on:click={() => dispatch("updateExclusionsOneWay", player.id)}
+			on:click={() => {
+				showExclusionDialog = true;
+				currentPlayerId = player.id;
+			}}
 		>
-			<Label>Add exclusions (one-way)</Label>
-		</Button>
-
-		<Button
-			variant="unelevated"
-			color="secondary"
-			title="Select players that this player should not give gifts to that also should not give gifts to this player"
-			on:click={() => dispatch("updateExclusionsTwoWay", player.id)}
-		>
-			<Label>Add exclusions (two-way)</Label>
+			Who can I give presents to?
 		</Button>
 	</div>
 
 	<div class="exclusions-container">
 		{#each player.exclusions as exclusion}
 			<div>
-				<div class="exclusion">
-					<IconButton
-						size="button"
-						class="material-icons remove-button"
-						title="Remove this exclusion"
-						on:click={() => remove_exclusion(exclusion)}
-						>close</IconButton
-					>
-					<Label
-						>{findPlayerById(players, exclusion)?.name ||
-							"BAD EXCLUSION"}</Label
-					>
-				</div>
+				<Button
+					size="button"
+					class="remove-button"
+					title="Remove this exclusion"
+					on:click={() => remove_exclusion(exclusion)}
+					icon="close"
+				>
+					{findPlayerById(players, exclusion)?.name ||
+						"BAD EXCLUSION"}
+				</Button>
 			</div>
 		{/each}
 	</div>
 </div>
 
-<style lang="scss">
+{#if showExclusionDialog}
+	<ExclusionDialog
+		bind:showDialog={showExclusionDialog}
+		on:updateExclusions={(event) =>
+			updateExclusions(
+				event.detail.playerId,
+				event.detail.exclusions,
+				event.detail.reverseExclusions
+			)}
+		{players}
+		playerId={currentPlayerId}
+	/>
+{/if}
+
+<style>
 	.container {
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
 		position: relative;
+		margin: 10px;
+		background-color: rgb(63, 63, 63);
 	}
 
 	.text-container {
@@ -102,10 +124,10 @@
 		display: flex;
 		flex-direction: column;
 		width: 400px;
+	}
 
-		> :global(button) {
-			margin-top: 5px;
-		}
+	.text-container > :global(button) {
+		margin-top: 5px;
 	}
 
 	.exclusions-container {
@@ -114,19 +136,6 @@
 		flex-wrap: wrap;
 	}
 
-	.exclusion {
-		display: flex;
-		align-items: center;
-		margin: 10px;
-		background-color: black;
-
-		> :global(span) {
-			padding-right: 10px;
-			padding-left: 10px;
-		}
-	}
-
-	// TODO: is this valid?
 	:global(.remove-button) {
 		background-color: red;
 	}

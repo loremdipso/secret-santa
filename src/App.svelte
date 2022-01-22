@@ -1,21 +1,13 @@
 <script lang="ts">
 	import GithubCorner from "./GithubCorner.svelte";
 	import PlayerEntry from "./PlayerEntry.svelte";
+	import dark from "smelte/src/dark";
+	import Button from "smelte/src/components/Button";
 	import Results from "./Results.svelte";
-
-	import TopAppBar, {
-		Row,
-		Section,
-		Title,
-		AutoAdjust,
-		TopAppBarComponentDev,
-	} from "@smui/top-app-bar";
-	import { IPlayer } from "./interfaces";
+	import type { IPlayer } from "./interfaces";
 	import { getPlayerId } from "./helpers";
-	let topAppBar: TopAppBarComponentDev;
 
 	let showPlayerEntry = true;
-
 	export let players: IPlayer[] = [];
 	for (let i = 0; i < 5; i++) {
 		players.push({
@@ -26,6 +18,8 @@
 			address: "",
 		});
 	}
+
+	const darkMode = dark();
 </script>
 
 <svelte:head>
@@ -48,22 +42,23 @@
 
 <main>
 	<GithubCorner href="https://github.com/loremdipso/secret_santa_svelte" />
-	<TopAppBar bind:this={topAppBar} variant="fixed">
-		<Row>
-			<Section>
-				<!-- <IconButton class="material-icons">menu</IconButton> -->
-				<Title>Secret Santa</Title>
-			</Section>
-		</Row>
-	</TopAppBar>
-	<AutoAdjust {topAppBar}>
-		{#if showPlayerEntry}
-			<PlayerEntry bind:showPlayerEntry bind:players />
-		{:else}
-			<Results bind:showPlayerEntry bind:players />
-		{/if}
-	</AutoAdjust>
+
+	<header
+		class="top-0 w-full items-center flex-wrap flex left-0 z-30 p-0 h-16 shadow bg-primary-300 dark:bg-dark-600 top-0 w-full items-center flex-wrap flex left-0 z-30 p-0 h-16 shadow bg-dark-600 dark:bg-dark-600"
+	>
+		<h6 class="pl-3 text-white tracking-widest font-thin text-lg">
+			Secret Santa
+		</h6>
+
+		<Button bind:value={$darkMode}>Toggle dark mode</Button>
+	</header>
+
+	{#if showPlayerEntry}
+		<PlayerEntry bind:showPlayerEntry bind:players />
+	{:else}
+		<Results bind:showPlayerEntry bind:players />
+	{/if}
 </main>
 
-<style lang="scss">
+<style>
 </style>

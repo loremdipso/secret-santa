@@ -1,16 +1,15 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte";
-	import Dialog, { Title, Content, Actions } from "@smui/dialog";
-	import Checkbox from "@smui/checkbox";
-	import FormField from "@smui/form-field";
-	import Button, { Label } from "@smui/button";
-	import { IPlayer } from "./interfaces";
+	import Button from "smelte/src/components/Button";
+	import Dialog from "smelte/src/components/Dialog";
+	import Checkbox from "smelte/src/components/Checkbox";
+	import type { IPlayer } from "./interfaces";
 	import { findPlayerById } from "./helpers";
 
 	export let players: IPlayer[];
 	export let playerId: number;
 	export let isOneWay = true;
-	export let open = true;
+	export let showDialog = true;
 
 	let exclusions = [];
 	let reverseExclusions = [];
@@ -96,40 +95,43 @@
 	}
 </script>
 
-<Dialog
-	bind:open
-	aria-labelledby="simple-title"
-	aria-describedby="simple-content"
->
-	<!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
-	<Title id="simple-title">Select Exclusions</Title>
-	<Content id="simple-content">
+<Dialog bind:value={showDialog}>
+	<h5 slot="title">Select Exclusions</h5>
+
+	<div class="text-gray-700">
 		<div class="list">
 			{#each players as player}
 				{#if player.name.length && player.id !== playerId}
-					<FormField>
-						<Checkbox
-							checked={isChecked(player.id)}
-							indeterminate={isIndeterminate(player.id)}
-							on:click={() => toggleChecked(player.id)}
-						/>
-						<span slot="label">{player.name}</span>
-					</FormField>
+					<Checkbox
+						checked={isChecked(player.id)}
+						indeterminate={isIndeterminate(player.id)}
+						on:change={() => toggleChecked(player.id)}
+						label={player.name}
+					/>
 				{/if}
 			{/each}
 		</div>
-	</Content>
-	<Actions>
-		<Button variant="raised">
-			<Label>Discard</Label>
+	</div>
+
+	<div slot="actions">
+		<Button text variant="raised" on:click={() => (showDialog = false)}>
+			Discard
 		</Button>
-		<Button on:click={() => updatePlayerExclusions()} variant="raised">
-			<Label>Save</Label>
+		<Button
+			text
+			on:click={() => {
+				// TODO: does it matter the order here?
+				updatePlayerExclusions();
+				showDialog = false;
+			}}
+			variant="raised"
+		>
+			Save
 		</Button>
-	</Actions>
+	</div>
 </Dialog>
 
-<style lang="scss">
+<style>
 	.list {
 		display: flex;
 		flex-direction: column;
