@@ -1,11 +1,12 @@
 <script lang="ts">
 	import PlayerRow from "./PlayerRow.svelte";
-	import type { IPlayer } from "../interfaces";
-	import { findPlayerById, getPlayerId } from "../helpers";
+	import type { IPair, IPlayer, IResultPair } from "../interfaces";
+	import { getMatchups, getPlayerId } from "../helpers";
 	import Button from "smelte/src/components/Button";
 
 	export let players: IPlayer[];
 	export let showPlayerEntry: boolean;
+	export let matchups: IResultPair[];
 
 	let showImport = false;
 	let fileVar;
@@ -48,6 +49,7 @@
 
 	function doCalculate() {
 		showPlayerEntry = false;
+		matchups = getMatchups(players, true);
 	}
 
 	let canCalculate = false;

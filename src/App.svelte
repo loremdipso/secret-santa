@@ -5,10 +5,12 @@
 	import GithubCorner from "./components/GithubCorner.svelte";
 	import PlayerEntry from "./components/PlayerEntry.svelte";
 	import Results from "./components/Results.svelte";
-	import type { IPlayer } from "./interfaces";
+	import type { IPlayer, IResultPair } from "./interfaces";
 	import { getPlayerId } from "./helpers";
 
 	let showPlayerEntry = true;
+	let matchups: IResultPair[] = [];
+
 	export let players: IPlayer[] = [];
 	for (let i = 0; i < 5; i++) {
 		players.push({
@@ -61,9 +63,9 @@
 	</header>
 
 	{#if showPlayerEntry}
-		<PlayerEntry bind:showPlayerEntry bind:players />
+		<PlayerEntry bind:showPlayerEntry bind:players bind:matchups />
 	{:else}
-		<Results bind:showPlayerEntry bind:players />
+		<Results bind:showPlayerEntry bind:players bind:matchups />
 	{/if}
 </main>
 

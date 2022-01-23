@@ -1,6 +1,5 @@
 import type { IPair, IPlayer, IResultPair } from "./interfaces";
 import SimpleCrypto from "simple-crypto-js";
-import shuffle from "shuffle-array";
 
 // we don't actually care about security, we just want some strings to not be
 // human-readable
@@ -73,16 +72,23 @@ export function findPlayerByName(players: IPlayer[], name: string): IPlayer {
 
 export function getMatchups(
 	players: IPlayer[],
-	exclusions: IPair[],
 	oneWay: boolean
 ): IResultPair[] {
 	if (players.length < 2) {
 		return [];
 	}
 
-	shuffle([...players]);
-	let tempPlayers =
-		getFirstPermutation(players, (tempPlayers: IPlayer[]) => {
+	// TODO: something smarter
+	let exclusions: IPair[] = [];
+	for (let player of players) {
+		for (let exclusion of player.exclusions) {
+			exclusions.push({ a: player.id, b: exclusion });
+		}
+	}
+
+	const shuffledPlayers = shuffleArray([...players]);
+	const tempPlayers =
+		getFirstPermutation(shuffledPlayers, (tempPlayers: IPlayer[]) => {
 			let matchups = playersToMatchups(tempPlayers);
 			return validMatchups(matchups, exclusions, oneWay);
 		}) || [];
@@ -101,7 +107,7 @@ function playersToMatchups(players: IPlayer[]): IResultPair[] {
 		matchups.push({
 			a: players[i].id,
 			b: players[i + 1].id,
-			id: getPairId(),
+			// id: getPairId(),
 		});
 	}
 
@@ -109,7 +115,7 @@ function playersToMatchups(players: IPlayer[]): IResultPair[] {
 		matchups.push({
 			a: players[players.length - 1].id,
 			b: players[0].id,
-			id: getPairId(),
+			// id: getPairId(),
 		});
 	}
 
@@ -181,4 +187,13 @@ export function getMatchupsString(matchups: IPair[], players: IPlayer[]): string
 			return `${gifter.name}\n${link}`;
 		})
 		.join("\n\n");
+}
+
+// Thanks https://stackoverflow.com/a/12646864 !!!
+function shuffleArray<T>(array: T[]): T[] {
+	for (let i = array.length - 1; i > 0; i--) {
+		const j = Math.floor(Math.random() * (i + 1));
+		[array[i], array[j]] = [array[j], array[i]];
+	}
+	return array;
 }

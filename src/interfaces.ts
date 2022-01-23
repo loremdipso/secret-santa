@@ -16,7 +16,6 @@ export interface IPlayer {
 export interface IPair {
 	a: number;
 	b: number;
-	id: string;
 }
 
 export interface IResultPair extends IPair {
