@@ -51,8 +51,9 @@ export default {
 
 		// we'll extract any component CSS out into
 		// a separate file - better for performance
-		css({
-			output: 'bundle.css',
+		scss({
+			output: 'docs/build/bundle.css',
+			failOnError: true,
 			exclude: ['**/global.css', '**/tailwind.css']
 		}),
 		// scss({ output: "bundle.css", failOnError: true }),
