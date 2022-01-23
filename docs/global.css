@@ -7,6 +7,10 @@ label.text-xs{font-size:.7rem}
 
 
 @-webkit-keyframes svelte-mguqwa-increase{0%{left:-5%;width:5%}to{left:130%;width:150%}}@keyframes svelte-mguqwa-increase{0%{left:-5%;width:5%}to{left:130%;width:150%}}@-webkit-keyframes svelte-mguqwa-decrease{0%{left:-90%;width:90%}to{left:110%;width:10%}}@keyframes svelte-mguqwa-decrease{0%{left:-90%;width:90%}to{left:110%;width:10%}}
+
+
+@-webkit-keyframes svelte-1xkiyez-rotate{to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}@keyframes svelte-1xkiyez-rotate{to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}@-webkit-keyframes svelte-1xkiyez-dash{0%{stroke-dasharray:1,200;stroke-dashoffset:0}50%{stroke-dasharray:89,200;stroke-dashoffset:-35}to{stroke-dasharray:89,200;stroke-dashoffset:-124}}@keyframes svelte-1xkiyez-dash{0%{stroke-dasharray:1,200;stroke-dashoffset:0}50%{stroke-dasharray:89,200;stroke-dashoffset:-35}to{stroke-dasharray:89,200;stroke-dashoffset:-124}}
+
 .actions-bar{background-color:blue;display:flex;flex-direction:row;flex-wrap:wrap}.actions-bar>*{margin-right:5px}
 /*! tailwindcss v2.2.19 | MIT License | https://tailwindcss.com*/
 

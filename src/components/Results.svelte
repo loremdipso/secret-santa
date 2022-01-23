@@ -4,6 +4,10 @@
 	import TextField from "smelte/src/components/TextField";
 	import Tabs from "smelte/src/components/Tabs";
 
+	// TODO: why doesn't this import work?
+	// import Tab from "smelte/src/components/Tabs/Tab";
+	import { Tab } from "smelte";
+
 	import type { IPlayer, IEntry, IResultPair } from "../interfaces";
 	import { calculateLinkUrl, getMatchups, playerIsEmpty } from "../helpers";
 	import ActionBar from "./ActionBar.svelte";
@@ -12,11 +16,13 @@
 	export let matchups: IResultPair[];
 	export let showPlayerEntry: boolean;
 
-	const LINKS_VIEW = "Links view";
-	const RAW_LINKS_VIEW = "Raw links view";
-	const EMAIL_VIEW = "Email view";
+	const LINKS_VIEW = { id: "1", text: "Links view" };
+	const RAW_LINKS_VIEW = { id: "2", text: "Raw links view" };
+	const EMAIL_VIEW = { id: "3", text: "Email view" };
+	const items = [LINKS_VIEW, RAW_LINKS_VIEW, EMAIL_VIEW];
+	let selected;
 
-	let active: string = LINKS_VIEW;
+	let active: string = LINKS_VIEW.id;
 
 	$: entries = generateEntries();
 
@@ -97,63 +103,62 @@
 	</div>
 </ActionBar>
 
-<!-- <Tabs
-	selected="1"
-	let:selected={selected}
-	bind:active
-	items={[EMAIL_VIEW, LINKS_VIEW, RAW_LINKS_VIEW]}
->
-	items={[
-		{ id: "1", text: "Cats", icon: "alarm_on" },
-		{ id: "2", text: "Kittens", icon: "bug_report" },
-		{ id: "3", text: "Kitties", icon: "eject" },
-	]}>
+<Tabs selected="1" let:selected bind:active {items}>
+	<div
+		slot="content"
+		class="flex items-center content-center overflow-hidden w-full bg-gray-900 h-full"
+		style="height: 250px"
+	>
+		<Tab id={LINKS_VIEW.id} {selected}>
+			<table>
+				<tr>
+					<th>Gifter</th>
+					<th>Link</th>
+				</tr>
+				{#each entries as entry}
+					<tr>
+						<td>{entry.player.name}</td>
+						<td>
+							<a href={entry.url}>Link</a>
+						</td>
+					</tr>
+				{/each}
+			</table>
+		</Tab>
+		<Tab id={RAW_LINKS_VIEW.id} {selected}>
+			<Button
+				variant="unelevated"
+				color="secondary"
+				on:click={() => copyToClipboard()}
+				label="Copy to Clipboard"
+			/>
+			<textarea style="width: 100%; height: 300px"
+				>{getRawTextContent()}</textarea
+			>
+		</Tab>
+		<Tab id={EMAIL_VIEW.id} {selected}>
+			<Button
+				variant="unelevated"
+				color="secondary"
+				on:click={() => showAll()}
+				label="Show all"
+			/>
+
+			<table>
+				<tr>
+					<th>Gifter</th>
+					<th>Giftee</th>
+				</tr>
+				{#each entries as entry}
+					<tr>
+						<td>{entry.player.name}</td>
+						<td>######</td>
+					</tr>
+				{/each}
+			</table>
+		</Tab>
+	</div>
 </Tabs>
-
-{#if active === LINKS_VIEW}
-	<table>
-		<tr>
-			<th>Gifter</th>
-			<th>Link</th>
-		</tr>
-		{#each entries as entry}
-			<tr>
-				<td>{entry.player.name}</td>
-				<td>
-					<a href={entry.url}>Link</a>
-				</td>
-			</tr>
-		{/each}
-	</table>
-{:else if active === RAW_LINKS_VIEW}
-	<Button
-		variant="unelevated"
-		color="secondary"
-		on:click={() => copyToClipboard()}
-	>
-		<Label>Copy to Clipboard</Label>
-	</Button>
-	<textarea style="width: 100%; height: 300px">{getRawTextContent()}</textarea
-	>
-{:else if active === EMAIL_VIEW}
-	<Button variant="unelevated" color="secondary" on:click={() => showAll()}>
-		<Label>Show all</Label>
-	</Button>
-
-	<table>
-		<tr>
-			<th>Gifter</th>
-			<th>Giftee</th>
-		</tr>
-		{#each entries as entry}
-			<tr>
-				<td>{entry.player.name}</td>
-				<td>######</td>
-			</tr>
-		{/each}
-	</table>
-{/if} -->
-
 <!-- <style lang="scss">
 	.actions-bar {
 		display: flex;
