@@ -104,11 +104,7 @@
 </ActionBar>
 
 <Tabs selected="1" let:selected bind:active {items}>
-	<div
-		slot="content"
-		class="flex items-center content-center overflow-hidden w-full bg-gray-900 h-full"
-		style="height: 250px"
-	>
+	<div slot="content">
 		<Tab id={LINKS_VIEW.id} {selected}>
 			<table>
 				<tr>

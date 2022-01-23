@@ -6,6 +6,7 @@ import { terser } from 'rollup-plugin-terser';
 import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 import css from 'rollup-plugin-css-only';
+import scss from 'rollup-plugin-scss';
 import smelte from 'smelte/rollup-plugin-smelte';
 
 const production = !process.env.ROLLUP_WATCH;
@@ -48,6 +49,15 @@ export default {
 			}
 		}),
 
+		// we'll extract any component CSS out into
+		// a separate file - better for performance
+		css({
+			output: 'bundle.css',
+			exclude: ['**/global.css', '**/tailwind.css']
+		}),
+		// scss({ output: "bundle.css", failOnError: true }),
+		// scss({ output: "bundle.css" }),
+
 		smelte({
 			purge: production,
 			output: "docs/global.css", // it defaults to static/global.css which is probably what you expect in Sapper
@@ -68,10 +78,6 @@ export default {
 			},
 			// Any other props will be applied on top of default Smelte tailwind.config.js
 		}),
-
-		// we'll extract any component CSS out into
-		// a separate file - better for performance
-		css({ output: 'docs/build/bundle.css' }),
 
 		// If you have external dependencies installed from
 		// npm, you'll most likely need these plugins. In
