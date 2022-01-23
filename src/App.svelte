@@ -69,16 +69,19 @@
 </svelte:head>
 
 <main>
-	<GithubCorner href="https://github.com/loremdipso/secret_santa_svelte" />
+	<GithubCorner
+		href="https://github.com/loremdipso/secret_santa_svelte"
+		position="topLeft"
+	/>
 
 	<header
-		class="justify-between top-0 w-full items-center flex-wrap flex left-0 z-30 p-0 h-16 shadow bg-primary-300 dark:bg-dark-600 top-0 w-full items-center flex-wrap flex left-0 z-30 p-0 h-16 shadow bg-dark-600 dark:bg-dark-600"
+		class="justify-center top-0 w-full items-center p-0 h-16 shadow bg-primary-300 dark:bg-dark-600 top-0 w-full items-center flex-wrap flex left-0 z-30 p-0 h-16 shadow bg-dark-600 dark:bg-dark-600"
 	>
 		<h6 class="pl-3 text-white tracking-widest font-thin text-lg">
 			Secret Santa
 		</h6>
 
-		<DarkModeButton />
+		<DarkModeButton classes="absolute right-0" />
 	</header>
 
 	<input

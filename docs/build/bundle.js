@@ -3922,6 +3922,7 @@ var app = (function () {
     	let path0;
     	let path1;
     	let path2;
+    	let svg_class_value;
 
     	const block = {
     		c: function create() {
@@ -3930,33 +3931,29 @@ var app = (function () {
     			path0 = svg_element("path");
     			path1 = svg_element("path");
     			path2 = svg_element("path");
+    			attr_dev(path0, "class", "background");
     			attr_dev(path0, "d", "M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z");
-    			add_location(path0, file$e, 21, 2, 383);
+    			add_location(path0, file$e, 15, 2, 372);
     			attr_dev(path1, "d", "M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2");
     			attr_dev(path1, "fill", "currentColor");
     			set_style(path1, "transform-origin", "130px 106px");
-    			attr_dev(path1, "class", "octo-arm svelte-pkmzky");
-    			add_location(path1, file$e, 22, 2, 448);
+    			attr_dev(path1, "class", "octo-arm svelte-101dudq");
+    			add_location(path1, file$e, 19, 2, 464);
     			attr_dev(path2, "d", "M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z");
     			attr_dev(path2, "fill", "currentColor");
     			attr_dev(path2, "class", "octo-body");
-    			add_location(path2, file$e, 28, 2, 737);
+    			add_location(path2, file$e, 25, 2, 753);
     			attr_dev(svg, "width", "80");
     			attr_dev(svg, "height", "80");
     			attr_dev(svg, "viewBox", "0 0 250 250");
-    			set_style(svg, "fill", "#ff2768");
-    			set_style(svg, "z-index", "1000");
-    			set_style(svg, "color", "#fff");
-    			set_style(svg, "position", "fixed");
-    			set_style(svg, "top", "0");
-    			set_style(svg, "border", "0");
-    			set_style(svg, "right", "0");
     			attr_dev(svg, "aria-hidden", "true");
-    			add_location(svg, file$e, 6, 2, 177);
+    			set_style(svg, "fill", /*fill*/ ctx[2]);
+    			attr_dev(svg, "class", svg_class_value = "" + (null_to_empty(/*position*/ ctx[1]) + " svelte-101dudq"));
+    			add_location(svg, file$e, 7, 2, 248);
     			attr_dev(a, "href", /*href*/ ctx[0]);
-    			attr_dev(a, "class", "github-corner svelte-pkmzky");
+    			attr_dev(a, "class", "github-corner svelte-101dudq");
     			attr_dev(a, "aria-label", "View source on GitHub");
-    			add_location(a, file$e, 5, 0, 108);
+    			add_location(a, file$e, 6, 0, 179);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -3969,6 +3966,14 @@ var app = (function () {
     			append_dev(svg, path2);
     		},
     		p: function update(ctx, [dirty]) {
+    			if (dirty & /*fill*/ 4) {
+    				set_style(svg, "fill", /*fill*/ ctx[2]);
+    			}
+
+    			if (dirty & /*position*/ 2 && svg_class_value !== (svg_class_value = "" + (null_to_empty(/*position*/ ctx[1]) + " svelte-101dudq"))) {
+    				attr_dev(svg, "class", svg_class_value);
+    			}
+
     			if (dirty & /*href*/ 1) {
     				attr_dev(a, "href", /*href*/ ctx[0]);
     			}
@@ -3995,7 +4000,9 @@ var app = (function () {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('GithubCorner', slots, []);
     	let { href } = $$props;
-    	const writable_props = ['href'];
+    	let { position = "topRight" } = $$props;
+    	let { fill = "#ff2768" } = $$props;
+    	const writable_props = ['href', 'position', 'fill'];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<GithubCorner> was created with unknown prop '${key}'`);
@@ -4003,25 +4010,29 @@ var app = (function () {
 
     	$$self.$$set = $$props => {
     		if ('href' in $$props) $$invalidate(0, href = $$props.href);
+    		if ('position' in $$props) $$invalidate(1, position = $$props.position);
+    		if ('fill' in $$props) $$invalidate(2, fill = $$props.fill);
     	};
 
-    	$$self.$capture_state = () => ({ href });
+    	$$self.$capture_state = () => ({ href, position, fill });
 
     	$$self.$inject_state = $$props => {
     		if ('href' in $$props) $$invalidate(0, href = $$props.href);
+    		if ('position' in $$props) $$invalidate(1, position = $$props.position);
+    		if ('fill' in $$props) $$invalidate(2, fill = $$props.fill);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [href];
+    	return [href, position, fill];
     }
 
     class GithubCorner extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$f, create_fragment$f, safe_not_equal, { href: 0 });
+    		init(this, options, instance$f, create_fragment$f, safe_not_equal, { href: 0, position: 1, fill: 2 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -4043,6 +4054,22 @@ var app = (function () {
     	}
 
     	set href(value) {
+    		throw new Error("<GithubCorner>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get position() {
+    		throw new Error("<GithubCorner>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set position(value) {
+    		throw new Error("<GithubCorner>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get fill() {
+    		throw new Error("<GithubCorner>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set fill(value) {
     		throw new Error("<GithubCorner>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
@@ -17928,17 +17955,18 @@ var app = (function () {
     	let current;
 
     	function button_value_binding(value) {
-    		/*button_value_binding*/ ctx[3](value);
+    		/*button_value_binding*/ ctx[4](value);
     	}
 
     	let button_props = {
-    		icon: /*icon*/ ctx[0],
+    		icon: /*icon*/ ctx[1],
     		small: true,
-    		title: "Toggle dark mode"
+    		title: "Toggle dark mode",
+    		classes: /*classes*/ ctx[0]
     	};
 
-    	if (/*$darkMode*/ ctx[1] !== void 0) {
-    		button_props.value = /*$darkMode*/ ctx[1];
+    	if (/*$darkMode*/ ctx[2] !== void 0) {
+    		button_props.value = /*$darkMode*/ ctx[2];
     	}
 
     	button = new Button({ props: button_props, $$inline: true });
@@ -17957,11 +17985,12 @@ var app = (function () {
     		},
     		p: function update(ctx, [dirty]) {
     			const button_changes = {};
-    			if (dirty & /*icon*/ 1) button_changes.icon = /*icon*/ ctx[0];
+    			if (dirty & /*icon*/ 2) button_changes.icon = /*icon*/ ctx[1];
+    			if (dirty & /*classes*/ 1) button_changes.classes = /*classes*/ ctx[0];
 
-    			if (!updating_value && dirty & /*$darkMode*/ 2) {
+    			if (!updating_value && dirty & /*$darkMode*/ 4) {
     				updating_value = true;
-    				button_changes.value = /*$darkMode*/ ctx[1];
+    				button_changes.value = /*$darkMode*/ ctx[2];
     				add_flush_callback(() => updating_value = false);
     			}
 
@@ -17996,16 +18025,17 @@ var app = (function () {
     	let $darkMode;
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('DarkModeButton', slots, []);
+    	let { classes = "" } = $$props;
     	const darkMode = dark();
     	validate_store(darkMode, 'darkMode');
-    	component_subscribe($$self, darkMode, value => $$invalidate(1, $darkMode = value));
+    	component_subscribe($$self, darkMode, value => $$invalidate(2, $darkMode = value));
     	let icon;
 
     	function setIcon(value) {
     		if (value) {
-    			$$invalidate(0, icon = "light_mode");
+    			$$invalidate(1, icon = "light_mode");
     		} else {
-    			$$invalidate(0, icon = "dark_mode");
+    			$$invalidate(1, icon = "dark_mode");
     		}
     	}
 
@@ -18015,7 +18045,7 @@ var app = (function () {
     		setIcon(value);
     	});
 
-    	const writable_props = [];
+    	const writable_props = ['classes'];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<DarkModeButton> was created with unknown prop '${key}'`);
@@ -18026,9 +18056,14 @@ var app = (function () {
     		darkMode.set($darkMode);
     	}
 
+    	$$self.$$set = $$props => {
+    		if ('classes' in $$props) $$invalidate(0, classes = $$props.classes);
+    	};
+
     	$$self.$capture_state = () => ({
     		Button,
     		dark,
+    		classes,
     		darkMode,
     		icon,
     		setIcon,
@@ -18036,20 +18071,21 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('icon' in $$props) $$invalidate(0, icon = $$props.icon);
+    		if ('classes' in $$props) $$invalidate(0, classes = $$props.classes);
+    		if ('icon' in $$props) $$invalidate(1, icon = $$props.icon);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [icon, $darkMode, darkMode, button_value_binding];
+    	return [classes, icon, $darkMode, darkMode, button_value_binding];
     }
 
     class DarkModeButton extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$1, create_fragment$1, safe_not_equal, {});
+    		init(this, options, instance$1, create_fragment$1, safe_not_equal, { classes: 0 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -18057,6 +18093,14 @@ var app = (function () {
     			options,
     			id: create_fragment$1.name
     		});
+    	}
+
+    	get classes() {
+    		throw new Error("<DarkModeButton>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set classes(value) {
+    		throw new Error("<DarkModeButton>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
@@ -18109,7 +18153,7 @@ var app = (function () {
     /* src/App.svelte generated by Svelte v3.46.2 */
     const file = "src/App.svelte";
 
-    // (91:1) {:else}
+    // (94:1) {:else}
     function create_else_block(ctx) {
     	let results;
     	let updating_players;
@@ -18199,14 +18243,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(91:1) {:else}",
+    		source: "(94:1) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (85:1) {#if showPlayerEntry}
+    // (88:1) {#if showPlayerEntry}
     function create_if_block(ctx) {
     	let playerentry;
     	let updating_players;
@@ -18264,7 +18308,7 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(85:1) {#if showPlayerEntry}",
+    		source: "(88:1) {#if showPlayerEntry}",
     		ctx
     	});
 
@@ -18296,12 +18340,17 @@ var app = (function () {
 
     	githubcorner = new GithubCorner({
     			props: {
-    				href: "https://github.com/loremdipso/secret_santa_svelte"
+    				href: "https://github.com/loremdipso/secret_santa_svelte",
+    				position: "topLeft"
     			},
     			$$inline: true
     		});
 
-    	darkmodebutton = new DarkModeButton({ $$inline: true });
+    	darkmodebutton = new DarkModeButton({
+    			props: { classes: "absolute right-0" },
+    			$$inline: true
+    		});
+
     	let toast_1_props = {};
     	toast_1 = new Toast({ props: toast_1_props, $$inline: true });
     	/*toast_1_binding*/ ctx[10](toast_1);
@@ -18346,13 +18395,13 @@ var app = (function () {
     			attr_dev(link2, "href", "https://fonts.googleapis.com/css?family=Roboto+Mono");
     			add_location(link2, file, 55, 1, 1520);
     			attr_dev(h6, "class", "pl-3 text-white tracking-widest font-thin text-lg");
-    			add_location(h6, file, 67, 2, 1948);
-    			attr_dev(header, "class", "justify-between top-0 w-full items-center flex-wrap flex left-0 z-30 p-0 h-16 shadow bg-primary-300 dark:bg-dark-600 top-0 w-full items-center flex-wrap flex left-0 z-30 p-0 h-16 shadow bg-dark-600 dark:bg-dark-600");
-    			add_location(header, file, 64, 1, 1710);
+    			add_location(h6, file, 70, 2, 1944);
+    			attr_dev(header, "class", "justify-center top-0 w-full items-center p-0 h-16 shadow bg-primary-300 dark:bg-dark-600 top-0 w-full items-center flex-wrap flex left-0 z-30 p-0 h-16 shadow bg-dark-600 dark:bg-dark-600");
+    			add_location(header, file, 67, 1, 1734);
     			attr_dev(input, "class", "hidden");
     			attr_dev(input, "type", "file");
     			attr_dev(input, "accept", ".json");
-    			add_location(input, file, 74, 1, 2070);
+    			add_location(input, file, 77, 1, 2093);
     			add_location(main, file, 61, 0, 1626);
     		},
     		l: function claim(nodes) {
