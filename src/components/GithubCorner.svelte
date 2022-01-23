@@ -67,24 +67,24 @@
 		border: 0;
 	}
 
-	svg.topRight {
+	.topRight {
 		top: 0;
 		right: 0;
 	}
 
-	svg.topLeft {
+	.topLeft {
 		top: 0;
 		left: 0;
 		transform: rotate(270deg);
 	}
 
-	svg.bottomRight {
+	.bottomRight {
 		bottom: 0;
 		right: 0;
 		transform: rotate(90deg);
 	}
 
-	svg.bottomLeft {
+	.bottomLeft {
 		bottom: 0;
 		left: 0;
 		transform: rotate(180deg);

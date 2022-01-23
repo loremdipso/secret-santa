@@ -47,6 +47,7 @@ export default {
 				dev: !production
 			}
 		}),
+
 		smelte({
 			purge: production,
 			output: "docs/global.css", // it defaults to static/global.css which is probably what you expect in Sapper
@@ -67,9 +68,10 @@ export default {
 			},
 			// Any other props will be applied on top of default Smelte tailwind.config.js
 		}),
+
 		// we'll extract any component CSS out into
 		// a separate file - better for performance
-		css({ output: 'bundle.css' }),
+		css({ output: 'docs/build/bundle.css' }),
 
 		// If you have external dependencies installed from
 		// npm, you'll most likely need these plugins. In
