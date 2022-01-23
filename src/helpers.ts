@@ -88,7 +88,7 @@ export function getMatchups(
 		}) || [];
 
 	if (tempPlayers && tempPlayers.length > 1) {
-		let matchups = playersToMatchups(tempPlayers);
+		const matchups = playersToMatchups(tempPlayers);
 		return matchups.sort((a, b) => a.a - b.a);
 	} else {
 		return [];

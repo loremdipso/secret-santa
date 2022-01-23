@@ -10,14 +10,20 @@
 
 	let showPlayerEntry = true;
 	export let players: IPlayer[] = [];
-	for (let i = 0; i < 50; i++) {
+	for (let i = 0; i < 5; i++) {
 		players.push({
 			name: `Player ${i}`,
 			id: getPlayerId(),
-			exclusions: [i + 1],
+			exclusions: [],
 			email: "",
 			address: "",
 		});
+	}
+
+	for (let i = 0; i < players.length - 1; i++) {
+		let player = players[i];
+		let nextPlayer = players[i + 1];
+		player.exclusions.push(nextPlayer.id);
 	}
 
 	const darkMode = dark();

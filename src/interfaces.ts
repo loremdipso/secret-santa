@@ -1,3 +1,10 @@
+export type VERSION = 0.1;
+
+export interface IData {
+	players: IPlayer[];
+	version: VERSION;
+}
+
 export interface IPlayer {
 	name: string;
 	id: number;
@@ -9,7 +16,7 @@ export interface IPlayer {
 export interface IPair {
 	a: number;
 	b: number;
-	id: number;
+	id: string;
 }
 
 export interface IResultPair extends IPair {
