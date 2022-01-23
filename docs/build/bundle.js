@@ -14180,7 +14180,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (97:4) {#if player.name.length && player.id !== playerId}
+    // (96:3) {#if player.name.length && player.id !== playerId}
     function create_if_block$3(ctx) {
     	let checkbox;
     	let current;
@@ -14191,6 +14191,7 @@ var app = (function () {
 
     	checkbox = new Checkbox({
     			props: {
+    				classes: func,
     				checked: /*isChecked*/ ctx[5](/*player*/ ctx[16].id),
     				indeterminate: /*isIndeterminate*/ ctx[6](/*player*/ ctx[16].id),
     				label: /*player*/ ctx[16].name
@@ -14234,14 +14235,14 @@ var app = (function () {
     		block,
     		id: create_if_block$3.name,
     		type: "if",
-    		source: "(97:4) {#if player.name.length && player.id !== playerId}",
+    		source: "(96:3) {#if player.name.length && player.id !== playerId}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (96:3) {#each players as player}
+    // (95:2) {#each players as player}
     function create_each_block$2(ctx) {
     	let if_block_anchor;
     	let current;
@@ -14300,7 +14301,7 @@ var app = (function () {
     		block,
     		id: create_each_block$2.name,
     		type: "each",
-    		source: "(96:3) {#each players as player}",
+    		source: "(95:2) {#each players as player}",
     		ctx
     	});
 
@@ -14309,8 +14310,7 @@ var app = (function () {
 
     // (91:0) <Dialog bind:value={showDialog}>
     function create_default_slot_2$1(ctx) {
-    	let div1;
-    	let div0;
+    	let div;
     	let current;
     	let each_value = /*players*/ ctx[1];
     	validate_each_argument(each_value);
@@ -14326,24 +14326,20 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
-    			div1 = element("div");
-    			div0 = element("div");
+    			div = element("div");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(div0, "class", "list svelte-izmr8b");
-    			add_location(div0, file$4, 94, 2, 2801);
-    			attr_dev(div1, "class", "text-gray-700");
-    			add_location(div1, file$4, 93, 1, 2771);
+    			attr_dev(div, "class", "exclusion-dialog-content svelte-f2hb4t");
+    			add_location(div, file$4, 93, 1, 2771);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div1, anchor);
-    			append_dev(div1, div0);
+    			insert_dev(target, div, anchor);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(div0, null);
+    				each_blocks[i].m(div, null);
     			}
 
     			current = true;
@@ -14364,7 +14360,7 @@ var app = (function () {
     						each_blocks[i] = create_each_block$2(child_ctx);
     						each_blocks[i].c();
     						transition_in(each_blocks[i], 1);
-    						each_blocks[i].m(div0, null);
+    						each_blocks[i].m(div, null);
     					}
     				}
 
@@ -14396,7 +14392,7 @@ var app = (function () {
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div1);
+    			if (detaching) detach_dev(div);
     			destroy_each(each_blocks, detaching);
     		}
     	};
@@ -14442,7 +14438,7 @@ var app = (function () {
     	return block;
     }
 
-    // (110:2) <Button text variant="raised" on:click={() => (showDialog = false)}>
+    // (109:2) <Button text variant="raised" on:click={() => (showDialog = false)}>
     function create_default_slot_1$3(ctx) {
     	let t;
 
@@ -14462,14 +14458,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_1$3.name,
     		type: "slot",
-    		source: "(110:2) <Button text variant=\\\"raised\\\" on:click={() => (showDialog = false)}>",
+    		source: "(109:2) <Button text variant=\\\"raised\\\" on:click={() => (showDialog = false)}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (113:2) <Button    text    on:click={() => {     // TODO: does it matter the order here?     updatePlayerExclusions();     showDialog = false;    }}    variant="raised"   >
+    // (112:2) <Button    text    on:click={() => {     // TODO: does it matter the order here?     updatePlayerExclusions();     showDialog = false;    }}    variant="raised"   >
     function create_default_slot$4(ctx) {
     	let t;
 
@@ -14489,14 +14485,14 @@ var app = (function () {
     		block,
     		id: create_default_slot$4.name,
     		type: "slot",
-    		source: "(113:2) <Button    text    on:click={() => {     // TODO: does it matter the order here?     updatePlayerExclusions();     showDialog = false;    }}    variant=\\\"raised\\\"   >",
+    		source: "(112:2) <Button    text    on:click={() => {     // TODO: does it matter the order here?     updatePlayerExclusions();     showDialog = false;    }}    variant=\\\"raised\\\"   >",
     		ctx
     	});
 
     	return block;
     }
 
-    // (109:1) 
+    // (108:1) 
     function create_actions_slot(ctx) {
     	let div;
     	let button0;
@@ -14535,7 +14531,7 @@ var app = (function () {
     			t = space();
     			create_component(button1.$$.fragment);
     			attr_dev(div, "slot", "actions");
-    			add_location(div, file$4, 108, 1, 3128);
+    			add_location(div, file$4, 107, 1, 3159);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -14582,7 +14578,7 @@ var app = (function () {
     		block,
     		id: create_actions_slot.name,
     		type: "slot",
-    		source: "(109:1) ",
+    		source: "(108:1) ",
     		ctx
     	});
 
@@ -14664,6 +14660,8 @@ var app = (function () {
 
     	return block;
     }
+
+    const func = classes => classes + " w-full select-none";
 
     function instance$4($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -16886,18 +16884,18 @@ var app = (function () {
     			if_block.c();
     			attr_dev(link0, "rel", "stylesheet");
     			attr_dev(link0, "href", "https://fonts.googleapis.com/icon?family=Material+Icons");
-    			add_location(link0, file, 22, 1, 630);
+    			add_location(link0, file, 22, 1, 631);
     			attr_dev(link1, "rel", "stylesheet");
     			attr_dev(link1, "href", "https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700");
-    			add_location(link1, file, 27, 1, 742);
+    			add_location(link1, file, 27, 1, 743);
     			attr_dev(link2, "rel", "stylesheet");
     			attr_dev(link2, "href", "https://fonts.googleapis.com/css?family=Roboto+Mono");
-    			add_location(link2, file, 32, 1, 870);
+    			add_location(link2, file, 32, 1, 871);
     			attr_dev(h6, "class", "pl-3 text-white tracking-widest font-thin text-lg");
-    			add_location(h6, file, 44, 2, 1282);
+    			add_location(h6, file, 44, 2, 1283);
     			attr_dev(header, "class", "top-0 w-full items-center flex-wrap flex left-0 z-30 p-0 h-16 shadow bg-primary-300 dark:bg-dark-600 top-0 w-full items-center flex-wrap flex left-0 z-30 p-0 h-16 shadow bg-dark-600 dark:bg-dark-600");
-    			add_location(header, file, 41, 1, 1060);
-    			add_location(main, file, 38, 0, 976);
+    			add_location(header, file, 41, 1, 1061);
+    			add_location(main, file, 38, 0, 977);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -17001,7 +16999,7 @@ var app = (function () {
     	let showPlayerEntry = true;
     	let { players = [] } = $$props;
 
-    	for (let i = 0; i < 5; i++) {
+    	for (let i = 0; i < 50; i++) {
     		players.push({
     			name: `Player ${i}`,
     			id: getPlayerId(),

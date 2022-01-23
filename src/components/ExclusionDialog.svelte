@@ -98,19 +98,18 @@
 <Dialog bind:value={showDialog}>
 	<h5 slot="title">Select Exclusions</h5>
 
-	<div class="text-gray-700">
-		<div class="list">
-			{#each players as player}
-				{#if player.name.length && player.id !== playerId}
-					<Checkbox
-						checked={isChecked(player.id)}
-						indeterminate={isIndeterminate(player.id)}
-						on:change={() => toggleChecked(player.id)}
-						label={player.name}
-					/>
-				{/if}
-			{/each}
-		</div>
+	<div class="exclusion-dialog-content">
+		{#each players as player}
+			{#if player.name.length && player.id !== playerId}
+				<Checkbox
+					classes={(classes) => classes + " w-full select-none"}
+					checked={isChecked(player.id)}
+					indeterminate={isIndeterminate(player.id)}
+					on:change={() => toggleChecked(player.id)}
+					label={player.name}
+				/>
+			{/if}
+		{/each}
 	</div>
 
 	<div slot="actions">
@@ -132,8 +131,8 @@
 </Dialog>
 
 <style>
-	.list {
-		display: flex;
-		flex-direction: column;
+	.exclusion-dialog-content {
+		max-height: 80vh;
+		overflow: auto;
 	}
 </style>

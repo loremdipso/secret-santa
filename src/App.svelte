@@ -10,7 +10,7 @@
 
 	let showPlayerEntry = true;
 	export let players: IPlayer[] = [];
-	for (let i = 0; i < 5; i++) {
+	for (let i = 0; i < 50; i++) {
 		players.push({
 			name: `Player ${i}`,
 			id: getPlayerId(),
