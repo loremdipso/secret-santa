@@ -1,19 +1,13 @@
 <script lang="ts">
-	import PlayerRow from "./PlayerRow.svelte";
-	import type { IPair, IPlayer, IResultPair } from "../interfaces";
-	import { getMatchups, getPlayerId } from "../helpers";
+	import { createEventDispatcher } from "svelte";
 	import Button from "smelte/src/components/Button";
 
-	export let players: IPlayer[];
-	export let showPlayerEntry: boolean;
-	export let matchups: IResultPair[];
+	import PlayerRow from "./PlayerRow.svelte";
+	import type { IPlayer } from "../interfaces";
+	import { getPlayerId } from "../helpers";
+	import ActionBar from "./ActionBar.svelte";
 
-	let showImport = false;
-	let fileVar;
-	function submitForm() {
-		event.preventDefault();
-		showImport = false;
-	}
+	export let players: IPlayer[];
 
 	function removeUnusedExclusions() {
 		for (let player of players) {
@@ -47,10 +41,7 @@
 		return true;
 	}
 
-	function doCalculate() {
-		showPlayerEntry = false;
-		matchups = getMatchups(players, true);
-	}
+	let dispatch = createEventDispatcher();
 
 	let canCalculate = false;
 	$: {
@@ -67,12 +58,12 @@
 	}
 </script>
 
-<div class="actions-bar">
+<ActionBar>
 	<Button
 		variant="unelevated"
 		color="secondary"
 		disabled={!canCalculate}
-		on:click={() => doCalculate()}
+		on:click={() => dispatch("calculate")}
 	>
 		Calculate
 	</Button>
@@ -80,11 +71,11 @@
 	<Button
 		variant="unelevated"
 		color="secondary"
-		on:click={() => (showImport = true)}
+		on:click={() => dispatch("import")}
 	>
 		<span>Import</span>
 	</Button>
-</div>
+</ActionBar>
 
 {#each players as player (player.id)}
 	<PlayerRow
@@ -93,22 +84,3 @@
 		on:removePlayer={(event) => removePlayer(event.detail)}
 	/>
 {/each}
-
-{#if showImport}
-	<form on:submit={submitForm}>
-		<input type="file" bind:files={fileVar} />
-		<input type="submit" />
-	</form>
-{/if}
-
-<style>
-	.actions-bar {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-	}
-
-	.actions-bar > :global(*) {
-		margin-right: 5px;
-	}
-</style>

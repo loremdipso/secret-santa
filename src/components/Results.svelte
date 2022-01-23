@@ -1,9 +1,12 @@
 <script lang="ts">
+	import { createEventDispatcher } from "svelte";
 	import Button from "smelte/src/components/Button";
 	import TextField from "smelte/src/components/TextField";
 	import Tabs from "smelte/src/components/Tabs";
+
 	import type { IPlayer, IEntry, IResultPair } from "../interfaces";
 	import { calculateLinkUrl, getMatchups, playerIsEmpty } from "../helpers";
+	import ActionBar from "./ActionBar.svelte";
 
 	export let players: IPlayer[];
 	export let matchups: IResultPair[];
@@ -27,12 +30,7 @@
 		return rv;
 	}
 
-	let subjectLine: string = "";
-
-	function doRecalculate() {
-		let temp = getMatchups(players, true);
-		console.log(temp);
-	}
+	let subjectLine: string = "Secret Santa";
 
 	function doExport() {
 		// TODO
@@ -59,9 +57,11 @@
 		}
 		return rv;
 	}
+
+	let dispatch = createEventDispatcher();
 </script>
 
-<div class="actions-bar">
+<ActionBar>
 	<div>
 		<TextField
 			style="width: 100%"
@@ -82,7 +82,7 @@
 		<Button
 			variant="unelevated"
 			color="secondary"
-			on:click={() => doRecalculate()}
+			on:click={() => dispatch("calculate")}
 		>
 			Recalculate
 		</Button>
@@ -90,12 +90,12 @@
 		<Button
 			variant="unelevated"
 			color="secondary"
-			on:click={() => doExport()}
+			on:click={() => dispatch("export")}
 		>
 			Export
 		</Button>
 	</div>
-</div>
+</ActionBar>
 
 <!-- <Tabs
 	selected="1"

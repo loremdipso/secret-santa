@@ -1,8 +1,8 @@
-export type VERSION = 0.1;
+export const VERSION = 1;
 
 export interface IData {
 	players: IPlayer[];
-	version: VERSION;
+	version: number;
 }
 
 export interface IPlayer {
@@ -20,13 +20,6 @@ export interface IPair {
 
 export interface IResultPair extends IPair {
 	visible?: boolean;
-}
-
-export interface IImportFile {
-	version: number,
-	people: IPlayer[],
-	bad_pairs: string[][],
-	previous_matchups: string[][]
 }
 
 export interface IEntry {

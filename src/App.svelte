@@ -1,34 +1,53 @@
 <script lang="ts">
-	import Button from "smelte/src/components/Button";
-	import dark from "smelte/src/dark";
-
+	import Toast from "./components/Toast.svelte";
 	import GithubCorner from "./components/GithubCorner.svelte";
 	import PlayerEntry from "./components/PlayerEntry.svelte";
 	import Results from "./components/Results.svelte";
+	import DarkModeButton from "./components/DarkModeButton.svelte";
+
 	import type { IPlayer, IResultPair } from "./interfaces";
-	import { getPlayerId } from "./helpers";
+	import { generateRandomPlayers, getMatchups } from "./helpers";
+	import { parseFile } from "./importer";
 
 	let showPlayerEntry = true;
 	let matchups: IResultPair[] = [];
 
-	export let players: IPlayer[] = [];
-	for (let i = 0; i < 5; i++) {
-		players.push({
-			name: `Player ${i}`,
-			id: getPlayerId(),
-			exclusions: [],
-			email: "",
-			address: "",
-		});
+	function doCalculate() {
+		// TODO: show loading graphic? Or will it just freeze?
+		showPlayerEntry = false;
+		matchups = getMatchups(players, true);
 	}
 
-	for (let i = 0; i < players.length - 1; i++) {
-		let player = players[i];
-		let nextPlayer = players[i + 1];
-		player.exclusions.push(nextPlayer.id);
+	export let players: IPlayer[] = generateRandomPlayers(10);
+
+	let toast: Toast;
+
+	// Import/Export
+	let fileVar;
+	$: {
+		let file = fileVar && fileVar[0];
+		if (file) {
+			const reader = new FileReader();
+			reader.onload = (e) => {
+				let result = parseFile(e.target.result as string);
+				if (result.hasValue) {
+					players = result.value;
+				} else if (result.hasValue === false) {
+					toast.pop(result.error);
+				}
+			};
+			reader.readAsText(file);
+		}
 	}
 
-	const darkMode = dark();
+	let fileInput: HTMLElement;
+	function doImport() {
+		fileInput.click();
+	}
+
+	function doExport() {
+		// TODO
+	}
 </script>
 
 <svelte:head>
@@ -59,15 +78,45 @@
 			Secret Santa
 		</h6>
 
-		<Button bind:value={$darkMode}>Toggle dark mode</Button>
+		<DarkModeButton />
 	</header>
 
+	<input
+		bind:this={fileInput}
+		class="hidden"
+		type="file"
+		bind:files={fileVar}
+		accept=".json"
+	/>
+
+	<Toast bind:this={toast} />
+
 	{#if showPlayerEntry}
-		<PlayerEntry bind:showPlayerEntry bind:players bind:matchups />
+		<PlayerEntry
+			bind:players
+			on:calculate={doCalculate}
+			on:import={doImport}
+		/>
 	{:else}
-		<Results bind:showPlayerEntry bind:players bind:matchups />
+		<Results
+			bind:players
+			bind:matchups
+			bind:showPlayerEntry
+			on:calculate={doCalculate}
+			on:export={doExport}
+		/>
 	{/if}
 </main>
 
 <style>
+	:global(.actions-bar) {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		background-color: blue;
+	}
+
+	:global(.actions-bar > *) {
+		margin-right: 5px;
+	}
 </style>

@@ -189,6 +189,26 @@ export function getMatchupsString(matchups: IPair[], players: IPlayer[]): string
 		.join("\n\n");
 }
 
+export function generateRandomPlayers(count: number): IPlayer[] {
+	let players: IPlayer[] = [];
+	for (let i = 0; i < count; i++) {
+		players.push({
+			name: `Player ${i}`,
+			id: getPlayerId(),
+			exclusions: [],
+			email: "",
+			address: "",
+		});
+	}
+
+	for (let i = 0; i < players.length - 1; i++) {
+		let player = players[i];
+		let nextPlayer = players[i + 1];
+		player.exclusions.push(nextPlayer.id);
+	}
+	return players;
+}
+
 // Thanks https://stackoverflow.com/a/12646864 !!!
 function shuffleArray<T>(array: T[]): T[] {
 	for (let i = array.length - 1; i > 0; i--) {
