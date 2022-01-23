@@ -3,6 +3,19 @@
 	import dark from "smelte/src/dark";
 
 	const darkMode = dark();
+	let icon: "dark_mode" | "light_mode";
+	function setIcon(value: boolean) {
+		if (value) {
+			icon = "light_mode";
+		} else {
+			icon = "dark_mode";
+		}
+	}
+	setIcon(true);
+
+	darkMode.subscribe((value) => {
+		setIcon(value);
+	});
 </script>
 
-<Button bind:value={$darkMode}>Toggle dark mode</Button>
+<Button bind:value={$darkMode} {icon} small title="Toggle dark mode" />

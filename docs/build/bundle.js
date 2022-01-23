@@ -1931,7 +1931,7 @@ var app = (function () {
     			props: {
     				class: /*iClasses*/ ctx[7],
     				small: /*small*/ ctx[4],
-    				$$slots: { default: [create_default_slot$9] },
+    				$$slots: { default: [create_default_slot$8] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -1982,7 +1982,7 @@ var app = (function () {
     }
 
     // (148:8) <Icon class={iClasses} {small}>
-    function create_default_slot$9(ctx) {
+    function create_default_slot$8(ctx) {
     	let t;
 
     	const block_1 = {
@@ -2002,7 +2002,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block: block_1,
-    		id: create_default_slot$9.name,
+    		id: create_default_slot$8.name,
     		type: "slot",
     		source: "(148:8) <Icon class={iClasses} {small}>",
     		ctx
@@ -3116,7 +3116,7 @@ var app = (function () {
     	button = new Button({
     			props: {
     				text: true,
-    				$$slots: { default: [create_default_slot$8] },
+    				$$slots: { default: [create_default_slot$7] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -3167,7 +3167,7 @@ var app = (function () {
     }
 
     // (128:14) <Button text on:click={() => value = false}>
-    function create_default_slot$8(ctx) {
+    function create_default_slot$7(ctx) {
     	let t;
 
     	const block = {
@@ -3184,7 +3184,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot$8.name,
+    		id: create_default_slot$7.name,
     		type: "slot",
     		source: "(128:14) <Button text on:click={() => value = false}>",
     		ctx
@@ -3742,7 +3742,7 @@ var app = (function () {
     const file$f = "src/components/Toast.svelte";
 
     // (11:0) <Snackbar top color="alert" bind:value={showSnackbar}>
-    function create_default_slot$7(ctx) {
+    function create_default_slot$6(ctx) {
     	let div;
     	let t;
 
@@ -3766,7 +3766,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot$7.name,
+    		id: create_default_slot$6.name,
     		type: "slot",
     		source: "(11:0) <Snackbar top color=\\\"alert\\\" bind:value={showSnackbar}>",
     		ctx
@@ -3787,7 +3787,7 @@ var app = (function () {
     	let snackbar_props = {
     		top: true,
     		color: "alert",
-    		$$slots: { default: [create_default_slot$7] },
+    		$$slots: { default: [create_default_slot$6] },
     		$$scope: { ctx }
     	};
 
@@ -5509,7 +5509,7 @@ var app = (function () {
     }
 
     // (229:8) <Icon           reverse={prependReverse}           class="{focused ? txt() : ""} {iconClass}"         >
-    function create_default_slot$6(ctx) {
+    function create_default_slot$5(ctx) {
     	let t;
 
     	const block = {
@@ -5529,7 +5529,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot$6.name,
+    		id: create_default_slot$5.name,
     		type: "slot",
     		source: "(229:8) <Icon           reverse={prependReverse}           class=\\\"{focused ? txt() : \\\"\\\"} {iconClass}\\\"         >",
     		ctx
@@ -5547,7 +5547,7 @@ var app = (function () {
     			props: {
     				reverse: /*prependReverse*/ ctx[16],
     				class: "" + ((/*focused*/ ctx[1] ? /*txt*/ ctx[27]() : "") + " " + /*iconClass*/ ctx[19]),
-    				$$slots: { default: [create_default_slot$6] },
+    				$$slots: { default: [create_default_slot$5] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -7633,7 +7633,7 @@ var app = (function () {
     }
 
     // (67:6) <Ripple color={rippleColor}>
-    function create_default_slot$5(ctx) {
+    function create_default_slot$4(ctx) {
     	let current_block_type_index;
     	let if_block;
     	let if_block_anchor;
@@ -7703,7 +7703,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot$5.name,
+    		id: create_default_slot$4.name,
     		type: "slot",
     		source: "(67:6) <Ripple color={rippleColor}>",
     		ctx
@@ -7782,7 +7782,7 @@ var app = (function () {
     	ripple = new Ripple({
     			props: {
     				color: /*rippleColor*/ ctx[7],
-    				$$slots: { default: [create_default_slot$5] },
+    				$$slots: { default: [create_default_slot$4] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -15617,7 +15617,7 @@ var app = (function () {
     }
 
     // (112:2) <Button    text    on:click={() => {     // TODO: does it matter the order here?     updatePlayerExclusions();     showDialog = false;    }}    variant="raised"   >
-    function create_default_slot$4(ctx) {
+    function create_default_slot$3(ctx) {
     	let t;
 
     	const block = {
@@ -15634,7 +15634,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot$4.name,
+    		id: create_default_slot$3.name,
     		type: "slot",
     		source: "(112:2) <Button    text    on:click={() => {     // TODO: does it matter the order here?     updatePlayerExclusions();     showDialog = false;    }}    variant=\\\"raised\\\"   >",
     		ctx
@@ -15667,7 +15667,7 @@ var app = (function () {
     			props: {
     				text: true,
     				variant: "raised",
-    				$$slots: { default: [create_default_slot$4] },
+    				$$slots: { default: [create_default_slot$3] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -16151,7 +16151,7 @@ var app = (function () {
     }
 
     // (67:5) <Button       size="button"       title="Remove this exclusion"       on:click={() => remove_exclusion(exclusion)}       icon="close"      >
-    function create_default_slot$3(ctx) {
+    function create_default_slot$2(ctx) {
     	let t_value = (findPlayerById(/*players*/ ctx[1], /*exclusion*/ ctx[15])?.name || "BAD EXCLUSION") + "";
     	let t;
 
@@ -16172,7 +16172,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot$3.name,
+    		id: create_default_slot$2.name,
     		type: "slot",
     		source: "(67:5) <Button       size=\\\"button\\\"       title=\\\"Remove this exclusion\\\"       on:click={() => remove_exclusion(exclusion)}       icon=\\\"close\\\"      >",
     		ctx
@@ -16197,7 +16197,7 @@ var app = (function () {
     				size: "button",
     				title: "Remove this exclusion",
     				icon: "close",
-    				$$slots: { default: [create_default_slot$3] },
+    				$$slots: { default: [create_default_slot$2] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -16979,7 +16979,7 @@ var app = (function () {
     }
 
     // (48:0) <ActionBar>
-    function create_default_slot$2(ctx) {
+    function create_default_slot$1(ctx) {
     	let button0;
     	let t;
     	let button1;
@@ -17059,7 +17059,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot$2.name,
+    		id: create_default_slot$1.name,
     		type: "slot",
     		source: "(48:0) <ActionBar>",
     		ctx
@@ -17151,7 +17151,7 @@ var app = (function () {
 
     	actionbar = new ActionBar({
     			props: {
-    				$$slots: { default: [create_default_slot$2] },
+    				$$slots: { default: [create_default_slot$1] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -17480,7 +17480,7 @@ var app = (function () {
     }
 
     // (50:0) <ActionBar>
-    function create_default_slot$1(ctx) {
+    function create_default_slot(ctx) {
     	let div0;
     	let textfield;
     	let updating_value;
@@ -17631,7 +17631,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot$1.name,
+    		id: create_default_slot.name,
     		type: "slot",
     		source: "(50:0) <ActionBar>",
     		ctx
@@ -17646,7 +17646,7 @@ var app = (function () {
 
     	actionbar = new ActionBar({
     			props: {
-    				$$slots: { default: [create_default_slot$1] },
+    				$$slots: { default: [create_default_slot] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -17922,49 +17922,23 @@ var app = (function () {
 
     /* src/components/DarkModeButton.svelte generated by Svelte v3.46.2 */
 
-    // (6:0) <Button bind:value={$darkMode}>
-    function create_default_slot(ctx) {
-    	let t;
-
-    	const block = {
-    		c: function create() {
-    			t = text("Toggle dark mode");
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, t, anchor);
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(t);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_default_slot.name,
-    		type: "slot",
-    		source: "(6:0) <Button bind:value={$darkMode}>",
-    		ctx
-    	});
-
-    	return block;
-    }
-
     function create_fragment$1(ctx) {
     	let button;
     	let updating_value;
     	let current;
 
     	function button_value_binding(value) {
-    		/*button_value_binding*/ ctx[2](value);
+    		/*button_value_binding*/ ctx[3](value);
     	}
 
     	let button_props = {
-    		$$slots: { default: [create_default_slot] },
-    		$$scope: { ctx }
+    		icon: /*icon*/ ctx[0],
+    		small: true,
+    		title: "Toggle dark mode"
     	};
 
-    	if (/*$darkMode*/ ctx[0] !== void 0) {
-    		button_props.value = /*$darkMode*/ ctx[0];
+    	if (/*$darkMode*/ ctx[1] !== void 0) {
+    		button_props.value = /*$darkMode*/ ctx[1];
     	}
 
     	button = new Button({ props: button_props, $$inline: true });
@@ -17983,14 +17957,11 @@ var app = (function () {
     		},
     		p: function update(ctx, [dirty]) {
     			const button_changes = {};
+    			if (dirty & /*icon*/ 1) button_changes.icon = /*icon*/ ctx[0];
 
-    			if (dirty & /*$$scope*/ 8) {
-    				button_changes.$$scope = { dirty, ctx };
-    			}
-
-    			if (!updating_value && dirty & /*$darkMode*/ 1) {
+    			if (!updating_value && dirty & /*$darkMode*/ 2) {
     				updating_value = true;
-    				button_changes.value = /*$darkMode*/ ctx[0];
+    				button_changes.value = /*$darkMode*/ ctx[1];
     				add_flush_callback(() => updating_value = false);
     			}
 
@@ -18027,7 +17998,23 @@ var app = (function () {
     	validate_slots('DarkModeButton', slots, []);
     	const darkMode = dark();
     	validate_store(darkMode, 'darkMode');
-    	component_subscribe($$self, darkMode, value => $$invalidate(0, $darkMode = value));
+    	component_subscribe($$self, darkMode, value => $$invalidate(1, $darkMode = value));
+    	let icon;
+
+    	function setIcon(value) {
+    		if (value) {
+    			$$invalidate(0, icon = "light_mode");
+    		} else {
+    			$$invalidate(0, icon = "dark_mode");
+    		}
+    	}
+
+    	setIcon(true);
+
+    	darkMode.subscribe(value => {
+    		setIcon(value);
+    	});
+
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
@@ -18039,8 +18026,24 @@ var app = (function () {
     		darkMode.set($darkMode);
     	}
 
-    	$$self.$capture_state = () => ({ Button, dark, darkMode, $darkMode });
-    	return [$darkMode, darkMode, button_value_binding];
+    	$$self.$capture_state = () => ({
+    		Button,
+    		dark,
+    		darkMode,
+    		icon,
+    		setIcon,
+    		$darkMode
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('icon' in $$props) $$invalidate(0, icon = $$props.icon);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [icon, $darkMode, darkMode, button_value_binding];
     }
 
     class DarkModeButton extends SvelteComponentDev {
@@ -18343,13 +18346,13 @@ var app = (function () {
     			attr_dev(link2, "href", "https://fonts.googleapis.com/css?family=Roboto+Mono");
     			add_location(link2, file, 55, 1, 1520);
     			attr_dev(h6, "class", "pl-3 text-white tracking-widest font-thin text-lg");
-    			add_location(h6, file, 67, 2, 1932);
-    			attr_dev(header, "class", "top-0 w-full items-center flex-wrap flex left-0 z-30 p-0 h-16 shadow bg-primary-300 dark:bg-dark-600 top-0 w-full items-center flex-wrap flex left-0 z-30 p-0 h-16 shadow bg-dark-600 dark:bg-dark-600");
+    			add_location(h6, file, 67, 2, 1948);
+    			attr_dev(header, "class", "justify-between top-0 w-full items-center flex-wrap flex left-0 z-30 p-0 h-16 shadow bg-primary-300 dark:bg-dark-600 top-0 w-full items-center flex-wrap flex left-0 z-30 p-0 h-16 shadow bg-dark-600 dark:bg-dark-600");
     			add_location(header, file, 64, 1, 1710);
     			attr_dev(input, "class", "hidden");
     			attr_dev(input, "type", "file");
     			attr_dev(input, "accept", ".json");
-    			add_location(input, file, 74, 1, 2054);
+    			add_location(input, file, 74, 1, 2070);
     			add_location(main, file, 61, 0, 1626);
     		},
     		l: function claim(nodes) {
