@@ -1,22 +1,27 @@
 <script lang="ts">
-	import DataTable from "smelte/src/components/DataTable";
 	import type { IEntry } from "../../interfaces";
 	export let entries: IEntry[];
 </script>
 
-<DataTable
-	data={entries}
-	columns={[
-		{
-			field: "name",
-			class: "md:w-10",
-			value: (entry) => entry.player.name,
-		},
-		{
-			field: "url",
-			class: "md:w-10",
-			value: (entry) => entry.url,
-			headerRemove: "justify-end",
-		},
-	]}
-/>
+<table>
+	<thead>
+		<th>Name</th>
+		<th>Url</th>
+	</thead>
+	<tbody>
+		{#each entries as entry}
+			<tr>
+				<td>
+					{entry.player.name}
+				</td>
+
+				<td
+					title={entry.url}
+					class="overflow-hidden overflow-ellipsis max-w-md"
+				>
+					<a href={entry.url}>{entry.url}</a>
+				</td>
+			</tr>
+		{/each}
+	</tbody>
+</table>
