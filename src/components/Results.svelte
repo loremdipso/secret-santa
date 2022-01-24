@@ -9,8 +9,11 @@
 	import { Tab } from "smelte";
 
 	import type { IPlayer, IEntry, IResultPair } from "../interfaces";
-	import { calculateLinkUrl, getMatchups, playerIsEmpty } from "../helpers";
+	import { calculateLinkUrl, playerIsEmpty } from "../helpers";
 	import ActionBar from "./ActionBar.svelte";
+	import RawLinksView from "./ResultsViews/RawLinksView.svelte";
+	import LinksView from "./ResultsViews/LinksView.svelte";
+	import EmailView from "./ResultsViews/EmailView.svelte";
 
 	export let players: IPlayer[];
 	export let matchups: IResultPair[];
@@ -20,7 +23,6 @@
 	const RAW_LINKS_VIEW = { id: "2", text: "Raw links view" };
 	const EMAIL_VIEW = { id: "3", text: "Email view" };
 	const items = [LINKS_VIEW, RAW_LINKS_VIEW, EMAIL_VIEW];
-	let selected;
 
 	let active: string = LINKS_VIEW.id;
 
@@ -38,32 +40,6 @@
 
 	let subjectLine: string = "Secret Santa";
 
-	function doExport() {
-		// TODO
-	}
-
-	function copyToClipboard() {
-		// TODO
-	}
-
-	function showAll() {
-		// TODO
-	}
-
-	function getRawTextContent(): string {
-		let rv = "";
-		for (let i = 0; i < entries.length; i++) {
-			let entry = entries[i];
-			if (i > 0) {
-				rv += "\n\n";
-			}
-			rv += entry.player.name;
-			rv += "\n";
-			rv += entry.url;
-		}
-		return rv;
-	}
-
 	let dispatch = createEventDispatcher();
 </script>
 
@@ -76,7 +52,7 @@
 		/>
 	</div>
 
-	<div>
+	<div class="flex flex-wrap justify-around flex-col sm:flex-row">
 		<Button
 			variant="unelevated"
 			color="secondary"
@@ -104,63 +80,15 @@
 </ActionBar>
 
 <Tabs selected="1" let:selected bind:active {items}>
-	<div slot="content">
+	<div slot="content" class="absolute w-full p-2 whitespace-pre">
 		<Tab id={LINKS_VIEW.id} {selected}>
-			<table>
-				<tr>
-					<th>Gifter</th>
-					<th>Link</th>
-				</tr>
-				{#each entries as entry}
-					<tr>
-						<td>{entry.player.name}</td>
-						<td>
-							<a href={entry.url}>Link</a>
-						</td>
-					</tr>
-				{/each}
-			</table>
+			<LinksView bind:entries />
 		</Tab>
 		<Tab id={RAW_LINKS_VIEW.id} {selected}>
-			<Button
-				variant="unelevated"
-				color="secondary"
-				on:click={() => copyToClipboard()}
-				label="Copy to Clipboard"
-			/>
-			<textarea style="width: 100%; height: 300px"
-				>{getRawTextContent()}</textarea
-			>
+			<RawLinksView bind:entries />
 		</Tab>
 		<Tab id={EMAIL_VIEW.id} {selected}>
-			<Button
-				variant="unelevated"
-				color="secondary"
-				on:click={() => showAll()}
-				label="Show all"
-			/>
-
-			<table>
-				<tr>
-					<th>Gifter</th>
-					<th>Giftee</th>
-				</tr>
-				{#each entries as entry}
-					<tr>
-						<td>{entry.player.name}</td>
-						<td>######</td>
-					</tr>
-				{/each}
-			</table>
+			<EmailView bind:entries />
 		</Tab>
 	</div>
 </Tabs>
-<!-- <style lang="scss">
-	.actions-bar {
-		display: flex;
-		flex-direction: column;
-		> :global(div) {
-			flex-grow: 1;
-		}
-	}
-</style> -->

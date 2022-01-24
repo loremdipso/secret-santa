@@ -73,7 +73,7 @@
 		color="secondary"
 		on:click={() => dispatch("import")}
 	>
-		<span>Import</span>
+		Import
 	</Button>
 </ActionBar>
 

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Toast from "./components/Toast.svelte";
+	import { toaster } from "./components/Toast.svelte";
 	import GithubCorner from "./components/GithubCorner.svelte";
 	import PlayerEntry from "./components/PlayerEntry.svelte";
 	import Results from "./components/Results.svelte";
@@ -20,20 +21,22 @@
 
 	export let players: IPlayer[] = generateRandomPlayers(10);
 
-	let toast: Toast;
+	// TODO: remove
+	doCalculate();
 
 	// Import/Export
 	let fileVar;
 	$: {
 		let file = fileVar && fileVar[0];
 		if (file) {
+			fileVar = null;
 			const reader = new FileReader();
 			reader.onload = (e) => {
 				let result = parseFile(e.target.result as string);
 				if (result.hasValue) {
 					players = result.value;
 				} else if (result.hasValue === false) {
-					toast.pop(result.error);
+					toaster.alert(result.error);
 				}
 			};
 			reader.readAsText(file);
@@ -92,7 +95,7 @@
 		accept=".json"
 	/>
 
-	<Toast bind:this={toast} />
+	<Toast />
 
 	{#if showPlayerEntry}
 		<PlayerEntry
