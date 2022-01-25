@@ -28,9 +28,7 @@
 	}
 </script>
 
-<Button color="secondary" on:click={() => copyToClipboard()}>
-	Copy to Clipboard
-</Button>
+<Button on:click={() => copyToClipboard()}>Copy to Clipboard</Button>
 
 <div class="overflow-auto w-full h-full bg-white text-black">
 	{rawTextContent}

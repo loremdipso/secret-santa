@@ -57,10 +57,9 @@
 			duration: 1000,
 			baseScale: 0.5,
 		}}
-		class="fixed bottom-0 mb-1 mr-1 right-0 z-10 py-2 px-2"
+		class="fixed bottom-0 mb-1 mr-1 right-0 z-30 py-2 px-2"
 	>
 		<Button
-			color="blue"
 			on:click={() => dispatch("import")}
 			icon="file_upload"
 			classes="ml-auto mr-auto m-1"

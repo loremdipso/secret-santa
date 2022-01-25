@@ -19,7 +19,7 @@
 		<Button
 			text
 			on:click={() => {
-				dispatch("export-progressive");
+				dispatch("export-basic");
 				showDialog = false;
 			}}
 		>
@@ -28,7 +28,7 @@
 		<Button
 			color="success"
 			on:click={() => {
-				dispatch("export-basic");
+				dispatch("export-progressive");
 				showDialog = false;
 			}}
 		>

@@ -14,14 +14,13 @@
 	}
 </script>
 
-<div>
-	<TextField
-		style="width: 100%"
-		bind:value={subjectLine}
-		label="Subject line for emails"
-	/>
-	<Button color="secondary" on:click={() => toggleShowAll()}>Show all</Button>
-</div>
+<!-- TODO: implement email support -->
+<!-- <TextField
+	style="width: 100%"
+	bind:value={subjectLine}
+	label="Subject line for emails"
+/> -->
+<Button on:click={() => toggleShowAll()}>Show all</Button>
 
 <table class="table-fixed w-full max-w-3xl border ml-auto mr-auto">
 	<thead>

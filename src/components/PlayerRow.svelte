@@ -64,8 +64,8 @@
 		/>
 
 		<Button
-			color="secondary"
 			title="Select players that this player should not give gifts to"
+			color="success"
 			on:click={() => {
 				showExclusionDialog = true;
 				currentPlayerId = player.id;

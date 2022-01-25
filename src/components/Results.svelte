@@ -9,14 +9,14 @@
 	// import Tab from "smelte/src/components/Tabs/Tab";
 	import { Tab } from "smelte";
 
-	import type { IPlayer, IEntry, IResultPair } from "../interfaces";
+	import type { IPlayer, IEntry, IResultPair, IData } from "../interfaces";
+	import { VERSION } from "../interfaces";
 	import {
 		calculateLinkUrl,
 		findPlayerById,
 		playerIsEmpty,
 	} from "../helpers";
 	import RawLinksView from "./ResultsViews/RawLinksView.svelte";
-	import LinksView from "./ResultsViews/LinksView.svelte";
 	import EmailView from "./ResultsViews/EmailView.svelte";
 	import { toaster } from "../common/Toast.svelte";
 	import { saveDataToFile } from "../common/misc";
@@ -29,12 +29,11 @@
 
 	let showExportDialog: boolean = false;
 
-	const LINKS_VIEW = { id: "1", text: "Links view" };
-	const RAW_LINKS_VIEW = { id: "2", text: "Raw links view" };
-	const EMAIL_VIEW = { id: "3", text: "Email view" };
-	const items = [LINKS_VIEW, RAW_LINKS_VIEW, EMAIL_VIEW];
+	const EMAIL_VIEW = { id: "3", text: "Table" };
+	const RAW_LINKS_VIEW = { id: "2", text: "Plaintext" };
+	const items = [EMAIL_VIEW, RAW_LINKS_VIEW];
 
-	let selected: string = LINKS_VIEW.id;
+	let selected: string = EMAIL_VIEW.id;
 
 	function generateEntries(matchups: IResultPair[]): IEntry[] {
 		let rv = [];
@@ -56,39 +55,58 @@
 	}
 
 	function exportResults(exportType: ExportType) {
-		const filename = "test.json";
-		const data = "yo";
-		// TODO: this
-		saveDataToFile(filename, data);
+		const filename = `secret_santa_${
+			new Date().toISOString().split("T")[0]
+		}.json`;
+		let tempPlayers = players;
+		if (exportType === ExportType.PROGRESSIVE) {
+			// first, deep-clone the players so we don't muck them up
+			tempPlayers = JSON.parse(JSON.stringify(players));
+
+			// add the new exclusions
+			for (const matchup of matchups) {
+				for (const player of tempPlayers) {
+					if (player.id === matchup.a) {
+						// poor man's sort-and-unique
+						player.exclusions = player.exclusions
+							.sort()
+							.filter((el, i, a) => i === a.indexOf(el));
+						if (player.exclusions.indexOf(matchup.b) === -1) {
+							player.exclusions.push(matchup.b);
+						}
+						break;
+					}
+				}
+			}
+		}
+
+		const data: IData = {
+			version: VERSION,
+			// TODO: there's gotta be an easier way to exclude the empty one
+			players: tempPlayers.slice(0, tempPlayers.length - 1),
+		};
+
+		saveDataToFile(filename, JSON.stringify(data));
 	}
 
 	$: entries = generateEntries(matchups);
 </script>
 
 <div class="flex flex-wrap justify-around flex-col sm:flex-row p-5 bg-dark-900">
-	<Button color="secondary" on:click={() => (showPlayerEntry = true)}>
-		Back to Edit
-	</Button>
+	<Button on:click={() => (showPlayerEntry = true)}>Back to Edit</Button>
 
-	<Button color="secondary" on:click={() => dispatch("calculate")}>
-		Recalculate
-	</Button>
+	<Button on:click={() => dispatch("calculate")}>Recalculate</Button>
 
-	<Button color="secondary" on:click={() => (showExportDialog = true)}>
-		Export
-	</Button>
+	<Button on:click={() => (showExportDialog = true)}>Export</Button>
 </div>
 
 <Tabs bind:selected {items}>
 	<div slot="content" class="absolute w-full p-2 whitespace-pre">
-		<Tab id={LINKS_VIEW.id} {selected}>
-			<LinksView bind:entries />
+		<Tab id={EMAIL_VIEW.id} {selected}>
+			<EmailView bind:entries />
 		</Tab>
 		<Tab id={RAW_LINKS_VIEW.id} {selected}>
 			<RawLinksView bind:entries />
-		</Tab>
-		<Tab id={EMAIL_VIEW.id} {selected}>
-			<EmailView bind:entries />
 		</Tab>
 	</div>
 </Tabs>
