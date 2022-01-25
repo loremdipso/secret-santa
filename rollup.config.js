@@ -54,8 +54,6 @@ export default {
 			}
 		}),
 
-		// we'll extract any component CSS out into
-		// a separate file - better for performance
 		scss({
 			output: 'docs/build/bundle.css',
 			failOnError: true,
@@ -67,7 +65,28 @@ export default {
 			output: "docs/global.css", // it defaults to static/global.css which is probably what you expect in Sapper
 			postcss: [], // Your PostCSS plugins
 			whitelist: [], // Array of classnames whitelisted from purging
-			whitelistPatterns: [], // Same as above, but list of regexes
+			// whitelistPatterns: [
+			// 	/mode-dark/,
+			// 	/bg-/,
+			// 	/bg-primary-/,
+			// 	/bg-secondary-/,
+			// 	/bg-error-/,
+			// 	/bg-success-/,
+			// 	/bg-alert-/,
+			// 	/.*bg-blue-.*/,
+			// 	/bg-dark-/,
+			// ], // Same as above, but list of regexes
+			// whitelistPatternsChildren: [
+			// 	/mode-dark/,
+			// 	/^bg-/,
+			// 	/bg-primary-/,
+			// 	/bg-secondary-/,
+			// 	/bg-error-/,
+			// 	/bg-success-/,
+			// 	/bg-alert-/,
+			// 	/.*bg-blue-.*/,
+			// 	/bg-dark-/,
+			// ], // Same as above, but list of regexes
 			tailwind: {
 				colors: {
 					primary: "#b027b0",

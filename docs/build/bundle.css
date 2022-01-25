@@ -57,11 +57,6 @@ svg.svelte-kxzpd6.svelte-kxzpd6 {
 .dialog-content.svelte-tohqoc > p.svelte-tohqoc {
   padding-bottom: 0.5rem; }
 
-.dialog-content.svelte-hpe349 {
-  max-height: 80vh;
-  max-width: 30rem;
-  overflow: auto; }
-
 .player-row-container.svelte-fbgnpv {
   display: flex;
   flex-direction: row;
@@ -88,6 +83,11 @@ svg.svelte-kxzpd6.svelte-kxzpd6 {
   top: 0;
   z-index: 1;
   transform: translateY(-25%) translateX(25%); }
+
+.dialog-content.svelte-hpe349 {
+  max-height: 80vh;
+  max-width: 30rem;
+  overflow: auto; }
 
 .exclusion-dialog-content.svelte-ze1cnl {
   max-height: 80vh;

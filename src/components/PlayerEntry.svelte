@@ -25,30 +25,28 @@
 		removeUnusedExclusions();
 	}
 
-	function isValid(): boolean {
-		// can't have a game with fewer than 3 entries (one is null)
-		if (players.length < 3) {
-			return false;
-		}
-
-		for (let i = 0; i < players.length - 1; i++) {
-			let player = players[i];
-			if (player.name.length === 0) {
-				return false;
-			}
-			// TODO: validate email if it's provided
-		}
-
-		return true;
-	}
-
 	let dispatch = createEventDispatcher();
 
 	let ready = false;
 	onMount(() => (ready = true));
 
 	let canCalculate = false;
-	$: canCalculate = isValid();
+	$: {
+		// can't have a game with fewer than 3 entries (one is null)
+		if (players.length < 3) {
+			canCalculate = false;
+		} else {
+			canCalculate = true;
+			for (let i = 0; i < players.length - 1; i++) {
+				let player = players[i];
+				if (player.name.length === 0) {
+					canCalculate = false;
+					break;
+				}
+				// TODO: validate email if it's provided
+			}
+		}
+	}
 </script>
 
 <!-- Hack to get animations to work on page load -->
