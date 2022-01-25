@@ -72,25 +72,24 @@
 				currentPlayerId = player.id;
 			}}
 		>
-			Who can I give presents to?
+			Who should I <b>not</b> give gifts to?
 		</Button>
 	</div>
 
-	<div class="exclusions-container flex flex-col bg-black grow p-5">
+	<div class="exclusions-container flex flex-col bg-black grow p-3">
 		<h5>Exclusions</h5>
 		<div class="flex flex-row">
 			{#each player.exclusions as exclusion}
-				<div>
-					<Button
-						size="button"
-						title="Remove this exclusion"
-						on:click={() => remove_exclusion(exclusion)}
-						icon="close"
-					>
-						{findPlayerById(players, exclusion)?.name ||
-							"BAD EXCLUSION"}
-					</Button>
-				</div>
+				<Button
+					title="Remove this exclusion"
+					remove="p-4"
+					replace={{ "px-4": "p-2" }}
+					on:click={() => remove_exclusion(exclusion)}
+					icon="close"
+				>
+					{findPlayerById(players, exclusion)?.name ||
+						"BAD EXCLUSION"}
+				</Button>
 			{/each}
 		</div>
 	</div>

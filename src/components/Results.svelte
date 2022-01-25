@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte";
 	import Button from "smelte/src/components/Button";
-	// import Tabs from "smelte/src/components/Tabs";
-	import Tabs from "./Tabs/Tabs.svelte";
+	import Tabs from "../common/Tabs/Tabs.svelte";
 
 	// TODO: why doesn't this import work?
 	// import Tab from "smelte/src/components/Tabs/Tab";
@@ -14,11 +13,10 @@
 		findPlayerById,
 		playerIsEmpty,
 	} from "../helpers";
-	import ActionBar from "./ActionBar.svelte";
 	import RawLinksView from "./ResultsViews/RawLinksView.svelte";
 	import LinksView from "./ResultsViews/LinksView.svelte";
 	import EmailView from "./ResultsViews/EmailView.svelte";
-	import { toaster } from "./Toast.svelte";
+	import { toaster } from "../common/Toast.svelte";
 
 	let dispatch = createEventDispatcher();
 
@@ -50,33 +48,31 @@
 	$: entries = generateEntries(matchups);
 </script>
 
-<ActionBar>
-	<div class="flex flex-wrap justify-around flex-col sm:flex-row">
-		<Button
-			variant="unelevated"
-			color="secondary"
-			on:click={() => (showPlayerEntry = true)}
-		>
-			Back to Edit
-		</Button>
+<div class="flex flex-wrap justify-around flex-col sm:flex-row p-5 bg-dark-900">
+	<Button
+		variant="unelevated"
+		color="secondary"
+		on:click={() => (showPlayerEntry = true)}
+	>
+		Back to Edit
+	</Button>
 
-		<Button
-			variant="unelevated"
-			color="secondary"
-			on:click={() => dispatch("calculate")}
-		>
-			Recalculate
-		</Button>
+	<Button
+		variant="unelevated"
+		color="secondary"
+		on:click={() => dispatch("calculate")}
+	>
+		Recalculate
+	</Button>
 
-		<Button
-			variant="unelevated"
-			color="secondary"
-			on:click={() => dispatch("export")}
-		>
-			Export
-		</Button>
-	</div>
-</ActionBar>
+	<Button
+		variant="unelevated"
+		color="secondary"
+		on:click={() => dispatch("export")}
+	>
+		Export
+	</Button>
+</div>
 
 <Tabs bind:selected {items}>
 	<div slot="content" class="absolute w-full p-2 whitespace-pre">

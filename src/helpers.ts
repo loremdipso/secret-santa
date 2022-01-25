@@ -206,7 +206,21 @@ export function generateRandomPlayers(count: number): IPlayer[] {
 		let nextPlayer = players[i + 1];
 		player.exclusions.push(nextPlayer.id);
 	}
+
+	// tack on an empty player at the end
+	players.push(getEmptyPlayer());
+
 	return players;
+}
+
+export function getEmptyPlayer(): IPlayer {
+	return {
+		name: "",
+		id: getPlayerId(),
+		exclusions: [],
+		email: "",
+		address: "",
+	};
 }
 
 // Thanks https://stackoverflow.com/a/12646864 !!!

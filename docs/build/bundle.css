@@ -80,45 +80,20 @@ svg.svelte-njdjl2.svelte-njdjl2 {
   max-height: 80vh;
   overflow: auto; }
 
-.p-1\/2.svelte-h0snh8 {
-  padding: 0.125rem; }
-
 .reverse.svelte-1bygq4a {
   transform: rotate(180deg); }
 
 .tip.svelte-1bygq4a {
   transform: rotate(90deg); }
 
+.p-1\/2.svelte-h0snh8 {
+  padding: 0.125rem; }
+
 .drawer.svelte-rtcbgq {
   min-width: 250px; }
 
 aside.svelte-rtcbgq {
   height: 100vh; }
-
-.circular.svelte-1oxwwrj {
-  animation: svelte-1oxwwrj-rotate 2s linear infinite;
-  position: relative; }
-
-.path.svelte-1oxwwrj {
-  stroke-dasharray: 1, 200;
-  stroke-dashoffset: 0;
-  stroke-linecap: round;
-  animation: svelte-1oxwwrj-dash 1.5s ease-in-out infinite; }
-
-@keyframes svelte-1oxwwrj-rotate {
-  100% {
-    transform: rotate(360deg); } }
-
-@keyframes svelte-1oxwwrj-dash {
-  0% {
-    stroke-dasharray: 1, 200;
-    stroke-dashoffset: 0; }
-  50% {
-    stroke-dasharray: 89, 200;
-    stroke-dashoffset: -35; }
-  100% {
-    stroke-dasharray: 89, 200;
-    stroke-dashoffset: -124; } }
 
 .inc.svelte-1jmm34m {
   animation: svelte-1jmm34m-increase 2s ease-in-out infinite; }
@@ -145,6 +120,31 @@ aside.svelte-rtcbgq {
 .snackbar.svelte-9kx99x {
   min-width: 344px; }
 
+.circular.svelte-1oxwwrj {
+  animation: svelte-1oxwwrj-rotate 2s linear infinite;
+  position: relative; }
+
+.path.svelte-1oxwwrj {
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: svelte-1oxwwrj-dash 1.5s ease-in-out infinite; }
+
+@keyframes svelte-1oxwwrj-rotate {
+  100% {
+    transform: rotate(360deg); } }
+
+@keyframes svelte-1oxwwrj-dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0; }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35; }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124; } }
+
 .label-top.svelte-1mfqmou {
   line-height: 0.05; }
 
@@ -166,3 +166,11 @@ label.text-xs {
 
 .wrapper.svelte-1xytuu6 {
   display: inline-block; }
+
+.dialog-content.svelte-1w33nc8.svelte-1w33nc8 {
+  max-height: 80vh;
+  max-width: 30rem;
+  overflow: auto; }
+
+.dialog-content.svelte-1w33nc8 > p.svelte-1w33nc8 {
+  padding-bottom: 0.5rem; }

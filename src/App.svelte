@@ -1,41 +1,46 @@
 <script lang="ts">
-	import { fade } from "svelte/transition";
-	import Button from "smelte/src/components/Button";
+	import Icon from "smelte/src/components/Icon";
+	import dark from "smelte/src/dark";
+	const darkMode = dark();
+	darkMode.set(true);
 
-	import Toast from "./components/Toast.svelte";
-	import { toaster } from "./components/Toast.svelte";
-	import GithubCorner from "./components/GithubCorner.svelte";
+	import Toast from "./common/Toast.svelte";
+	import { toaster } from "./common/Toast.svelte";
+	import GithubCorner from "./common/GithubCorner.svelte";
+	import InfoDialog from "./components/InfoDialog.svelte";
 	import PlayerEntry from "./components/PlayerEntry.svelte";
 	import Results from "./components/Results.svelte";
-	import DarkModeButton from "./components/DarkModeButton.svelte";
-
 	import type { IPlayer, IResultPair } from "./interfaces";
-	import { generateRandomPlayers, getMatchups } from "./helpers";
+	import {
+		generateRandomPlayers,
+		getEmptyPlayer,
+		getMatchups,
+	} from "./helpers";
 	import { parseFile } from "./importer";
 
+	let showInfo = false;
 	let showPlayerEntry = true;
 	let matchups: IResultPair[] = [];
 
 	function doCalculate() {
 		// TODO: show loading graphic? Or will it just freeze?
-		// TODO: when to slice the last one off?
-		matchups = getMatchups(players, true);
-		// matchups = getMatchups(players.slice(0, players.length - 1), true);
-		// if (matchups.length === players.length - 1) {
-		// if (matchups.length === players.length - 1) {
-		showPlayerEntry = false;
-		console.table(matchups);
-		// } else {
-		// toaster.alert("Can't find a valid set of pairings");
-		// }
+		if (players.length == 0) {
+			return;
+		}
+
+		matchups = getMatchups(players.slice(0, players.length - 1), true);
+		if (matchups.length === players.length - 1) {
+			showPlayerEntry = false;
+			console.table(matchups);
+		} else {
+			toaster.alert("Can't find a valid set of pairings :(");
+		}
 	}
 
 	export let players: IPlayer[] = [];
 
 	if (isDebug) {
 		players = generateRandomPlayers(3);
-
-		// TODO: remove
 		// doCalculate();
 	}
 
@@ -66,6 +71,13 @@
 	function doExport() {
 		// TODO
 	}
+
+	// ensure we always have an empty player at the end
+	$: {
+		if (!players.length || players[players.length - 1].name.length !== 0) {
+			players.push(getEmptyPlayer());
+		}
+	}
 </script>
 
 <svelte:head>
@@ -92,6 +104,8 @@
 		position="topLeft"
 	/>
 
+	<InfoDialog bind:showDialog={showInfo} />
+
 	<header
 		class="justify-center top-0 w-full items-center p-0 h-16 shadow bg-primary-300 dark:bg-dark-600 top-0 w-full items-center flex-wrap flex left-0 z-30 p-0 h-16 shadow bg-dark-600 dark:bg-dark-600"
 	>
@@ -99,7 +113,9 @@
 			Secret Santa
 		</h6>
 
-		<DarkModeButton classes="absolute right-0" />
+		<div class="absolute right-0 rotate-45 cursor-pointer">
+			<Icon on:click={() => (showInfo = true)}>info</Icon>
+		</div>
 	</header>
 
 	<input

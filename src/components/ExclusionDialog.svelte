@@ -9,7 +9,7 @@
 	export let players: IPlayer[];
 	export let playerId: number;
 	export let isOneWay = true;
-	export let showDialog = true;
+	export let showDialog = false;
 
 	let exclusions = [];
 	let reverseExclusions = [];
@@ -95,7 +95,7 @@
 	}
 </script>
 
-<Dialog bind:value={showDialog}>
+<Dialog bind:value={showDialog} classes={(c) => c + " m-2"}>
 	<h5 slot="title">Select Exclusions</h5>
 
 	<div class="exclusion-dialog-content">

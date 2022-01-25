@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Button from "smelte/src/components/Button";
 
-	import { toaster } from "../Toast.svelte";
+	import { toaster } from "../../common/Toast.svelte";
 	import type { IEntry } from "../../interfaces";
 
 	export let entries: IEntry[];

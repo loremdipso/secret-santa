@@ -4,8 +4,7 @@
 
 	import PlayerRow from "./PlayerRow.svelte";
 	import type { IPlayer } from "../interfaces";
-	import { getPlayerId } from "../helpers";
-	import ActionBar from "./ActionBar.svelte";
+	import { flash } from "../common/transitions";
 
 	export let players: IPlayer[];
 
@@ -44,29 +43,12 @@
 	let dispatch = createEventDispatcher();
 
 	let canCalculate = false;
-	$: {
-		canCalculate = isValid();
-		if (
-			players.length < 1 ||
-			players[players.length - 1].name.length !== 0
-		) {
-			players.push({
-				name: "",
-				id: getPlayerId(),
-				exclusions: [],
-				email: "",
-				address: "",
-			});
-		}
-	}
+	$: canCalculate = isValid();
 </script>
 
-<div
-	class="text-center fixed bottom-0 mb-1 mr-1 right-0 z-10 z-10 py-2 px-4 uppercase text-sm font-medium overflow-hidden"
->
+<div transition:flash class="fixed bottom-0 mb-1 mr-1 right-0 z-10 py-2 px-2">
 	<Button
-		variant="unelevated"
-		color="secondary"
+		color="blue"
 		on:click={() => dispatch("import")}
 		icon="file_upload"
 		classes="ml-auto mr-auto m-1"
@@ -75,7 +57,7 @@
 
 	<Button
 		variant="unelevated"
-		color="secondary"
+		color="success"
 		disabled={!canCalculate}
 		on:click={() => dispatch("calculate")}
 	>
