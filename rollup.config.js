@@ -5,7 +5,6 @@ import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
-import css from 'rollup-plugin-css-only';
 import scss from 'rollup-plugin-scss';
 import replace from "@rollup/plugin-replace";
 import smelte from 'smelte/rollup-plugin-smelte';
@@ -62,8 +61,6 @@ export default {
 			failOnError: true,
 			exclude: ['**/global.css', '**/tailwind.css']
 		}),
-		// scss({ output: "bundle.css", failOnError: true }),
-		// scss({ output: "bundle.css" }),
 
 		smelte({
 			purge: production,
