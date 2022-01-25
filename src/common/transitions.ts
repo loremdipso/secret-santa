@@ -1,19 +1,20 @@
-import { fade } from 'svelte/transition';
-import { elasticOut } from 'svelte/easing';
+import type { TransitionConfig } from 'svelte/transition';
+import { cubicInOut } from 'svelte/easing';
 
-export function flash(node: any, { duration }: { duration: number }): any {
+export function fadeScale(
+	node: Element, { delay = 0, duration = 200, baseScale = 0 }
+): TransitionConfig {
+	const o = +getComputedStyle(node).opacity;
+	const m = getComputedStyle(node).transform.match(/scale\(([0-9.]+)\)/);
+	const s = m ? +m[1] : 1;
+	const is = 1 - baseScale;
+
 	return {
+		delay,
 		duration,
 		css: t => {
-			const eased = elasticOut(t);
-
-			return `
-				transform: scale(${eased}) rotate(${eased * 1080}deg);
-				color: hsl(
-					${Math.trunc(t * 360)},
-					${Math.min(100, 1000 - 1000 * t)}%,
-					${Math.min(50, 500 - 500 * t)}%
-				);`
+			const eased = cubicInOut(t);
+			return `opacity: ${eased * o}; transform: scale(${(eased * s * is) + baseScale})`;
 		}
 	};
 }

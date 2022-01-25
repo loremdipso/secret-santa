@@ -44,6 +44,7 @@ export default {
 	plugins: [
 		replace({
 			'isDebug': !production,
+			preventAssignment: true
 		}),
 
 		svelte({

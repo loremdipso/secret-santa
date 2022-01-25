@@ -1,10 +1,12 @@
 <script lang="ts">
+	import { onMount } from "svelte";
 	import { createEventDispatcher } from "svelte";
 	import Button from "smelte/src/components/Button";
 
+	import { fadeScale } from "../common/transitions";
+
 	import PlayerRow from "./PlayerRow.svelte";
 	import type { IPlayer } from "../interfaces";
-	import { flash } from "../common/transitions";
 
 	export let players: IPlayer[];
 
@@ -42,28 +44,41 @@
 
 	let dispatch = createEventDispatcher();
 
+	let ready = false;
+	onMount(() => (ready = true));
+
 	let canCalculate = false;
 	$: canCalculate = isValid();
 </script>
 
-<div transition:flash class="fixed bottom-0 mb-1 mr-1 right-0 z-10 py-2 px-2">
-	<Button
-		color="blue"
-		on:click={() => dispatch("import")}
-		icon="file_upload"
-		classes="ml-auto mr-auto m-1"
-		title="Import"
-	/>
-
-	<Button
-		variant="unelevated"
-		color="success"
-		disabled={!canCalculate}
-		on:click={() => dispatch("calculate")}
+<!-- Hack to get animations to work on page load -->
+{#if ready}
+	<div
+		in:fadeScale={{
+			delay: 250,
+			duration: 1000,
+			baseScale: 0.5,
+		}}
+		class="fixed bottom-0 mb-1 mr-1 right-0 z-10 py-2 px-2"
 	>
-		Calculate
-	</Button>
-</div>
+		<Button
+			color="blue"
+			on:click={() => dispatch("import")}
+			icon="file_upload"
+			classes="ml-auto mr-auto m-1"
+			title="Import"
+		/>
+
+		<Button
+			variant="unelevated"
+			color="success"
+			disabled={!canCalculate}
+			on:click={() => dispatch("calculate")}
+		>
+			Calculate
+		</Button>
+	</div>
+{/if}
 
 {#each players as player (player.id)}
 	<PlayerRow
