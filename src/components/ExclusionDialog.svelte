@@ -113,9 +113,7 @@
 	</div>
 
 	<div slot="actions">
-		<Button text variant="raised" on:click={() => (showDialog = false)}>
-			Discard
-		</Button>
+		<Button text on:click={() => (showDialog = false)}>Discard</Button>
 		<Button
 			text
 			on:click={() => {
@@ -123,7 +121,6 @@
 				updatePlayerExclusions();
 				showDialog = false;
 			}}
-			variant="raised"
 		>
 			Save
 		</Button>

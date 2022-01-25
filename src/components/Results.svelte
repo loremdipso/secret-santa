@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte";
 	import Button from "smelte/src/components/Button";
+
+	import ExportDialog from "./ExportDialog.svelte";
 	import Tabs from "../common/Tabs/Tabs.svelte";
 
 	// TODO: why doesn't this import work?
@@ -17,12 +19,15 @@
 	import LinksView from "./ResultsViews/LinksView.svelte";
 	import EmailView from "./ResultsViews/EmailView.svelte";
 	import { toaster } from "../common/Toast.svelte";
+	import { saveDataToFile } from "../common/misc";
 
 	let dispatch = createEventDispatcher();
 
 	export let players: IPlayer[];
 	export let matchups: IResultPair[];
 	export let showPlayerEntry: boolean;
+
+	let showExportDialog: boolean = false;
 
 	const LINKS_VIEW = { id: "1", text: "Links view" };
 	const RAW_LINKS_VIEW = { id: "2", text: "Raw links view" };
@@ -45,31 +50,31 @@
 		return rv;
 	}
 
+	enum ExportType {
+		BASIC,
+		PROGRESSIVE,
+	}
+
+	function exportResults(exportType: ExportType) {
+		const filename = "test.json";
+		const data = "yo";
+		// TODO: this
+		saveDataToFile(filename, data);
+	}
+
 	$: entries = generateEntries(matchups);
 </script>
 
 <div class="flex flex-wrap justify-around flex-col sm:flex-row p-5 bg-dark-900">
-	<Button
-		variant="unelevated"
-		color="secondary"
-		on:click={() => (showPlayerEntry = true)}
-	>
+	<Button color="secondary" on:click={() => (showPlayerEntry = true)}>
 		Back to Edit
 	</Button>
 
-	<Button
-		variant="unelevated"
-		color="secondary"
-		on:click={() => dispatch("calculate")}
-	>
+	<Button color="secondary" on:click={() => dispatch("calculate")}>
 		Recalculate
 	</Button>
 
-	<Button
-		variant="unelevated"
-		color="secondary"
-		on:click={() => dispatch("export")}
-	>
+	<Button color="secondary" on:click={() => (showExportDialog = true)}>
 		Export
 	</Button>
 </div>
@@ -87,3 +92,13 @@
 		</Tab>
 	</div>
 </Tabs>
+
+<ExportDialog
+	bind:showDialog={showExportDialog}
+	on:export-basic={() => {
+		exportResults(ExportType.BASIC);
+	}}
+	on:export-progressive={() => {
+		exportResults(ExportType.PROGRESSIVE);
+	}}
+/>

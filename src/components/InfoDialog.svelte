@@ -36,9 +36,7 @@
 	</div>
 
 	<div slot="actions">
-		<Button text variant="raised" on:click={() => (showDialog = false)}>
-			Got it!
-		</Button>
+		<Button text on:click={() => (showDialog = false)}>Got it!</Button>
 	</div>
 </Dialog>
 

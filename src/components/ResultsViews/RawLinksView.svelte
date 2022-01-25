@@ -28,11 +28,7 @@
 	}
 </script>
 
-<Button
-	variant="unelevated"
-	color="secondary"
-	on:click={() => copyToClipboard()}
->
+<Button color="secondary" on:click={() => copyToClipboard()}>
 	Copy to Clipboard
 </Button>
 

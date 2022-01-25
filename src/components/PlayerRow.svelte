@@ -64,7 +64,6 @@
 		/>
 
 		<Button
-			variant="unelevated"
 			color="secondary"
 			title="Select players that this player should not give gifts to"
 			on:click={() => {

@@ -20,13 +20,7 @@
 		bind:value={subjectLine}
 		label="Subject line for emails"
 	/>
-	<Button
-		variant="unelevated"
-		color="secondary"
-		on:click={() => toggleShowAll()}
-	>
-		Show all
-	</Button>
+	<Button color="secondary" on:click={() => toggleShowAll()}>Show all</Button>
 </div>
 
 <table class="table-fixed w-full max-w-3xl border ml-auto mr-auto">

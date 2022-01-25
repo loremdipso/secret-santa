@@ -70,7 +70,6 @@
 		/>
 
 		<Button
-			variant="unelevated"
 			color="success"
 			disabled={!canCalculate}
 			on:click={() => dispatch("calculate")}

@@ -84,6 +84,11 @@ svg.svelte-njdjl2.svelte-njdjl2 {
   z-index: 1;
   transform: translateY(-25%) translateX(25%); }
 
+.dialog-content.svelte-gowxv1 {
+  max-height: 80vh;
+  max-width: 30rem;
+  overflow: auto; }
+
 .exclusion-dialog-content.svelte-f2hb4t {
   max-height: 80vh;
   overflow: auto; }
@@ -102,28 +107,6 @@ svg.svelte-njdjl2.svelte-njdjl2 {
 
 aside.svelte-rtcbgq {
   height: 100vh; }
-
-.inc.svelte-1jmm34m {
-  animation: svelte-1jmm34m-increase 2s ease-in-out infinite; }
-
-.dec.svelte-1jmm34m {
-  animation: svelte-1jmm34m-decrease 2s 0.9s ease-in-out infinite; }
-
-@keyframes svelte-1jmm34m-increase {
-  from {
-    left: -5%;
-    width: 5%; }
-  to {
-    left: 130%;
-    width: 150%; } }
-
-@keyframes svelte-1jmm34m-decrease {
-  from {
-    left: -90%;
-    width: 90%; }
-  to {
-    left: 110%;
-    width: 10%; } }
 
 .circular.svelte-1oxwwrj {
   animation: svelte-1oxwwrj-rotate 2s linear infinite;
@@ -149,6 +132,28 @@ aside.svelte-rtcbgq {
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -124; } }
+
+.inc.svelte-1jmm34m {
+  animation: svelte-1jmm34m-increase 2s ease-in-out infinite; }
+
+.dec.svelte-1jmm34m {
+  animation: svelte-1jmm34m-decrease 2s 0.9s ease-in-out infinite; }
+
+@keyframes svelte-1jmm34m-increase {
+  from {
+    left: -5%;
+    width: 5%; }
+  to {
+    left: 130%;
+    width: 150%; } }
+
+@keyframes svelte-1jmm34m-decrease {
+  from {
+    left: -90%;
+    width: 90%; }
+  to {
+    left: 110%;
+    width: 10%; } }
 
 .snackbar.svelte-9kx99x {
   min-width: 344px; }

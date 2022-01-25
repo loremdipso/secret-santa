@@ -41,10 +41,10 @@
 
 	if (isDebug) {
 		players = generateRandomPlayers(3);
-		// doCalculate();
+		doCalculate();
 	}
 
-	// Import/Export
+	// Import
 	let fileVar;
 	$: {
 		let file = fileVar && fileVar[0];
@@ -66,10 +66,6 @@
 	let fileInput: HTMLElement;
 	function doImport() {
 		fileInput.click();
-	}
-
-	function doExport() {
-		// TODO
 	}
 
 	// ensure we always have an empty player at the end
@@ -143,7 +139,6 @@
 				bind:matchups
 				bind:showPlayerEntry
 				on:calculate={doCalculate}
-				on:export={doExport}
 			/>
 		</div>
 	{/if}
