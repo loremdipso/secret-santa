@@ -13,7 +13,7 @@
 			if (i > 0) {
 				rv += "\n\n";
 			}
-			rv += entry.player.name;
+			rv += entry.gifter.name;
 			rv += "\n";
 			rv += entry.url;
 		}

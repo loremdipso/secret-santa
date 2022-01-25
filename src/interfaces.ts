@@ -23,6 +23,7 @@ export interface IResultPair extends IPair {
 }
 
 export interface IEntry {
-	player: IPlayer;
+	gifter: IPlayer;
+	giftee: IPlayer;
 	url: string;
 }

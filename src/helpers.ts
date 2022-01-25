@@ -194,9 +194,9 @@ export function generateRandomPlayers(count: number): IPlayer[] {
 	for (let i = 0; i < count; i++) {
 		players.push({
 			name: `Player ${i}`,
+			email: `${i}@email.com`,
 			id: getPlayerId(),
 			exclusions: [],
-			email: "",
 			address: "",
 		});
 	}

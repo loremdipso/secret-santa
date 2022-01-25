@@ -7,6 +7,7 @@ import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 import css from 'rollup-plugin-css-only';
 import scss from 'rollup-plugin-scss';
+import replace from "@rollup/plugin-replace";
 import smelte from 'smelte/rollup-plugin-smelte';
 
 const production = !process.env.ROLLUP_WATCH;
@@ -41,6 +42,10 @@ export default {
 		file: 'docs/build/bundle.js'
 	},
 	plugins: [
+		replace({
+			'isDebug': !production,
+		}),
+
 		svelte({
 			preprocess: sveltePreprocess({ sourceMap: !production }),
 			compilerOptions: {

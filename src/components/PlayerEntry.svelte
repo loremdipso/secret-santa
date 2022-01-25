@@ -46,7 +46,10 @@
 	let canCalculate = false;
 	$: {
 		canCalculate = isValid();
-		if (players[players.length - 1].name.length !== 0) {
+		if (
+			players.length < 1 ||
+			players[players.length - 1].name.length !== 0
+		) {
 			players.push({
 				name: "",
 				id: getPlayerId(),
@@ -58,7 +61,18 @@
 	}
 </script>
 
-<ActionBar>
+<div
+	class="text-center fixed bottom-0 mb-1 mr-1 right-0 z-10 z-10 py-2 px-4 uppercase text-sm font-medium overflow-hidden"
+>
+	<Button
+		variant="unelevated"
+		color="secondary"
+		on:click={() => dispatch("import")}
+		icon="file_upload"
+		classes="ml-auto mr-auto m-1"
+		title="Import"
+	/>
+
 	<Button
 		variant="unelevated"
 		color="secondary"
@@ -67,15 +81,7 @@
 	>
 		Calculate
 	</Button>
-
-	<Button
-		variant="unelevated"
-		color="secondary"
-		on:click={() => dispatch("import")}
-	>
-		Import
-	</Button>
-</ActionBar>
+</div>
 
 {#each players as player (player.id)}
 	<PlayerRow

@@ -47,9 +47,10 @@
 	{/if}
 
 	<div class="text-container">
-		<TextField bind:value={player.name} label="Name" />
+		<TextField dense bind:value={player.name} label="Name" />
 
 		<TextField
+			dense
 			bind:value={player.email}
 			type="email"
 			label="Email (optional)"
@@ -57,6 +58,7 @@
 		/>
 
 		<TextField
+			dense
 			bind:value={player.address}
 			label="Mailing address (optional)"
 		/>
@@ -123,6 +125,11 @@
 		display: flex;
 		flex-direction: column;
 		width: 400px;
+	}
+
+	/* @Hacky */
+	.text-container > :global(div) {
+		margin-bottom: 0.2rem !important;
 	}
 
 	.exclusions-container {

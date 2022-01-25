@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { fade } from "svelte/transition";
+	import Button from "smelte/src/components/Button";
+
 	import Toast from "./components/Toast.svelte";
 	import { toaster } from "./components/Toast.svelte";
 	import GithubCorner from "./components/GithubCorner.svelte";
@@ -15,14 +18,26 @@
 
 	function doCalculate() {
 		// TODO: show loading graphic? Or will it just freeze?
-		showPlayerEntry = false;
+		// TODO: when to slice the last one off?
 		matchups = getMatchups(players, true);
+		// matchups = getMatchups(players.slice(0, players.length - 1), true);
+		// if (matchups.length === players.length - 1) {
+		// if (matchups.length === players.length - 1) {
+		showPlayerEntry = false;
+		console.table(matchups);
+		// } else {
+		// toaster.alert("Can't find a valid set of pairings");
+		// }
 	}
 
-	export let players: IPlayer[] = generateRandomPlayers(10);
+	export let players: IPlayer[] = [];
 
-	// TODO: remove
-	doCalculate();
+	if (isDebug) {
+		players = generateRandomPlayers(3);
+
+		// TODO: remove
+		// doCalculate();
+	}
 
 	// Import/Export
 	let fileVar;
@@ -98,19 +113,23 @@
 	<Toast />
 
 	{#if showPlayerEntry}
-		<PlayerEntry
-			bind:players
-			on:calculate={doCalculate}
-			on:import={doImport}
-		/>
+		<div>
+			<PlayerEntry
+				bind:players
+				on:calculate={doCalculate}
+				on:import={doImport}
+			/>
+		</div>
 	{:else}
-		<Results
-			bind:players
-			bind:matchups
-			bind:showPlayerEntry
-			on:calculate={doCalculate}
-			on:export={doExport}
-		/>
+		<div>
+			<Results
+				bind:players
+				bind:matchups
+				bind:showPlayerEntry
+				on:calculate={doCalculate}
+				on:export={doExport}
+			/>
+		</div>
 	{/if}
 </main>
 

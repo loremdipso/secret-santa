@@ -49,7 +49,7 @@ svg.svelte-njdjl2.svelte-njdjl2 {
   left: 0;
   transform: rotate(180deg); }
 
-.player-row-container.svelte-klznfa {
+.player-row-container.svelte-8vk04n {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -57,16 +57,19 @@ svg.svelte-njdjl2.svelte-njdjl2 {
   margin: 30px 20px 30px 20px;
   background-color: #3f3f3f; }
 
-.text-container.svelte-klznfa {
+.text-container.svelte-8vk04n {
   padding: 10px;
   display: flex;
   flex-direction: column;
   width: 400px; }
 
-.exclusions-container.svelte-klznfa {
+.text-container.svelte-8vk04n > div {
+  margin-bottom: 0.2rem !important; }
+
+.exclusions-container.svelte-8vk04n {
   flex-grow: 1; }
 
-.remove-player-button.svelte-klznfa {
+.remove-player-button.svelte-8vk04n {
   position: absolute;
   right: 0;
   top: 0;
