@@ -57,6 +57,11 @@ svg.svelte-kxzpd6.svelte-kxzpd6 {
 .dialog-content.svelte-tohqoc > p.svelte-tohqoc {
   padding-bottom: 0.5rem; }
 
+.dialog-content.svelte-hpe349 {
+  max-height: 80vh;
+  max-width: 30rem;
+  overflow: auto; }
+
 .player-row-container.svelte-fbgnpv {
   display: flex;
   flex-direction: row;
@@ -84,11 +89,6 @@ svg.svelte-kxzpd6.svelte-kxzpd6 {
   z-index: 1;
   transform: translateY(-25%) translateX(25%); }
 
-.dialog-content.svelte-hpe349 {
-  max-height: 80vh;
-  max-width: 30rem;
-  overflow: auto; }
-
 .exclusion-dialog-content.svelte-ze1cnl {
   max-height: 80vh;
   overflow: auto; }
@@ -107,28 +107,6 @@ svg.svelte-kxzpd6.svelte-kxzpd6 {
 
 aside.svelte-6qcjcu {
   height: 100vh; }
-
-.inc.svelte-mguqwa {
-  animation: svelte-mguqwa-increase 2s ease-in-out infinite; }
-
-.dec.svelte-mguqwa {
-  animation: svelte-mguqwa-decrease 2s 0.9s ease-in-out infinite; }
-
-@keyframes svelte-mguqwa-increase {
-  from {
-    left: -5%;
-    width: 5%; }
-  to {
-    left: 130%;
-    width: 150%; } }
-
-@keyframes svelte-mguqwa-decrease {
-  from {
-    left: -90%;
-    width: 90%; }
-  to {
-    left: 110%;
-    width: 10%; } }
 
 .circular.svelte-1xkiyez {
   animation: svelte-1xkiyez-rotate 2s linear infinite;
@@ -154,6 +132,28 @@ aside.svelte-6qcjcu {
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -124; } }
+
+.inc.svelte-mguqwa {
+  animation: svelte-mguqwa-increase 2s ease-in-out infinite; }
+
+.dec.svelte-mguqwa {
+  animation: svelte-mguqwa-decrease 2s 0.9s ease-in-out infinite; }
+
+@keyframes svelte-mguqwa-increase {
+  from {
+    left: -5%;
+    width: 5%; }
+  to {
+    left: 130%;
+    width: 150%; } }
+
+@keyframes svelte-mguqwa-decrease {
+  from {
+    left: -90%;
+    width: 90%; }
+  to {
+    left: 110%;
+    width: 10%; } }
 
 .snackbar.svelte-1ym8qvd {
   min-width: 344px; }

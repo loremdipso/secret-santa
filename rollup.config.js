@@ -65,28 +65,8 @@ export default {
 			output: "docs/global.css", // it defaults to static/global.css which is probably what you expect in Sapper
 			postcss: [], // Your PostCSS plugins
 			whitelist: [], // Array of classnames whitelisted from purging
-			// whitelistPatterns: [
-			// 	/mode-dark/,
-			// 	/bg-/,
-			// 	/bg-primary-/,
-			// 	/bg-secondary-/,
-			// 	/bg-error-/,
-			// 	/bg-success-/,
-			// 	/bg-alert-/,
-			// 	/.*bg-blue-.*/,
-			// 	/bg-dark-/,
-			// ], // Same as above, but list of regexes
-			// whitelistPatternsChildren: [
-			// 	/mode-dark/,
-			// 	/^bg-/,
-			// 	/bg-primary-/,
-			// 	/bg-secondary-/,
-			// 	/bg-error-/,
-			// 	/bg-success-/,
-			// 	/bg-alert-/,
-			// 	/.*bg-blue-.*/,
-			// 	/bg-dark-/,
-			// ], // Same as above, but list of regexes
+			whitelistPatterns: [], // Same as above, but list of regexes
+			whitelistPatternsChildren: [], // Same as above, but list of regexes
 			tailwind: {
 				colors: {
 					primary: "#b027b0",
