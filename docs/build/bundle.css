@@ -7,6 +7,9 @@
 .actions-bar > * {
   margin-right: 5px; }
 
+body {
+  scrollbar-gutter: auto stable; }
+
 .github-corner.svelte-1rr76ng:hover .octo-arm.svelte-1rr76ng {
   animation: svelte-1rr76ng-octocat-wave 560ms ease-in-out; }
 
@@ -193,3 +196,14 @@ aside.svelte-rtcbgq {
 
 div.svelte-w4o8l4 {
   -webkit-backface-visibility: hidden; }
+
+.dialog-content.svelte-nirvbx {
+  max-height: 80vh;
+  max-width: 80vw;
+  overflow: auto; }
+
+.dialog-content.small.svelte-nirvbx {
+  max-width: 30rem; }
+
+body.noscroll {
+  overflow: hidden; }

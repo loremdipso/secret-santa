@@ -21,7 +21,8 @@
 /> -->
 
 <div class="flex justify-end">
-	<Button on:click={() => toggleShowAll()}>Show all</Button>
+	<Button on:click={() => toggleShowAll()}>{showAll ? "Hide" : "Show"}</Button
+	>
 </div>
 
 <table class="padded-table table-fixed w-full border">
@@ -46,7 +47,7 @@
 				<td
 					title={showAll
 						? entry.gifter.name
-						: 'Select "show all" to reveal'}
+						: 'Click the "Show" button above to reveal'}
 					class="overflow-hidden overflow-ellipsis whitespace-nowrap"
 				>
 					{showAll ? entry.giftee.name : "######"}

@@ -127,7 +127,7 @@
 	<Toast />
 
 	{#if showPlayerEntry}
-		<div>
+		<div class="w-full max-w-5xl ml-auto mr-auto">
 			<PlayerEntry
 				bind:players
 				on:calculate={doCalculate}
@@ -135,7 +135,7 @@
 			/>
 		</div>
 	{:else}
-		<div>
+		<div class="w-full max-w-3xl ml-auto mr-auto bg-black p-3 mt-8">
 			<Results
 				bind:players
 				bind:matchups
@@ -156,5 +156,10 @@
 
 	:global(.actions-bar > *) {
 		margin-right: 5px;
+	}
+
+	:global(body) {
+		/* NOTE: this is not available in all browsers yet */
+		scrollbar-gutter: auto stable;
 	}
 </style>

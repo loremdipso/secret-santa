@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte";
 	import Button from "smelte/src/components/Button";
-	import Dialog from "smelte/src/components/Dialog";
 	import Checkbox from "smelte/src/components/Checkbox";
 	import type { IPlayer } from "../interfaces";
 	import { findPlayerById } from "../helpers";
+	import FancyDialog from "../common/FancyDialog.svelte";
 
 	export let players: IPlayer[];
 	export let playerId: number;
@@ -95,25 +95,22 @@
 	}
 </script>
 
-<Dialog bind:value={showDialog} classes={(c) => c + " m-2"}>
+<FancyDialog bind:showDialog>
 	<h5 slot="title">Select Exclusions</h5>
 
-	<div class="exclusion-dialog-content">
-		{#each players as player}
-			{#if player.name.length && player.id !== playerId}
-				<Checkbox
-					classes={(c) => c + " w-full select-none"}
-					labelClasses={(c) =>
-						c +
-						" overflow-hidden overflow-ellipsis whitespace-nowrap"}
-					checked={isChecked(player.id)}
-					indeterminate={isIndeterminate(player.id)}
-					on:change={() => toggleChecked(player.id)}
-					label={player.name}
-				/>
-			{/if}
-		{/each}
-	</div>
+	{#each players as player}
+		{#if player.name.length && player.id !== playerId}
+			<Checkbox
+				classes={(c) => c + " w-full select-none"}
+				labelClasses={(c) =>
+					c + " overflow-hidden overflow-ellipsis whitespace-nowrap"}
+				checked={isChecked(player.id)}
+				indeterminate={isIndeterminate(player.id)}
+				on:change={() => toggleChecked(player.id)}
+				label={player.name}
+			/>
+		{/if}
+	{/each}
 
 	<div slot="actions">
 		<Button text on:click={() => (showDialog = false)}>Discard</Button>
@@ -128,12 +125,4 @@
 			Save
 		</Button>
 	</div>
-</Dialog>
-
-<style>
-	.exclusion-dialog-content {
-		max-height: 80vh;
-		max-width: 80vw;
-		overflow: auto;
-	}
-</style>
+</FancyDialog>

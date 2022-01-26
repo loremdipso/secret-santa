@@ -1,23 +1,21 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte";
+	let dispatch = createEventDispatcher();
 
 	import Button from "smelte/src/components/Button";
-	import Dialog from "smelte/src/components/Dialog";
+
+	import FancyDialog from "../common/FancyDialog.svelte";
 
 	export let showDialog = true;
-
-	let dispatch = createEventDispatcher();
 </script>
 
-<Dialog bind:value={showDialog} classes={(c) => c + " m-2"}>
-	<div class="dialog-content">
-		<p>Should I include exclusions from this year?</p>
+<FancyDialog bind:showDialog>
+	<p>Should I include exclusions from this year?</p>
 
-		<p>
-			I'd recommend you do. Otherwise people next year might get each
-			other again.
-		</p>
-	</div>
+	<p>
+		I'd recommend you do. Otherwise people next year might get each other
+		again.
+	</p>
 
 	<div slot="actions">
 		<Button
@@ -39,12 +37,4 @@
 			Yes please
 		</Button>
 	</div>
-</Dialog>
-
-<style>
-	.dialog-content {
-		max-height: 80vh;
-		max-width: 30rem;
-		overflow: auto;
-	}
-</style>
+</FancyDialog>

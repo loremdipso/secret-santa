@@ -110,16 +110,13 @@
 	</Button>
 </Fabulous>
 
-<div class="w-full max-w-3xl ml-auto mr-auto bg-black p-3">
-	<Select label="Display results as" {items} bind:value={selected} />
+<Select label="Display results as" {items} bind:value={selected} />
 
-	{#if selected === EMAIL_VIEW.value}
-		<EmailView bind:entries />
-	{:else}
-		<RawLinksView bind:entries />
-	{/if}
-</div>
-
+{#if selected === EMAIL_VIEW.value}
+	<EmailView bind:entries />
+{:else}
+	<RawLinksView bind:entries />
+{/if}
 <ExportDialog
 	bind:showDialog={showExportDialog}
 	on:export-basic={() => {

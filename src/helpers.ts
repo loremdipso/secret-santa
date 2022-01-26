@@ -193,8 +193,7 @@ export function generateRandomPlayers(count: number, addExclusion: boolean): IPl
 	let players: IPlayer[] = [];
 	for (let i = 0; i < count; i++) {
 		players.push({
-			name: `sdlfkjds lfksjfl kdsjflk sdjflkdsjfldksjfdlsjfkdsjflsdjfldskjfdlksjflksPlayer ${i}`,
-			// name: `Player ${i}`,
+			name: `Player ${i}`,
 			email: `${i}@email.com`,
 			id: getPlayerId(),
 			exclusions: [],
