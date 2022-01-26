@@ -3,17 +3,20 @@
 	export let href;
 	export let position: Position = "topRight";
 	export let fill: string = "#ff2768";
+	export let small: boolean = false;
+
+	$: classes = `${position}${small ? " small" : ""}`;
 </script>
 
 <!-- Thanks Tim Holman! https://github.com/tholman/github-corners -->
-<a {href} class="github-corner" aria-label="View source on GitHub"
-	><svg
+<a {href} class="github-corner" aria-label="View source on GitHub">
+	<svg
 		width="80"
 		height="80"
 		viewBox="0 0 250 250"
 		aria-hidden="true"
 		style="fill: {fill}"
-		class={position}
+		class={classes}
 	>
 		<path
 			class="background"
@@ -88,5 +91,10 @@
 		bottom: 0;
 		left: 0;
 		transform: rotate(180deg);
+	}
+
+	.small {
+		width: 64px;
+		height: 64px;
 	}
 </style>

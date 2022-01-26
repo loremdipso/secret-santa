@@ -65,15 +65,18 @@ export default {
 			output: "docs/global.css", // it defaults to static/global.css which is probably what you expect in Sapper
 			postcss: [], // Your PostCSS plugins
 			whitelist: [], // Array of classnames whitelisted from purging
-			whitelistPatterns: [], // Same as above, but list of regexes
-			whitelistPatternsChildren: [], // Same as above, but list of regexes
+			whitelistPatterns: [
+				// /dark.bg-/,
+				/^bg-/,
+			], // Same as above, but list of regexes
+			whitelistPatternsChildren: [],
 			tailwind: {
 				colors: {
-					primary: "#b027b0",
-					secondary: "#009688",
-					error: "#f44336",
+					primary: "#018786",
+					secondary: "#7141ac",
+					error: "#cf6679",
 					success: "#4caf50",
-					alert: "#ff9800",
+					alert: "#ff3f80",
 					blue: "#2196f3",
 					dark: "#212121"
 				}, // Object of colors to generate a palette from, and then all the utility classes

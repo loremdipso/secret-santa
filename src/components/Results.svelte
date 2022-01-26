@@ -1,13 +1,9 @@
 <script lang="ts">
-	import { createEventDispatcher } from "svelte";
 	import Button from "smelte/src/components/Button";
+	import Select from "smelte/src/components/Select";
 
-	import ExportDialog from "./ExportDialog.svelte";
-	import Tabs from "../common/Tabs/Tabs.svelte";
-
-	// TODO: why doesn't this import work?
-	// import Tab from "smelte/src/components/Tabs/Tab";
-	import { Tab } from "smelte";
+	import { createEventDispatcher } from "svelte";
+	let dispatch = createEventDispatcher();
 
 	import type { IPlayer, IEntry, IResultPair, IData } from "../interfaces";
 	import { VERSION } from "../interfaces";
@@ -20,8 +16,8 @@
 	import EmailView from "./ResultsViews/EmailView.svelte";
 	import { toaster } from "../common/Toast.svelte";
 	import { saveDataToFile } from "../common/misc";
-
-	let dispatch = createEventDispatcher();
+	import Fabulous from "../common/Fabulous.svelte";
+	import ExportDialog from "./ExportDialog.svelte";
 
 	export let players: IPlayer[];
 	export let matchups: IResultPair[];
@@ -29,11 +25,11 @@
 
 	let showExportDialog: boolean = false;
 
-	const EMAIL_VIEW = { id: "3", text: "Table" };
-	const RAW_LINKS_VIEW = { id: "2", text: "Plaintext" };
+	const EMAIL_VIEW = { value: "3", text: "Table" };
+	const RAW_LINKS_VIEW = { value: "2", text: "Plain" };
 	const items = [EMAIL_VIEW, RAW_LINKS_VIEW];
 
-	let selected: string = EMAIL_VIEW.id;
+	let selected = EMAIL_VIEW.value;
 
 	function generateEntries(matchups: IResultPair[]): IEntry[] {
 		let rv = [];
@@ -92,24 +88,37 @@
 	$: entries = generateEntries(matchups);
 </script>
 
-<div class="flex flex-wrap justify-around flex-col sm:flex-row p-5 bg-dark-900">
-	<Button on:click={() => (showPlayerEntry = true)}>Back to Edit</Button>
+<Fabulous position="bottomLeft">
+	<Button
+		color="secondary"
+		title="Back to edit"
+		on:click={() => (showPlayerEntry = true)}
+		icon="arrow_back"
+	/>
+</Fabulous>
 
-	<Button on:click={() => dispatch("calculate")}>Recalculate</Button>
+<Fabulous>
+	<Button
+		color="blue"
+		icon="file_download"
+		classes="ml-auto mr-auto m-1"
+		title="Import"
+		on:click={() => (showExportDialog = true)}
+	/>
+	<Button color="secondary" on:click={() => dispatch("calculate")}>
+		Recalculate
+	</Button>
+</Fabulous>
 
-	<Button on:click={() => (showExportDialog = true)}>Export</Button>
+<div class="w-full max-w-3xl ml-auto mr-auto bg-black p-3">
+	<Select label="Display results as" {items} bind:value={selected} />
+
+	{#if selected === EMAIL_VIEW.value}
+		<EmailView bind:entries />
+	{:else}
+		<RawLinksView bind:entries />
+	{/if}
 </div>
-
-<Tabs bind:selected {items}>
-	<div slot="content" class="absolute w-full p-2 whitespace-pre">
-		<Tab id={EMAIL_VIEW.id} {selected}>
-			<EmailView bind:entries />
-		</Tab>
-		<Tab id={RAW_LINKS_VIEW.id} {selected}>
-			<RawLinksView bind:entries />
-		</Tab>
-	</div>
-</Tabs>
 
 <ExportDialog
 	bind:showDialog={showExportDialog}

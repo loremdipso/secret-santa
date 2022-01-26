@@ -1,12 +1,10 @@
 <script lang="ts">
-	import { onMount } from "svelte";
 	import { createEventDispatcher } from "svelte";
 	import Button from "smelte/src/components/Button";
 
-	import { fadeScale } from "../common/transitions";
-
 	import PlayerRow from "./PlayerRow.svelte";
 	import type { IPlayer } from "../interfaces";
+	import Fabulous from "../common/Fabulous.svelte";
 
 	export let players: IPlayer[];
 
@@ -27,9 +25,6 @@
 
 	let dispatch = createEventDispatcher();
 
-	let ready = false;
-	onMount(() => (ready = true));
-
 	let canCalculate = false;
 	$: {
 		// can't have a game with fewer than 3 entries (one is null)
@@ -49,32 +44,23 @@
 	}
 </script>
 
-<!-- Hack to get animations to work on page load -->
-{#if ready}
-	<div
-		in:fadeScale={{
-			delay: 250,
-			duration: 1000,
-			baseScale: 0.5,
-		}}
-		class="fixed bottom-0 mb-1 mr-1 right-0 z-30 py-2 px-2"
-	>
-		<Button
-			on:click={() => dispatch("import")}
-			icon="file_upload"
-			classes="ml-auto mr-auto m-1"
-			title="Import"
-		/>
+<Fabulous>
+	<Button
+		color="blue"
+		icon="file_upload"
+		classes="ml-auto mr-auto m-1"
+		title="Import"
+		on:click={() => dispatch("import")}
+	/>
 
-		<Button
-			color="success"
-			disabled={!canCalculate}
-			on:click={() => dispatch("calculate")}
-		>
-			Calculate
-		</Button>
-	</div>
-{/if}
+	<Button
+		color="success"
+		disabled={!canCalculate}
+		on:click={() => dispatch("calculate")}
+	>
+		Calculate
+	</Button>
+</Fabulous>
 
 {#each players as player (player.id)}
 	<PlayerRow

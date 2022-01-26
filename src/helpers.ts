@@ -189,11 +189,12 @@ export function getMatchupsString(matchups: IPair[], players: IPlayer[]): string
 		.join("\n\n");
 }
 
-export function generateRandomPlayers(count: number): IPlayer[] {
+export function generateRandomPlayers(count: number, addExclusion: boolean): IPlayer[] {
 	let players: IPlayer[] = [];
 	for (let i = 0; i < count; i++) {
 		players.push({
-			name: `Player ${i}`,
+			name: `sdlfkjds lfksjfl kdsjflk sdjflkdsjfldksjfdlsjfkdsjflsdjfldskjfdlksjflksPlayer ${i}`,
+			// name: `Player ${i}`,
 			email: `${i}@email.com`,
 			id: getPlayerId(),
 			exclusions: [],
@@ -201,10 +202,12 @@ export function generateRandomPlayers(count: number): IPlayer[] {
 		});
 	}
 
-	for (let i = 0; i < players.length - 1; i++) {
-		let player = players[i];
-		let nextPlayer = players[i + 1];
-		player.exclusions.push(nextPlayer.id);
+	if (addExclusion) {
+		for (let i = 0; i < players.length - 1; i++) {
+			let player = players[i];
+			let nextPlayer = players[i + 1];
+			player.exclusions.push(nextPlayer.id);
+		}
 	}
 
 	// tack on an empty player at the end

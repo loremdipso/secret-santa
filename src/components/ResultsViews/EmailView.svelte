@@ -3,7 +3,6 @@
 	import TextField from "smelte/src/components/TextField";
 
 	import type { IEntry } from "../../interfaces";
-	import PlayerEntry from "../PlayerEntry.svelte";
 	export let entries: IEntry[];
 
 	let subjectLine: string = "Secret Santa";
@@ -20,9 +19,12 @@
 	bind:value={subjectLine}
 	label="Subject line for emails"
 /> -->
-<Button on:click={() => toggleShowAll()}>Show all</Button>
 
-<table class="table-fixed w-full max-w-3xl border ml-auto mr-auto">
+<div class="flex justify-end">
+	<Button on:click={() => toggleShowAll()}>Show all</Button>
+</div>
+
+<table class="padded-table table-fixed w-full border">
 	<thead>
 		<th>Gifter</th>
 		<th>Giftee</th>
@@ -34,19 +36,45 @@
 			<tr
 				class="hover:bg-gray-50 dark-hover:bg-dark-400 border-gray-200 dark:border-gray-400 border-t border-b"
 			>
-				<td>
+				<td
+					title={entry.gifter.name}
+					class="overflow-hidden overflow-ellipsis whitespace-nowrap"
+				>
 					{entry.gifter.name}
 				</td>
 
-				<td>{showAll ? entry.giftee.name : "######"}</td>
+				<td
+					title={showAll
+						? entry.gifter.name
+						: 'Select "show all" to reveal'}
+					class="overflow-hidden overflow-ellipsis whitespace-nowrap"
+				>
+					{showAll ? entry.giftee.name : "######"}
+				</td>
 
 				<td
 					title={entry.url}
 					class="overflow-hidden overflow-ellipsis text-center"
 				>
-					<a target="#" href={entry.url}>Link</a>
+					<a class="text-blue-200" target="#" href={entry.url}>
+						Link
+					</a>
 				</td>
 			</tr>
 		{/each}
 	</tbody>
 </table>
+
+<style lang="scss">
+	.padded-table {
+		td,
+		th {
+			padding: 1rem;
+		}
+
+		td:last-child,
+		th:last-child {
+			width: 5rem;
+		}
+	}
+</style>

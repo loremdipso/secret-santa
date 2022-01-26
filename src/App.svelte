@@ -31,7 +31,6 @@
 		matchups = getMatchups(players.slice(0, players.length - 1), true);
 		if (matchups.length === players.length - 1) {
 			showPlayerEntry = false;
-			console.table(matchups);
 		} else {
 			toaster.alert("Can't find a valid set of pairings :(");
 		}
@@ -40,7 +39,7 @@
 	export let players: IPlayer[] = [];
 
 	if (isDebug) {
-		players = generateRandomPlayers(3);
+		players = generateRandomPlayers(30, false);
 		doCalculate();
 	}
 
@@ -94,22 +93,25 @@
 	/>
 </svelte:head>
 
-<main>
+<main class="pb-32">
 	<GithubCorner
 		href="https://github.com/loremdipso/secret_santa_svelte"
 		position="topLeft"
+		small
 	/>
 
 	<InfoDialog bind:showDialog={showInfo} />
 
 	<header
-		class="justify-center top-0 w-full items-center p-0 h-16 shadow bg-primary-300 dark:bg-dark-600 top-0 w-full items-center flex-wrap flex left-0 z-30 p-0 h-16 shadow bg-dark-600 dark:bg-dark-600"
+		class="bg-primary-300 dark:bg-black flex flex-wrap h-16 items-center justify-center left-0 p-0 shadow top-0 w-full z-30"
 	>
-		<h6 class="pl-3 text-white tracking-widest font-thin text-lg">
+		<h6
+			class="select-none pl-3 text-white tracking-widest font-thin text-lg"
+		>
 			Secret Santa
 		</h6>
 
-		<div class="absolute right-0 rotate-45 cursor-pointer">
+		<div class="absolute right-0 cursor-pointer px-2" title="Show info">
 			<Icon on:click={() => (showInfo = true)}>info</Icon>
 		</div>
 	</header>

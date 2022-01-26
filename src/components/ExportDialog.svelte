@@ -11,8 +11,12 @@
 
 <Dialog bind:value={showDialog} classes={(c) => c + " m-2"}>
 	<div class="dialog-content">
-		Should I include exclusions from this year? (Recommended yes. Otherwise
-		people next year might get each other again)
+		<p>Should I include exclusions from this year?</p>
+
+		<p>
+			I'd recommend you do. Otherwise people next year might get each
+			other again.
+		</p>
 	</div>
 
 	<div slot="actions">

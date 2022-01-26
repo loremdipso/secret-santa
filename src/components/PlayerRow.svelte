@@ -38,6 +38,7 @@
 	{#if player.id !== players[players.length - 1].id}
 		<div class="remove-player-button">
 			<Button
+				color="alert"
 				small
 				title="Remove this player from the game"
 				icon="close"
@@ -65,7 +66,7 @@
 
 		<Button
 			title="Select players that this player should not give gifts to"
-			color="success"
+			color="secondary"
 			on:click={() => {
 				showExclusionDialog = true;
 				currentPlayerId = player.id;
@@ -76,7 +77,7 @@
 	</div>
 
 	<div class="exclusions-container flex flex-col bg-black grow p-3">
-		<h5>Exclusions</h5>
+		<h5 class="select-none">Exclusions</h5>
 		<div class="flex flex-row">
 			{#each player.exclusions as exclusion}
 				<Button

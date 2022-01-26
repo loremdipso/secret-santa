@@ -102,7 +102,10 @@
 		{#each players as player}
 			{#if player.name.length && player.id !== playerId}
 				<Checkbox
-					classes={(classes) => classes + " w-full select-none"}
+					classes={(c) => c + " w-full select-none"}
+					labelClasses={(c) =>
+						c +
+						" overflow-hidden overflow-ellipsis whitespace-nowrap"}
 					checked={isChecked(player.id)}
 					indeterminate={isIndeterminate(player.id)}
 					on:change={() => toggleChecked(player.id)}
@@ -130,6 +133,7 @@
 <style>
 	.exclusion-dialog-content {
 		max-height: 80vh;
+		max-width: 80vw;
 		overflow: auto;
 	}
 </style>
