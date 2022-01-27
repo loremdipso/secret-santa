@@ -1,12 +1,16 @@
 <script lang="ts">
+	import { onMount } from "svelte";
+	onMount(() => {
+		// force-reset scroll top, since for some reason browsers remember this
+		document.body.scrollTop = 0;
+	});
+
 	import Icon from "smelte/src/components/Icon";
-	import dark from "smelte/src/dark";
-	const darkMode = dark();
-	darkMode.set(true);
 
 	import Toast from "./common/Toast.svelte";
 	import { toaster } from "./common/Toast.svelte";
 	import GithubCorner from "./common/GithubCorner.svelte";
+	import Santa from "./components/Santa.svelte";
 	import InfoDialog from "./components/InfoDialog.svelte";
 	import PlayerEntry from "./components/PlayerEntry.svelte";
 	import Results from "./components/Results.svelte";
@@ -17,6 +21,7 @@
 		getMatchups,
 	} from "./helpers";
 	import { parseFile } from "./importer";
+	import Congratulations from "./components/Congratulations.svelte";
 
 	let showInfo = false;
 	let showPlayerEntry = true;
@@ -38,9 +43,12 @@
 
 	export let players: IPlayer[] = [];
 
-	if (isDebug) {
-		players = generateRandomPlayers(30, false);
-		doCalculate();
+	const urlParams = new URLSearchParams(window.location.search);
+	const secret = urlParams.get("secret");
+
+	if (isDebug && !secret) {
+		// players = generateRandomPlayers(30, 0);
+		// doCalculate();
 	}
 
 	// Import
@@ -94,27 +102,27 @@
 </svelte:head>
 
 <main class="pb-32">
-	<GithubCorner
-		href="https://github.com/loremdipso/secret_santa_svelte"
-		position="topLeft"
-		small
-	/>
-
-	<InfoDialog bind:showDialog={showInfo} />
-
 	<header
-		class="bg-primary-300 dark:bg-black flex flex-wrap h-16 items-center justify-center left-0 p-0 shadow top-0 w-full z-30"
+		class="relative slide-in-from-top bg-primary-300 dark:bg-black flex flex-wrap h-16 items-center justify-center left-0 p-0 shadow top-0 w-full z-20"
 	>
-		<h6
-			class="select-none pl-3 text-white tracking-widest font-thin text-lg"
-		>
-			Secret Santa
+		<h6 class="select-none pl-3 tracking-widest text-lg">
+			<a href="." class="text-white">Secret Santa</a>
 		</h6>
 
-		<div class="absolute right-0 cursor-pointer px-2" title="Show info">
+		<div class="absolute right-0 cursor-pointer pr-5" title="Show info">
 			<Icon on:click={() => (showInfo = true)}>info</Icon>
 		</div>
+
+		<GithubCorner
+			href="https://github.com/loremdipso/secret_santa_svelte"
+			position="topLeft"
+			small
+		/>
 	</header>
+
+	<Santa />
+
+	<InfoDialog bind:showDialog={showInfo} />
 
 	<input
 		bind:this={fileInput}
@@ -126,8 +134,14 @@
 
 	<Toast />
 
-	{#if showPlayerEntry}
-		<div class="w-full max-w-5xl ml-auto mr-auto">
+	{#if secret}
+		<div
+			class="w-full max-w-3xl ml-auto mr-auto bg-white dark:bg-black p-3 mt-8"
+		>
+			<Congratulations {secret} />
+		</div>
+	{:else if showPlayerEntry}
+		<div class="fade-in w-full max-w-5xl ml-auto mr-auto">
 			<PlayerEntry
 				bind:players
 				on:calculate={doCalculate}
@@ -135,7 +149,7 @@
 			/>
 		</div>
 	{:else}
-		<div class="w-full max-w-3xl ml-auto mr-auto bg-black p-3 mt-8">
+		<div class="fade-in w-full max-w-3xl ml-auto mr-auto bg-white p-3 mt-8">
 			<Results
 				bind:players
 				bind:matchups
@@ -146,7 +160,7 @@
 	{/if}
 </main>
 
-<style>
+<style lang="scss">
 	:global(.actions-bar) {
 		display: flex;
 		flex-direction: row;
@@ -158,8 +172,52 @@
 		margin-right: 5px;
 	}
 
+	:global(html) {
+		height: 100vh;
+		overflow: hidden;
+	}
+
 	:global(body) {
-		/* NOTE: this is not available in all browsers yet */
-		scrollbar-gutter: auto stable;
+		height: 100%;
+		overflow-y: scroll;
+		overflow-x: auto;
+	}
+
+	:global(a) {
+		// TODO: figure out why this doesn't work
+		// @apply text-blue-200;
+		color: rgba(29, 142, 241, 1);
+	}
+
+	:global(.padded-table td, th) {
+		padding: 1rem;
+	}
+
+	:global(.padded-table d:last-child, th:last-child) {
+		width: 5rem;
+	}
+
+	.slide-in-from-top {
+		animation: 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94) 0s 1 SlideDown;
+	}
+	@keyframes SlideDown {
+		0% {
+			transform: translate3d(0, -100%, 0);
+		}
+		100% {
+			transform: translateZ(0);
+		}
+	}
+
+	.fade-in {
+		animation: 1s ease-out 0s 1 FadeIn;
+	}
+	@keyframes FadeIn {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
 	}
 </style>

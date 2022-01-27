@@ -9,7 +9,7 @@
 </script>
 
 <!-- Thanks Tim Holman! https://github.com/tholman/github-corners -->
-<a {href} class="github-corner" aria-label="View source on GitHub">
+<a {href} target="#" class="github-corner" aria-label="View source on GitHub">
 	<svg
 		width="80"
 		height="80"

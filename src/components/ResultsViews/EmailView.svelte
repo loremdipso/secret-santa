@@ -57,25 +57,9 @@
 					title={entry.url}
 					class="overflow-hidden overflow-ellipsis text-center"
 				>
-					<a class="text-blue-200" target="#" href={entry.url}>
-						Link
-					</a>
+					<a target="#" href={entry.url}> Link </a>
 				</td>
 			</tr>
 		{/each}
 	</tbody>
 </table>
-
-<style lang="scss">
-	.padded-table {
-		td,
-		th {
-			padding: 1rem;
-		}
-
-		td:last-child,
-		th:last-child {
-			width: 5rem;
-		}
-	}
-</style>

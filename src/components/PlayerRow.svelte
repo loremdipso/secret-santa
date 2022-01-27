@@ -34,7 +34,9 @@
 	};
 </script>
 
-<div class="player-row-container">
+<div
+	class="player-row-container bg-white dark:bg-gray-600 duration-200 rounded ease-in shadow-sm hover:shadow"
+>
 	{#if player.id !== players[players.length - 1].id}
 		<div class="remove-player-button">
 			<Button
@@ -76,23 +78,24 @@
 		</Button>
 	</div>
 
-	<div class="exclusions-container flex flex-col bg-black grow p-3">
-		<h5 class="select-none">Exclusions</h5>
-		<div class="flex flex-row">
-			{#each player.exclusions as exclusion}
-				<Button
-					title="Remove this exclusion"
-					remove="p-4"
-					replace={{ "px-4": "p-2" }}
-					on:click={() => remove_exclusion(exclusion)}
-					icon="close"
-				>
-					{findPlayerById(players, exclusion)?.name ||
-						"BAD EXCLUSION"}
-				</Button>
-			{/each}
+	{#if player.exclusions.length}
+		<div class="exclusions-container flex flex-col dark:bg-black grow p-3">
+			<h5 class="select-none">Exclusions</h5>
+			<div class="flex flex-row flex-wrap">
+				{#each player.exclusions as exclusion}
+					<Button
+						title="Remove this exclusion"
+						replace={{ "px-4": "p-2 m-1" }}
+						on:click={() => remove_exclusion(exclusion)}
+						icon="close"
+					>
+						{findPlayerById(players, exclusion)?.name ||
+							"BAD EXCLUSION"}
+					</Button>
+				{/each}
+			</div>
 		</div>
-	</div>
+	{/if}
 </div>
 
 {#if showExclusionDialog}
@@ -115,8 +118,6 @@
 		flex-direction: row;
 		flex-wrap: wrap;
 		position: relative;
-		margin: 30px 20px 30px 20px;
-		background-color: rgb(63, 63, 63);
 	}
 
 	.text-container {
@@ -124,6 +125,7 @@
 		display: flex;
 		flex-direction: column;
 		width: 400px;
+		flex-grow: 1;
 	}
 
 	/* @Hacky */
@@ -133,7 +135,7 @@
 
 	.exclusions-container {
 		/* TODO: why doesn't flex-1 this work? */
-		flex-grow: 1;
+		flex-grow: 999;
 	}
 
 	.remove-player-button {

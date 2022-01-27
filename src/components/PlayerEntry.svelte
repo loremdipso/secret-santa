@@ -1,5 +1,8 @@
 <script lang="ts">
+	import { slide } from "svelte/transition";
 	import { createEventDispatcher } from "svelte";
+	let dispatch = createEventDispatcher();
+
 	import Button from "smelte/src/components/Button";
 
 	import PlayerRow from "./PlayerRow.svelte";
@@ -22,8 +25,6 @@
 		players = players.filter((player) => player.id !== playerId);
 		removeUnusedExclusions();
 	}
-
-	let dispatch = createEventDispatcher();
 
 	let canCalculate = false;
 	$: {
@@ -48,24 +49,28 @@
 	<Button
 		color="blue"
 		icon="file_upload"
-		classes="ml-auto mr-auto m-1"
+		classes="ml-auto mr-auto mb-1"
 		title="Import"
-		on:click={() => dispatch("import")}
-	/>
+		on:click={() => dispatch("import")}>Import</Button
+	>
 
 	<Button
 		color="success"
 		disabled={!canCalculate}
 		on:click={() => dispatch("calculate")}
+		classes="flex flex-row-reverse"
+		icon="arrow_forward"
 	>
 		Calculate
 	</Button>
 </Fabulous>
 
 {#each players as player (player.id)}
-	<PlayerRow
-		{players}
-		bind:player
-		on:removePlayer={(event) => removePlayer(event.detail)}
-	/>
+	<div class="p-5" transition:slide|local={{ duration: 300 }}>
+		<PlayerRow
+			{players}
+			bind:player
+			on:removePlayer={(event) => removePlayer(event.detail)}
+		/>
+	</div>
 {/each}

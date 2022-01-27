@@ -5,10 +5,9 @@
 	type IPosition = "bottomRight" | "bottomLeft";
 	export let position: IPosition = "bottomRight";
 
-	let baseClasses = "fixed bottom-0 mb-1 mr-1 z-30 py-2 px-2 flex flex-col ";
-	console.log({ position });
+	let baseClasses = "fixed bottom-0 mb-1 mr-1 z-20 py-2 px-2 flex flex-col ";
 	$: classes =
-		baseClasses + (position === "bottomRight" ? "right-0" : "left-0");
+		baseClasses + (position === "bottomRight" ? `right-1` : "left-0");
 
 	let ready = false;
 	onMount(() => (ready = true));

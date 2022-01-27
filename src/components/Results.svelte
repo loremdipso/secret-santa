@@ -90,7 +90,7 @@
 
 <Fabulous position="bottomLeft">
 	<Button
-		color="secondary"
+		color="alert"
 		title="Back to edit"
 		on:click={() => (showPlayerEntry = true)}
 		icon="arrow_back"
@@ -101,11 +101,19 @@
 	<Button
 		color="blue"
 		icon="file_download"
-		classes="ml-auto mr-auto m-1"
-		title="Import"
+		classes="ml-auto mr-auto mb-1"
+		title="Export"
 		on:click={() => (showExportDialog = true)}
-	/>
-	<Button color="secondary" on:click={() => dispatch("calculate")}>
+	>
+		Export
+	</Button>
+	<Button
+		color="secondary"
+		remove="uppercase"
+		on:click={() => dispatch("calculate")}
+		icon="refresh"
+		title="Recalculate"
+	>
 		Recalculate
 	</Button>
 </Fabulous>
@@ -117,6 +125,7 @@
 {:else}
 	<RawLinksView bind:entries />
 {/if}
+
 <ExportDialog
 	bind:showDialog={showExportDialog}
 	on:export-basic={() => {

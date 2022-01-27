@@ -172,10 +172,15 @@ function getFirstPermutation<T>(
 }
 
 export function calculateLinkUrl(targetPlayer: IPlayer): string {
-	let url = new URL(location.pathname, location.href).href;
-	let clean = cleanedObject(targetPlayer);
-	let data = encrypt(clean);
+	const url = new URL(location.pathname, location.href).href;
+	const clean = cleanedObject(targetPlayer);
+	const data = encrypt(clean);
 	return `${url}?secret=${encodeURIComponent(data)}`;
+}
+
+export function decodeLinkUri(uri: string): IPlayer {
+	const data = decrypt(decodeURIComponent(uri));
+	return data;
 }
 
 export function getMatchupsString(matchups: IPair[], players: IPlayer[]): string {
@@ -189,23 +194,27 @@ export function getMatchupsString(matchups: IPair[], players: IPlayer[]): string
 		.join("\n\n");
 }
 
-export function generateRandomPlayers(count: number, addExclusion: boolean): IPlayer[] {
+export function generateRandomPlayers(count: number, numExclusions: number = 0): IPlayer[] {
 	let players: IPlayer[] = [];
 	for (let i = 0; i < count; i++) {
 		players.push({
 			name: `Player ${i}`,
 			email: `${i}@email.com`,
+			address: `${i}th Street Road`,
 			id: getPlayerId(),
 			exclusions: [],
-			address: "",
 		});
 	}
 
-	if (addExclusion) {
-		for (let i = 0; i < players.length - 1; i++) {
+	if (numExclusions > 1) {
+		for (let i = 0; i < players.length; i++) {
 			let player = players[i];
-			let nextPlayer = players[i + 1];
-			player.exclusions.push(nextPlayer.id);
+			for (let j = 0; j < players.length && player.exclusions.length < numExclusions; j++) {
+				if (i !== j) {
+					let otherPlayer = players[j];
+					player.exclusions.push(otherPlayer.id);
+				}
+			}
 		}
 	}
 

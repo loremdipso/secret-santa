@@ -11,7 +11,6 @@
 
 	<p>
 		Organizing a <a
-			class="text-blue-200"
 			target="#"
 			href="https://en.wikipedia.org/wiki/Secret_Santa">Secret Santa</a
 		> party can be a somewhat daunting task. Often you've got people who really
