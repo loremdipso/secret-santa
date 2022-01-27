@@ -170,14 +170,18 @@ div.svelte-1aarp3g {
   padding-bottom: 0.5rem;
 }
 
-.dialog-content.svelte-kme132 {
+.dialog-content.svelte-325t5y {
   max-height: 80vh;
   max-width: 80vw;
   overflow: auto;
 }
 
-.dialog-content.small.svelte-kme132 {
+.dialog-content.small.svelte-325t5y {
   max-width: 30rem;
+}
+
+.dialog-content.svelte-325t5y > p {
+  padding-bottom: 0.5rem;
 }
 
 .reverse.svelte-zzky5a {

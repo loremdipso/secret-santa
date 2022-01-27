@@ -25,7 +25,7 @@
 			max-width: 30rem;
 		}
 
-		> p {
+		> :global(p) {
 			padding-bottom: 0.5rem;
 		}
 	}
