@@ -16,9 +16,9 @@
 	import EmailView from "./ResultsViews/EmailView.svelte";
 	import { toaster } from "../common/Toast.svelte";
 	import { saveDataToFile } from "../common/misc";
-	import Fabulous from "../common/Fabulous.svelte";
+	import ActionBar from "../common/ActionBar.svelte";
 	import ExportDialog from "./ExportDialog.svelte";
-
+	import SmallButton from "../common/SmallButton.svelte";
 	export let players: IPlayer[];
 	export let matchups: IResultPair[];
 	export let showPlayerEntry: boolean;
@@ -88,35 +88,33 @@
 	$: entries = generateEntries(matchups);
 </script>
 
-<Fabulous position="bottomLeft">
-	<Button
+<ActionBar>
+	<SmallButton
 		color="alert"
+		classes="mr-auto"
 		title="Back to edit"
-		on:click={() => (showPlayerEntry = true)}
 		icon="arrow_back"
+		on:click={() => (showPlayerEntry = true)}
 	/>
-</Fabulous>
 
-<Fabulous>
-	<Button
-		color="blue"
-		icon="file_download"
-		classes="ml-auto mr-auto mb-1"
-		title="Export"
-		on:click={() => (showExportDialog = true)}
-	>
-		Export
-	</Button>
-	<Button
+	<SmallButton
 		color="secondary"
-		remove="uppercase"
 		on:click={() => dispatch("calculate")}
 		icon="refresh"
 		title="Recalculate"
 	>
 		Recalculate
-	</Button>
-</Fabulous>
+	</SmallButton>
+
+	<SmallButton
+		color="blue"
+		icon="file_download"
+		title="Export"
+		on:click={() => (showExportDialog = true)}
+	>
+		Export
+	</SmallButton>
+</ActionBar>
 
 <Select label="Display results as" {items} bind:value={selected} />
 

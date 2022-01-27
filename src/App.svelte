@@ -47,8 +47,8 @@
 	const secret = urlParams.get("secret");
 
 	if (isDebug && !secret) {
-		// players = generateRandomPlayers(30, 0);
-		// doCalculate();
+		players = generateRandomPlayers(30, 0);
+		doCalculate();
 	}
 
 	// Import

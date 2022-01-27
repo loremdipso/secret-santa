@@ -281,3 +281,13 @@ aside.svelte-rtcbgq {
 .wrapper.svelte-1xytuu6 {
   display: inline-block;
 }
+
+div.svelte-185cb5s {
+  display: flex;
+  justify-content: end;
+}
+
+.small-button-vertical-padding {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}

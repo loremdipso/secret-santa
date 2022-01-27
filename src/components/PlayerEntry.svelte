@@ -3,11 +3,10 @@
 	import { createEventDispatcher } from "svelte";
 	let dispatch = createEventDispatcher();
 
-	import Button from "smelte/src/components/Button";
-
 	import PlayerRow from "./PlayerRow.svelte";
 	import type { IPlayer } from "../interfaces";
-	import Fabulous from "../common/Fabulous.svelte";
+	import ActionBar from "../common/ActionBar.svelte";
+	import SmallButton from "../common/SmallButton.svelte";
 
 	export let players: IPlayer[];
 
@@ -45,25 +44,23 @@
 	}
 </script>
 
-<Fabulous>
-	<Button
+<ActionBar>
+	<SmallButton
 		color="blue"
 		icon="file_upload"
-		classes="ml-auto mr-auto mb-1"
+		on:click={() => dispatch("import")}
 		title="Import"
-		on:click={() => dispatch("import")}>Import</Button
-	>
+	/>
 
-	<Button
+	<SmallButton
 		color="success"
+		reverse
 		disabled={!canCalculate}
 		on:click={() => dispatch("calculate")}
-		classes="flex flex-row-reverse"
 		icon="arrow_forward"
-	>
-		Calculate
-	</Button>
-</Fabulous>
+		title="Calculate"
+	/>
+</ActionBar>
 
 {#each players as player (player.id)}
 	<div class="p-5" transition:slide|local={{ duration: 300 }}>
