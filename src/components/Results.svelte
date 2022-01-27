@@ -1,9 +1,8 @@
 <script lang="ts">
-	import Button from "smelte/src/components/Button";
-	import Select from "smelte/src/components/Select";
-
 	import { createEventDispatcher } from "svelte";
 	let dispatch = createEventDispatcher();
+
+	import Select from "smelte/src/components/Select";
 
 	import type { IPlayer, IEntry, IResultPair, IData } from "../interfaces";
 	import { VERSION } from "../interfaces";
