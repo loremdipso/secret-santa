@@ -114,7 +114,7 @@
 		</div>
 
 		<GithubCorner
-			href="https://github.com/loremdipso/secret_santa_svelte"
+			href="https://github.com/loremdipso/secret_santa"
 			position="topLeft"
 			small
 		/>

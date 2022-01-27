@@ -1,14 +1,4 @@
-```typescript
-interface data {
-	version: number;
-	players: [
-		{
-			name: string;
-			id: number;
-			address: string;
-			email: string;
-			exclusions: number[];
-		}
-	];
-}
-```
+# Secret Santa Generator
+
+Simply provide a list of recipients and bad matches (couples, enemies, previous matches, etc.) and this tool will generate random assignments. See it in action [here](https://loremdipso.github.io/secret_santa).
+
